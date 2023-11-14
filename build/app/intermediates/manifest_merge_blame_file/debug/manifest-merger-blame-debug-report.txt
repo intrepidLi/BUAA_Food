@@ -1,0 +1,683 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!-- 清单文件合并指引：https://developer.android.google.cn/studio/build/manifest-merge?hl=zh-cn -->
+3<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+4    package="com.buaa.food.debug"
+5    android:versionCode="10"
+6    android:versionName="1.0" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml
+10        android:targetSdkVersion="30" />
+10-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml
+11
+12    <!-- 网络相关 -->
+13    <uses-feature
+13-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:8:5-10:36
+14        android:name="android.hardware.camera"
+14-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:9:9-47
+15        android:required="false" />
+15-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:10:9-33
+16
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:12:5-79
+17-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:12:22-76
+18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+18-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:13:5-76
+18-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:13:22-73
+19    <uses-permission android:name="android.permission.INTERNET" />
+19-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:14:5-67
+19-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:14:22-64
+20
+21    <!-- 外部存储 -->
+22    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+22-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:17:5-80
+22-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:17:22-77
+23    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+23-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:18:5-110
+23-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:18:22-78
+24
+25    <!-- 拍照权限 -->
+26    <uses-permission android:name="android.permission.CAMERA" />
+26-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:21:5-65
+26-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:21:22-62
+27
+28    <!-- 安装权限 -->
+29    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+29-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:24:5-83
+29-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:24:22-80
+30
+31    <!-- 定位权限（用于 WebView 定位） -->
+32    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+32-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:27:5-79
+32-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:27:22-76
+33    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+33-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:28:5-81
+33-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:28:22-78
+34
+35    <!-- Android 11 软件包可见性适配：https://www.jianshu.com/p/d1ccd425c4ce -->
+36    <queries>
+36-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:247:5-282:15
+37
+38        <!-- 拍照意图：MediaStore.ACTION_IMAGE_CAPTURE -->
+39        <intent>
+39-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:249:9-251:18
+40            <action android:name="android.media.action.IMAGE_CAPTURE" />
+40-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:250:13-73
+40-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:250:21-70
+41        </intent>
+42
+43        <!-- 拍摄意图：MediaStore.ACTION_VIDEO_CAPTURE -->
+44        <intent>
+44-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:254:9-256:18
+45            <action android:name="android.media.action.VIDEO_CAPTURE" />
+45-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:255:13-73
+45-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:255:21-70
+46        </intent>
+47
+48        <!-- 图片裁剪意图 -->
+49        <intent>
+49-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:259:9-261:18
+50            <action android:name="com.android.camera.action.CROP" />
+50-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:260:13-69
+50-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:260:21-66
+51        </intent>
+52
+53        <!-- 打电话意图：Intent.ACTION_DIAL -->
+54        <intent>
+54-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:264:9-266:18
+55            <action android:name="android.intent.action.DIAL" />
+55-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:265:13-65
+55-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:265:21-62
+56        </intent>
+57
+58        <!-- 调起分享意图：Intent.ACTION_SEND -->
+59        <intent>
+59-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:269:9-271:18
+60            <action android:name="android.intent.action.SEND" />
+60-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:270:13-65
+60-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:270:21-62
+61        </intent>
+62
+63        <!-- 调起其他页面意图：Intent.ACTION_VIEW -->
+64        <intent>
+64-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:274:9-276:18
+65            <action android:name="android.intent.action.VIEW" />
+65-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:13-65
+65-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:21-62
+66        </intent>
+67
+68        <!-- 调起系统文件选择器：Intent.ACTION_GET_CONTENT -->
+69        <intent>
+69-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:279:9-281:18
+70            <action android:name="android.intent.action.GET_CONTENT" />
+70-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:280:13-72
+70-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:280:21-69
+71        </intent>
+72        <!-- 手机 QQ 的包名 -->
+73        <package android:name="com.tencent.mobileqq" /> <!-- 微信的包名 -->
+73-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:28:9-56
+73-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:28:18-53
+74        <package android:name="com.tencent.mm" />
+74-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:30:9-50
+74-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:30:18-47
+75    </queries>
+76
+77    <!-- 友盟统计 -->
+78    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- To allow starting foreground services on Android P+ - https://developer.android.com/preview/behavior-changes#fg-svc -->
+78-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:18:5-75
+78-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:18:22-72
+79    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Application 节点详解：https://developer.android.google.cn/guide/topics/manifest/application-element -->
+79-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:26:5-77
+79-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:26:22-74
+80    <!-- Activity 节点详解：https://developer.android.google.cn/guide/topics/manifest/activity-element -->
+81    <application
+82        android:name="com.buaa.food.app.AppApplication"
+82-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:33:9-56
+83        android:allowBackup="false"
+83-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:34:9-36
+84        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+84-->[androidx.core:core:1.5.0] D:\.gradle\caches\transforms-3\dd5111caa2e6ceb2817e3c3abc8a5164\transformed\core-1.5.0\AndroidManifest.xml:24:18-86
+85        android:debuggable="true"
+86        android:icon="@mipmap/launcher_ic"
+86-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:35:9-43
+87        android:label="北航今天吃什么"
+87-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:36:9-36
+88        android:networkSecurityConfig="@xml/network_security_config"
+88-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:37:9-69
+89        android:requestLegacyExternalStorage="true"
+89-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:38:9-52
+90        android:resizeableActivity="true"
+90-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:39:9-42
+91        android:roundIcon="@mipmap/launcher_ic"
+91-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:40:9-48
+92        android:supportsRtl="false"
+92-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:41:9-36
+93        android:testOnly="true"
+94        android:theme="@style/AppTheme"
+94-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:42:9-40
+95        android:usesCleartextTraffic="true" >
+95-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:43:9-44
+96
+97        <!-- 表示当前已经适配了分区存储 -->
+98        <meta-data
+98-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:49:9-51:36
+99            android:name="ScopedStorage"
+99-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:50:13-41
+100            android:value="true" />
+100-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:51:13-33
+101
+102        <!-- 适配 Android 7.0 文件意图 -->
+103        <provider
+104            android:name="androidx.core.content.FileProvider"
+104-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:55:13-62
+105            android:authorities="com.buaa.food.debug.provider"
+105-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:56:13-60
+106            android:exported="false"
+106-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:57:13-37
+107            android:grantUriPermissions="true" >
+107-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:58:13-47
+108            <meta-data
+108-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:60:13-62:54
+109                android:name="android.support.FILE_PROVIDER_PATHS"
+109-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:61:17-67
+110                android:resource="@xml/file_paths" />
+110-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:62:17-51
+111        </provider>
+112
+113        <!-- 闪屏页 -->
+114        <activity
+114-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:66:9-80:20
+115            android:name="com.buaa.food.ui.activity.SplashActivity"
+115-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:67:13-68
+116            android:launchMode="singleTop"
+116-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:68:13-43
+117            android:screenOrientation="portrait"
+117-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:69:13-49
+118            android:theme="@style/SplashTheme" >
+118-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:70:13-47
+119
+120            <!-- 程序入口 -->
+121            <intent-filter>
+121-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:73:13-78:29
+122                <action android:name="android.intent.action.MAIN" />
+122-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:74:17-69
+122-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:74:25-66
+123                <action android:name="android.intent.action.VIEW" />
+123-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:13-65
+123-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:21-62
+124
+125                <category android:name="android.intent.category.LAUNCHER" />
+125-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:77:17-77
+125-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:77:27-74
+126            </intent-filter>
+127        </activity>
+128
+129        <!-- 引导页 -->
+130        <activity
+130-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:83:9-86:52
+131            android:name="com.buaa.food.ui.activity.GuideActivity"
+131-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:84:13-67
+132            android:launchMode="singleTop"
+132-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:85:13-43
+133            android:screenOrientation="portrait" />
+133-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:86:13-49
+134
+135        <!-- 首页 -->
+136        <activity
+136-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:89:9-93:55
+137            android:name="com.buaa.food.ui.activity.HomeActivity"
+137-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:90:13-66
+138            android:launchMode="singleTask"
+138-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:91:13-44
+139            android:screenOrientation="portrait"
+139-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:92:13-49
+140            android:windowSoftInputMode="adjustPan" />
+140-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:93:13-52
+141
+142        <!-- 登录页 -->
+143        <activity
+143-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:96:9-100:57
+144            android:name="com.buaa.food.ui.activity.LoginActivity"
+144-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:97:13-67
+145            android:launchMode="singleTop"
+145-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:98:13-43
+146            android:screenOrientation="portrait"
+146-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:99:13-49
+147            android:windowSoftInputMode="stateHidden" />
+147-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:100:13-54
+148
+149        <!-- 注册页 -->
+150        <activity
+150-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:103:9-107:57
+151            android:name="com.buaa.food.ui.activity.RegisterActivity"
+151-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:104:13-70
+152            android:launchMode="singleTop"
+152-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:105:13-43
+153            android:screenOrientation="portrait"
+153-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:106:13-49
+154            android:windowSoftInputMode="stateHidden" />
+154-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:107:13-54
+155
+156        <!-- 崩溃展示（必须在独立进程） -->
+157        <activity
+157-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:110:9-114:53
+158            android:name="com.buaa.food.ui.activity.CrashActivity"
+158-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:111:13-67
+159            android:launchMode="singleTop"
+159-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:112:13-43
+160            android:process=":crash"
+160-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:113:13-37
+161            android:screenOrientation="landscape" />
+161-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:114:13-50
+162
+163        <!-- 重启应用（必须在独立进程） -->
+164        <activity
+164-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:117:9-120:42
+165            android:name="com.buaa.food.ui.activity.RestartActivity"
+165-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:118:13-69
+166            android:launchMode="singleTop"
+166-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:119:13-43
+167            android:process=":restart" />
+167-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:120:13-39
+168
+169        <!-- 设置页 -->
+170        <activity
+170-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:123:9-127:52
+171            android:name="com.buaa.food.ui.activity.SettingActivity"
+171-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:124:13-69
+172            android:label="@string/setting_title"
+172-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:125:13-50
+173            android:launchMode="singleTop"
+173-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:126:13-43
+174            android:screenOrientation="portrait" />
+174-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:127:13-49
+175
+176        <!-- 忘记密码 -->
+177        <activity
+177-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:130:9-135:57
+178            android:name="com.buaa.food.ui.activity.PasswordForgetActivity"
+178-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:131:13-76
+179            android:label="@string/password_forget_title"
+179-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:132:13-58
+180            android:launchMode="singleTop"
+180-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:133:13-43
+181            android:screenOrientation="portrait"
+181-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:134:13-49
+182            android:windowSoftInputMode="stateHidden" />
+182-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:135:13-54
+183
+184        <!-- 重置密码 -->
+185        <activity
+185-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:138:9-143:57
+186            android:name="com.buaa.food.ui.activity.PasswordResetActivity"
+186-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:139:13-75
+187            android:label="@string/password_reset_title"
+187-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:140:13-57
+188            android:launchMode="singleTop"
+188-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:141:13-43
+189            android:screenOrientation="portrait"
+189-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:142:13-49
+190            android:windowSoftInputMode="stateHidden" />
+190-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:143:13-54
+191
+192        <!-- 更换手机 -->
+193        <activity
+193-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:146:9-151:57
+194            android:name="com.buaa.food.ui.activity.PhoneResetActivity"
+194-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:147:13-72
+195            android:label="@string/phone_reset_title"
+195-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:148:13-54
+196            android:launchMode="singleTop"
+196-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:149:13-43
+197            android:screenOrientation="portrait"
+197-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:150:13-49
+198            android:windowSoftInputMode="stateHidden" />
+198-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:151:13-54
+199
+200        <!-- 关于我们 -->
+201        <activity
+201-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:154:9-158:52
+202            android:name="com.buaa.food.ui.activity.AboutActivity"
+202-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:155:13-67
+203            android:label="@string/about_title"
+203-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:156:13-48
+204            android:launchMode="singleTop"
+204-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:157:13-43
+205            android:screenOrientation="portrait" />
+205-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:158:13-49
+206
+207        <!-- 个人资料 -->
+208        <activity
+208-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:161:9-165:52
+209            android:name="com.buaa.food.ui.activity.PersonalDataActivity"
+209-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:162:13-74
+210            android:label="@string/personal_data_title"
+210-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:163:13-56
+211            android:launchMode="singleTop"
+211-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:164:13-43
+212            android:screenOrientation="portrait" />
+212-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:165:13-49
+213
+214        <!-- 网页浏览 -->
+215        <activity
+215-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:168:9-172:52
+216            android:name="com.buaa.food.ui.activity.BrowserActivity"
+216-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:169:13-69
+217            android:label="@string/web_title"
+217-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:170:13-46
+218            android:launchMode="singleTop"
+218-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:171:13-43
+219            android:screenOrientation="portrait" />
+219-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:172:13-49
+220
+221        <!-- 拍照选择 -->
+222        <activity
+222-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:175:9-178:52
+223            android:name="com.buaa.food.ui.activity.CameraActivity"
+223-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:176:13-68
+224            android:launchMode="singleTop"
+224-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:177:13-43
+225            android:screenOrientation="portrait" />
+225-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:178:13-49
+226
+227        <!-- 图片裁剪 -->
+228        <activity
+228-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:181:9-184:52
+229            android:name="com.buaa.food.ui.activity.ImageCropActivity"
+229-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:182:13-71
+230            android:launchMode="singleTop"
+230-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:183:13-43
+231            android:screenOrientation="portrait" />
+231-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:184:13-49
+232
+233        <!-- 图片选择 -->
+234        <activity
+234-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:187:9-191:52
+235            android:name="com.buaa.food.ui.activity.ImageSelectActivity"
+235-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:188:13-73
+236            android:label="@string/image_select_title"
+236-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:189:13-55
+237            android:launchMode="singleTop"
+237-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:190:13-43
+238            android:screenOrientation="portrait" />
+238-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:191:13-49
+239
+240        <!-- 查看大图 -->
+241        <activity
+241-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:194:9-197:52
+242            android:name="com.buaa.food.ui.activity.ImagePreviewActivity"
+242-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:195:13-74
+243            android:launchMode="singleTop"
+243-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:196:13-43
+244            android:screenOrientation="portrait" />
+244-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:197:13-49
+245
+246        <!-- 播放视频（自适应方向） -->
+247        <activity
+247-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:200:9-203:54
+248            android:name="com.buaa.food.ui.activity.VideoPlayActivity"
+248-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:201:13-71
+249            android:launchMode="singleTop"
+249-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:202:13-43
+250            android:theme="@style/FullScreenTheme" />
+250-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:203:13-51
+251
+252        <!-- 播放视频（竖屏方向） -->
+253        <activity
+253-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:206:9-210:54
+254            android:name="com.buaa.food.ui.activity.VideoPlayActivity$Portrait"
+254-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:207:13-80
+255            android:launchMode="singleTop"
+255-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:208:13-43
+256            android:screenOrientation="portrait"
+256-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:209:13-49
+257            android:theme="@style/FullScreenTheme" />
+257-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:210:13-51
+258
+259        <!-- 播放视频（横屏方向） -->
+260        <activity
+260-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:213:9-217:54
+261            android:name="com.buaa.food.ui.activity.VideoPlayActivity$Landscape"
+261-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:214:13-81
+262            android:launchMode="singleTop"
+262-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:215:13-43
+263            android:screenOrientation="landscape"
+263-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:216:13-50
+264            android:theme="@style/FullScreenTheme" />
+264-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:217:13-51
+265
+266        <!-- 选择视频 -->
+267        <activity
+267-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:220:9-223:52
+268            android:name="com.buaa.food.ui.activity.VideoSelectActivity"
+268-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:221:13-73
+269            android:launchMode="singleTop"
+269-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:222:13-43
+270            android:screenOrientation="portrait" />
+270-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:223:13-49
+271
+272        <!-- 对话框案例 -->
+273        <activity
+273-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:226:9-229:52
+274            android:name="com.buaa.food.ui.activity.DialogActivity"
+274-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:227:13-68
+275            android:launchMode="singleTop"
+275-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:228:13-43
+276            android:screenOrientation="portrait" />
+276-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:229:13-49
+277
+278        <!-- 状态案例 -->
+279        <activity
+279-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:232:9-235:52
+280            android:name="com.buaa.food.ui.activity.StatusActivity"
+280-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:233:13-68
+281            android:launchMode="singleTop"
+281-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:234:13-43
+282            android:screenOrientation="portrait" />
+282-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:235:13-49
+283
+284        <!-- 微信回调（请注意这个 Activity 放置的包名要和当前项目的包名保持一致，否则将不能正常回调） -->
+285        <activity
+285-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:238:9-242:75
+286            android:name="com.buaa.food.wxapi.WXEntryActivity"
+286-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:239:13-63
+287            android:configChanges="keyboardHidden|orientation|screenSize"
+287-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:240:13-74
+288            android:exported="true"
+288-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:241:13-36
+289            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+289-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:242:13-72
+290
+291        <service
+291-->[com.squareup.leakcanary:leakcanary-android:2.7] D:\.gradle\caches\transforms-3\edb29be6cf0e9a84f45cf1f8b56326f3\transformed\jetified-leakcanary-android-2.7\AndroidManifest.xml:23:9-25:40
+292            android:name="leakcanary.internal.HeapAnalyzerService"
+292-->[com.squareup.leakcanary:leakcanary-android:2.7] D:\.gradle\caches\transforms-3\edb29be6cf0e9a84f45cf1f8b56326f3\transformed\jetified-leakcanary-android-2.7\AndroidManifest.xml:24:13-67
+293            android:exported="false" /> <!-- 友盟 Key（请在 Gradle 中配置，请不要在此处修改） -->
+293-->[com.squareup.leakcanary:leakcanary-android:2.7] D:\.gradle\caches\transforms-3\edb29be6cf0e9a84f45cf1f8b56326f3\transformed\jetified-leakcanary-android-2.7\AndroidManifest.xml:25:13-37
+294        <meta-data
+294-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-38:56
+295            android:name="UM_KEY"
+295-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-34
+296            android:value="5cb16d93570df399fd0014e2" /> <!-- QQ AppId（请在 Gradle 中配置，请不要在此处修改） -->
+296-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:38:13-53
+297        <meta-data
+297-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:41:9-43:41
+298            android:name="QQ_ID"
+298-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:42:13-33
+299            android:value="101828096" /> <!-- QQ Secret（请在 Gradle 中配置，请不要在此处修改） -->
+299-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:43:13-38
+300        <meta-data
+300-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:45:9-47:64
+301            android:name="QQ_SECRET"
+301-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:46:13-37
+302            android:value="9dfd3300c3aa3c4596a07796c64914b2" /> <!-- 微信 AppId（请在 Gradle 中配置，请不要在此处修改） -->
+302-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:47:13-61
+303        <meta-data
+303-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:50:9-52:50
+304            android:name="WX_ID"
+304-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:51:13-33
+305            android:value="wxd35706cc9f46114c" /> <!-- 微信 Secret（请在 Gradle 中配置，请不要在此处修改） -->
+305-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:52:13-47
+306        <meta-data
+306-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:54:9-56:64
+307            android:name="WX_SECRET"
+307-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:55:13-37
+308            android:value="0c8c7cf831dd135a32b3e395ea459b5a" /> <!-- 友盟社会化 -->
+308-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:56:13-61
+309        <!-- QQ 回调 -->
+310        <activity
+310-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:62:9-75:20
+311            android:name="com.tencent.tauth.AuthActivity"
+311-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:63:13-58
+312            android:launchMode="singleTask"
+312-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:64:13-44
+313            android:noHistory="true" >
+313-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:65:13-37
+314            <intent-filter>
+314-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:67:13-74:29
+315                <action android:name="android.intent.action.VIEW" />
+315-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:13-65
+315-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:275:21-62
+316
+317                <category android:name="android.intent.category.DEFAULT" />
+317-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:70:17-76
+317-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:70:27-73
+318                <category android:name="android.intent.category.BROWSABLE" />
+318-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:71:17-78
+318-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:71:27-75
+319
+320                <data android:scheme="tencent101828096" />
+320-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:73:17-59
+320-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:73:23-56
+321            </intent-filter>
+322        </activity>
+323        <activity
+323-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:76:9-80:36
+324            android:name="com.tencent.connect.common.AssistActivity"
+324-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:77:13-69
+325            android:configChanges="orientation|keyboardHidden"
+325-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:78:13-63
+326            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+326-->[:library:umeng] D:\Android_Project\AndroidProject\build\library\umeng\intermediates\library_manifest\debug\AndroidManifest.xml:79:13-72
+327
+328        <provider
+328-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:29:9-37:20
+329            android:name="leakcanary.internal.LeakCanaryFileProvider"
+329-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:30:13-70
+330            android:authorities="com.squareup.leakcanary.fileprovider.com.buaa.food.debug"
+330-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:31:13-88
+331            android:exported="false"
+331-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:32:13-37
+332            android:grantUriPermissions="true" >
+332-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:33:13-47
+333            <meta-data
+333-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:60:13-62:54
+334                android:name="android.support.FILE_PROVIDER_PATHS"
+334-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:61:17-67
+335                android:resource="@xml/leak_canary_file_paths" />
+335-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:62:17-51
+336        </provider>
+337
+338        <activity
+338-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:39:9-44:66
+339            android:name="leakcanary.internal.activity.LeakActivity"
+339-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:40:13-69
+340            android:icon="@mipmap/leak_canary_icon"
+340-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:41:13-52
+341            android:label="@string/leak_canary_display_activity_label"
+341-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:42:13-71
+342            android:taskAffinity="com.squareup.leakcanary.com.buaa.food.debug"
+342-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:43:13-76
+343            android:theme="@style/leak_canary_LeakCanary.Base" />
+343-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:44:13-63
+344
+345        <activity-alias
+345-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:46:9-63:26
+346            android:name="leakcanary.internal.activity.LeakLauncherActivity"
+346-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:47:13-77
+347            android:banner="@drawable/leak_canary_tv_icon"
+347-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:48:13-59
+348            android:enabled="@bool/leak_canary_add_launcher_icon"
+348-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:49:13-66
+349            android:exported="true"
+349-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:50:13-36
+350            android:icon="@mipmap/leak_canary_icon"
+350-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:51:13-52
+351            android:label="@string/leak_canary_display_activity_label"
+351-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:52:13-71
+352            android:targetActivity="leakcanary.internal.activity.LeakActivity"
+352-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:53:13-79
+353            android:taskAffinity="com.squareup.leakcanary.com.buaa.food.debug"
+353-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:54:13-76
+354            android:theme="@style/leak_canary_LeakCanary.Base" >
+354-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:55:13-63
+355            <intent-filter>
+355-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:56:13-62:29
+356                <action android:name="android.intent.action.MAIN" />
+356-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:74:17-69
+356-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:74:25-66
+357
+358                <category android:name="android.intent.category.LAUNCHER" />
+358-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:77:17-77
+358-->D:\Android_Project\AndroidProject\app\src\main\AndroidManifest.xml:77:27-74
+359                <!-- Android TV launcher intent -->
+360                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+360-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:61:17-86
+360-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:61:27-83
+361            </intent-filter>
+362        </activity-alias>
+363
+364        <activity
+364-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:65:9-71:68
+365            android:name="leakcanary.internal.RequestStoragePermissionActivity"
+365-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:66:13-80
+366            android:excludeFromRecents="true"
+366-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:67:13-46
+367            android:icon="@mipmap/leak_canary_icon"
+367-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:68:13-52
+368            android:label="@string/leak_canary_storage_permission_activity_label"
+368-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:69:13-82
+369            android:taskAffinity="com.squareup.leakcanary.com.buaa.food.debug"
+369-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:70:13-76
+370            android:theme="@style/leak_canary_Theme.Transparent" />
+370-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:71:13-65
+371
+372        <receiver android:name="leakcanary.internal.NotificationReceiver" />
+372-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:73:9-77
+372-->[com.squareup.leakcanary:leakcanary-android-core:2.7] D:\.gradle\caches\transforms-3\478dfdba50aba1fbca5c759d9ab1d292\transformed\jetified-leakcanary-android-core-2.7\AndroidManifest.xml:73:19-74
+373
+374        <provider
+374-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.7] D:\.gradle\caches\transforms-3\438acbd5ac1ef58fe617bd06fc802f7d\transformed\jetified-leakcanary-object-watcher-android-2.7\AndroidManifest.xml:8:9-12:40
+375            android:name="leakcanary.internal.AppWatcherInstaller$MainProcess"
+375-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.7] D:\.gradle\caches\transforms-3\438acbd5ac1ef58fe617bd06fc802f7d\transformed\jetified-leakcanary-object-watcher-android-2.7\AndroidManifest.xml:9:13-79
+376            android:authorities="com.buaa.food.debug.leakcanary-installer"
+376-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.7] D:\.gradle\caches\transforms-3\438acbd5ac1ef58fe617bd06fc802f7d\transformed\jetified-leakcanary-object-watcher-android-2.7\AndroidManifest.xml:10:13-72
+377            android:enabled="@bool/leak_canary_watcher_auto_install"
+377-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.7] D:\.gradle\caches\transforms-3\438acbd5ac1ef58fe617bd06fc802f7d\transformed\jetified-leakcanary-object-watcher-android-2.7\AndroidManifest.xml:11:13-69
+378            android:exported="false" />
+378-->[com.squareup.leakcanary:leakcanary-object-watcher-android:2.7] D:\.gradle\caches\transforms-3\438acbd5ac1ef58fe617bd06fc802f7d\transformed\jetified-leakcanary-object-watcher-android-2.7\AndroidManifest.xml:12:13-37
+379        <provider
+379-->[com.squareup.leakcanary:plumber-android:2.7] D:\.gradle\caches\transforms-3\11df4020967227978225da615391af76\transformed\jetified-plumber-android-2.7\AndroidManifest.xml:8:9-12:40
+380            android:name="leakcanary.internal.PlumberInstaller"
+380-->[com.squareup.leakcanary:plumber-android:2.7] D:\.gradle\caches\transforms-3\11df4020967227978225da615391af76\transformed\jetified-plumber-android-2.7\AndroidManifest.xml:9:13-64
+381            android:authorities="com.buaa.food.debug.plumber-installer"
+381-->[com.squareup.leakcanary:plumber-android:2.7] D:\.gradle\caches\transforms-3\11df4020967227978225da615391af76\transformed\jetified-plumber-android-2.7\AndroidManifest.xml:10:13-69
+382            android:enabled="@bool/leak_canary_plumber_auto_install"
+382-->[com.squareup.leakcanary:plumber-android:2.7] D:\.gradle\caches\transforms-3\11df4020967227978225da615391af76\transformed\jetified-plumber-android-2.7\AndroidManifest.xml:11:13-69
+383            android:exported="false" />
+383-->[com.squareup.leakcanary:plumber-android:2.7] D:\.gradle\caches\transforms-3\11df4020967227978225da615391af76\transformed\jetified-plumber-android-2.7\AndroidManifest.xml:12:13-37
+384
+385        <activity
+385-->[com.umeng.umsdk:share-wx:7.1.5] D:\.gradle\caches\transforms-3\752d8372d3090818a807cec881556998\transformed\jetified-share-wx-7.1.5\AndroidManifest.xml:12:9-16:75
+386            android:name="com.buaa.food.debug.wxapi.WXEntryActivity"
+386-->[com.umeng.umsdk:share-wx:7.1.5] D:\.gradle\caches\transforms-3\752d8372d3090818a807cec881556998\transformed\jetified-share-wx-7.1.5\AndroidManifest.xml:13:13-66
+387            android:configChanges="keyboardHidden|orientation|screenSize"
+387-->[com.umeng.umsdk:share-wx:7.1.5] D:\.gradle\caches\transforms-3\752d8372d3090818a807cec881556998\transformed\jetified-share-wx-7.1.5\AndroidManifest.xml:14:13-74
+388            android:exported="true"
+388-->[com.umeng.umsdk:share-wx:7.1.5] D:\.gradle\caches\transforms-3\752d8372d3090818a807cec881556998\transformed\jetified-share-wx-7.1.5\AndroidManifest.xml:15:13-36
+389            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+389-->[com.umeng.umsdk:share-wx:7.1.5] D:\.gradle\caches\transforms-3\752d8372d3090818a807cec881556998\transformed\jetified-share-wx-7.1.5\AndroidManifest.xml:16:13-72
+390    </application>
+391
+392</manifest>
