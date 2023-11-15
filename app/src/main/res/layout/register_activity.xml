@@ -34,49 +34,64 @@
             android:textColor="@color/black20"
             android:textSize="@dimen/sp_14" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_40"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.hjq.widget.view.RegexEditText
-                    android:id="@+id/et_register_phone"
-                    style="@style/EditTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/common_phone_input_hint"
-                    android:inputType="textVisiblePassword"
-                    android:singleLine="true"
-                    app:regexType="mobile" />
-
-                <View
-                    style="@style/HorizontalLineStyle"
-                    android:layout_gravity="bottom" />
-            </FrameLayout>
-
-            <com.hjq.widget.view.CountdownView
-                android:id="@+id/cv_register_countdown"
-                style="@style/CountdownViewStyle" />
-        </LinearLayout>
+        <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.view.RegexEditText
-            android:id="@+id/et_register_code"
+            android:id="@+id/et_register_phone"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/common_phone_input_hint"
+            android:inputType="textVisiblePassword"
+            android:layout_marginTop="@dimen/dp_40"
+            android:singleLine="true"
+            app:regexType="mobile" />
+
+        <!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/dp_40"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <FrameLayout-->
+<!--                android:layout_width="0px"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1">-->
+
+<!--                <com.hjq.widget.view.RegexEditText-->
+<!--                    android:id="@+id/et_register_phone"-->
+<!--                    style="@style/EditTextStyle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/common_phone_input_hint"-->
+<!--                    android:inputType="textVisiblePassword"-->
+<!--                    android:singleLine="true"-->
+<!--                    app:regexType="mobile" />-->
+
+<!--                <View-->
+<!--                    style="@style/HorizontalLineStyle"-->
+<!--                    android:layout_gravity="bottom" />-->
+<!--            </FrameLayout>-->
+
+<!--            <com.hjq.widget.view.CountdownView-->
+<!--                android:id="@+id/cv_register_countdown"-->
+<!--                style="@style/CountdownViewStyle" />-->
+<!--        </LinearLayout>-->
+
+        <View style="@style/HorizontalLineStyle" />
+
+        <com.hjq.widget.view.RegexEditText
+            android:id="@+id/et_register_username"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
-            android:hint="@string/common_code_input_hint"
-            android:inputType="textVisiblePassword"
-            android:maxLength="@integer/sms_code_length"
-            android:singleLine="true"
-            app:regexType="number" />
+            android:hint="@string/register_username"
+            android:maxLength="20"
+            android:singleLine="true" />
+
 
         <View style="@style/HorizontalLineStyle" />
 
@@ -112,6 +127,14 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/dp_30"
             android:text="@string/register_title" />
+
+        <com.hjq.widget.view.SubmitButton
+            android:id="@+id/btn_return_login"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_1"
+            android:text="@string/return_login_text" />
 
     </LinearLayout>
 
