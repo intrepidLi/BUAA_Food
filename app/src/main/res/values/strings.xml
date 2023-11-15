@@ -166,8 +166,10 @@
     <!-- 注册 -->
     <string name="register_title">注册</string>
     <string name="register_hint">手机号仅用于登录和保护账号安全</string>
+    <string name="register_username">设置用户昵称</string>
     <string name="register_password_hint1">设置6&#8211;18位登录密码</string>
     <string name="register_password_hint2">请再次输入一次密码</string>
+    <string name="return_login_text">返回登录</string>
 
     <!-- 设置 -->
     <string name="setting_title">设置</string>

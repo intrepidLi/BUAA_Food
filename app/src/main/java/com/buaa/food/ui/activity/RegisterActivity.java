@@ -59,12 +59,13 @@ public final class RegisterActivity extends AppActivity
     }
 
     private EditText mPhoneView;
-    private CountdownView mCountdownView;
+    // private CountdownView mCountdownView;
 
-    private EditText mCodeView;
+    // private EditText mCodeView;
 
     private EditText mFirstPassword;
     private EditText mSecondPassword;
+    private EditText mUserNameView;
 
     private SubmitButton mCommitView;
 
@@ -76,13 +77,14 @@ public final class RegisterActivity extends AppActivity
     @Override
     protected void initView() {
         mPhoneView = findViewById(R.id.et_register_phone);
-        mCountdownView = findViewById(R.id.cv_register_countdown);
-        mCodeView = findViewById(R.id.et_register_code);
+        mUserNameView = findViewById(R.id.et_register_username);
+        // mCountdownView = findViewById(R.id.cv_register_countdown);
+        // mCodeView = findViewById(R.id.et_register_code);
         mFirstPassword = findViewById(R.id.et_register_password1);
         mSecondPassword = findViewById(R.id.et_register_password2);
         mCommitView = findViewById(R.id.btn_register_commit);
 
-        setOnClickListener(mCountdownView, mCommitView);
+        // setOnClickListener(mCountdownView, mCommitView);
 
         mSecondPassword.setOnEditorActionListener(this);
 
@@ -91,7 +93,7 @@ public final class RegisterActivity extends AppActivity
 
         InputTextManager.with(this)
                 .addView(mPhoneView)
-                .addView(mCodeView)
+                // .addView(mCodeView)
                 .addView(mFirstPassword)
                 .addView(mSecondPassword)
                 .setMain(mCommitView)
@@ -109,38 +111,39 @@ public final class RegisterActivity extends AppActivity
     @SingleClick
     @Override
     public void onClick(View view) {
-        if (view == mCountdownView) {
-            if (mPhoneView.getText().toString().length() != 11) {
-                mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
-                toast(R.string.common_phone_input_error);
-                return;
-            }
-
-            if (true) {
-                toast(R.string.common_code_send_hint);
-                mCountdownView.start();
-                return;
-            }
-
-            // 获取验证码
-            EasyHttp.post(this)
-                    .api(new GetCodeApi()
-                            .setPhone(mPhoneView.getText().toString()))
-                    .request(new HttpCallback<HttpData<Void>>(this) {
-
-                        @Override
-                        public void onSucceed(HttpData<Void> data) {
-                            toast(R.string.common_code_send_hint);
-                            mCountdownView.start();
-                        }
-
-                        @Override
-                        public void onFail(Exception e) {
-                            super.onFail(e);
-                            mCountdownView.start();
-                        }
-                    });
-        } else if (view == mCommitView) {
+//        if (view == mCountdownView) {
+//            if (mPhoneView.getText().toString().length() != 11) {
+//                mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
+//                toast(R.string.common_phone_input_error);
+//                return;
+//            }
+//
+//            if (true) {
+//                toast(R.string.common_code_send_hint);
+//                mCountdownView.start();
+//                return;
+//            }
+//
+//            // 获取验证码
+//            EasyHttp.post(this)
+//                    .api(new GetCodeApi()
+//                            .setPhone(mPhoneView.getText().toString()))
+//                    .request(new HttpCallback<HttpData<Void>>(this) {
+//
+//                        @Override
+//                        public void onSucceed(HttpData<Void> data) {
+//                            toast(R.string.common_code_send_hint);
+//                            mCountdownView.start();
+//                        }
+//
+//                        @Override
+//                        public void onFail(Exception e) {
+//                            super.onFail(e);
+//                            mCountdownView.start();
+//                        }
+//                    });
+//        } else
+        if (view == mCommitView) {
             if (mPhoneView.getText().toString().length() != 11) {
                 mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
                 mCommitView.showError(3000);
@@ -148,12 +151,12 @@ public final class RegisterActivity extends AppActivity
                 return;
             }
 
-            if (mCodeView.getText().toString().length() != getResources().getInteger(R.integer.sms_code_length)) {
-                mCodeView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
-                mCommitView.showError(3000);
-                toast(R.string.common_code_error_hint);
-                return;
-            }
+//            if (mCodeView.getText().toString().length() != getResources().getInteger(R.integer.sms_code_length)) {
+//                mCodeView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
+//                mCommitView.showError(3000);
+//                toast(R.string.common_code_error_hint);
+//                return;
+//            }
 
             if (!mFirstPassword.getText().toString().equals(mSecondPassword.getText().toString())) {
                 mFirstPassword.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
@@ -184,7 +187,7 @@ public final class RegisterActivity extends AppActivity
             EasyHttp.post(this)
                     .api(new RegisterApi()
                             .setPhone(mPhoneView.getText().toString())
-                            .setCode(mCodeView.getText().toString())
+                            // .setCode(mCodeView.getText().toString())
                             .setPassword(mFirstPassword.getText().toString()))
                     .request(new HttpCallback<HttpData<RegisterApi.Bean>>(this) {
 
