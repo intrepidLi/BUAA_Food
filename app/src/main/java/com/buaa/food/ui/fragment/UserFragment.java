@@ -89,4 +89,10 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
     public void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public boolean isStatusBarEnabled() {
+        // 使用沉浸式状态栏
+        return !super.isStatusBarEnabled();
+    }
 }
