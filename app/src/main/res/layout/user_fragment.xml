@@ -47,5 +47,37 @@
         app:bar_leftText="@string/personal_data_name"
         tools:bar_rightText="test name" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_20">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/collect_icon"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_90"
+            app:srcCompat="@drawable/collect"
+            tools:scaleType="centerCrop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/history_icon"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_90"
+            android:layout_marginStart="@dimen/dp_25"
+            app:srcCompat="@drawable/history"
+            tools:scaleType="centerCrop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/user_center_icon"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_90"
+            android:layout_marginStart="@dimen/dp_25"
+            app:srcCompat="@drawable/user_center"
+            tools:scaleType="centerCrop" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
