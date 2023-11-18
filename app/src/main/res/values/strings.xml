@@ -227,6 +227,9 @@
     <string name="personal_data_phone">手机号码</string>
     <string name="personal_data_phone_hint">立即绑定</string>
 
+    <!-- 用户主页  -->
+    <string name="user_home_page">用户主页</string>
+
     <!-- 浏览器 -->
     <string name="web_title">网页加载中&#8230;</string>
 

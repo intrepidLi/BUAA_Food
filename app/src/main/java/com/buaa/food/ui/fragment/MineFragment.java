@@ -33,12 +33,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 我的 Fragment
- */
+
 public final class MineFragment extends TitleBarFragment<HomeActivity> {
 
     public static MineFragment newInstance() {

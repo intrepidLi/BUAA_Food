@@ -14,6 +14,7 @@ import com.buaa.food.ui.fragment.FindFragment;
 import com.buaa.food.ui.fragment.HomeFragment;
 import com.buaa.food.ui.fragment.MessageFragment;
 import com.buaa.food.ui.fragment.MineFragment;
+import com.buaa.food.ui.fragment.UserFragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.base.FragmentPagerAdapter;
 import com.buaa.food.R;
@@ -83,7 +84,7 @@ public final class HomeActivity extends AppActivity
         mPagerAdapter.addFragment(HomeFragment.newInstance());
         mPagerAdapter.addFragment(FindFragment.newInstance());
         mPagerAdapter.addFragment(MessageFragment.newInstance());
-        mPagerAdapter.addFragment(MineFragment.newInstance());
+        mPagerAdapter.addFragment(UserFragment.newInstance());
         mViewPager.setAdapter(mPagerAdapter);
 
         onNewIntent(getIntent());
