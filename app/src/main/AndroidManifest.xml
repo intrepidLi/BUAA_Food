@@ -164,6 +164,13 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!-- 个人中心 -->
+        <activity
+            android:name="com.buaa.food.ui.activity.UserCenterActivity"
+            android:label="@string/personal_data_title"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
         <!-- 网页浏览 -->
         <activity
             android:name="com.buaa.food.ui.activity.BrowserActivity"
