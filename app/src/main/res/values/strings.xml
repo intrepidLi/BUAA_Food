@@ -215,6 +215,7 @@
 
     <!-- 个人资料 -->
     <string name="personal_data_title">个人资料</string>
+    <string name="user_center_title">个人中心</string>
     <string name="personal_data_head">头像</string>
 
     <string name="personal_data_id">用户ID</string>
@@ -228,7 +229,11 @@
     <string name="personal_data_phone_hint">立即绑定</string>
 
     <!-- 用户主页  -->
-    <string name="user_home_page">用户主页</string>
+    <string name="user_home_page">主页</string>
+    <string name="user_center_page">个人中心</string>
+    <string name="user_collection_page">收藏</string>
+    <string name="user_history_page">历史</string>
+    <string name="user_setting_page">设置</string>
 
     <!-- 浏览器 -->
     <string name="web_title">网页加载中&#8230;</string>

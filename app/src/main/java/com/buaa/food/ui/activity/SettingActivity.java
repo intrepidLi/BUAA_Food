@@ -22,12 +22,6 @@ import com.hjq.http.listener.HttpCallback;
 import com.hjq.widget.layout.SettingBar;
 import com.hjq.widget.view.SwitchButton;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/03/01
- *    desc   : 设置界面
- */
 public final class SettingActivity extends AppActivity
         implements SwitchButton.OnCheckedChangeListener {
 

@@ -7,7 +7,9 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.graphics.drawable.Drawable;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +28,9 @@ import com.buaa.food.ui.activity.HomeActivity;
 import com.buaa.food.ui.activity.ImageCropActivity;
 import com.buaa.food.ui.activity.ImagePreviewActivity;
 import com.buaa.food.ui.activity.ImageSelectActivity;
+import com.buaa.food.ui.activity.PersonalDataActivity;
+import com.buaa.food.ui.activity.SettingActivity;
+import com.buaa.food.ui.activity.UserCenterActivity;
 import com.buaa.food.ui.adapter.TabAdapter;
 import com.buaa.food.ui.dialog.AddressDialog;
 import com.buaa.food.ui.dialog.InputDialog;
@@ -47,13 +52,19 @@ import java.net.URISyntaxException;
 
 public final class UserFragment extends TitleBarFragment<HomeActivity> {
 
-    private ViewGroup mAvatarLayout;
-    private ImageView mAvatarView;
-    private SettingBar mIdView;
-    private SettingBar mNameView;
+    // user name
+    private TextView mNameView;
 
-    /** 头像地址 */
+    // user avatar
+    private ImageView mAvatarView;
     private Uri mAvatarUrl;
+
+    // collection, history, setting
+    private LinearLayout mCollectionLayout;
+    private LinearLayout mHistoryLayout;
+    private LinearLayout mSettingLayout;
+
+    private LinearLayout mUserCenterView;
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -66,23 +77,52 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
 
     @Override
     protected void initView() {
-        mAvatarLayout = findViewById(R.id.fl_person_data_avatar);
         mAvatarView = findViewById(R.id.iv_person_data_avatar);
-        mIdView = findViewById(R.id.sb_person_data_id);
         mNameView = findViewById(R.id.sb_person_data_name);
+
+        mUserCenterView = findViewById(R.id.btn_user_center);
+
+        mCollectionLayout = findViewById(R.id.user_collection);
+        mHistoryLayout = findViewById(R.id.user_history);
+        mSettingLayout = findViewById(R.id.user_setting);
+
+        setOnClickListener(mUserCenterView, mCollectionLayout, mHistoryLayout, mSettingLayout);
     }
 
     @Override
     protected void initData() {
-        GlideApp.with(getActivity())
-                .load(R.drawable.avatar_placeholder_ic)
-                .placeholder(R.drawable.avatar_placeholder_ic)
-                .error(R.drawable.avatar_placeholder_ic)
-                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
-                .into(mAvatarView);
+//        GlideApp.with(getActivity())
+//                .load(R.drawable.test_user_img)
+//                .placeholder(R.drawable.test_user_img)
+//                .error(R.drawable.test_user_img)
+//                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+//                .into(mAvatarView);
 
-        mIdView.setRightText("UserID");
-        mNameView.setRightText("UserName");
+        // TODO: get user name and avatar from server
+        String userName = "UserName";
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable avatarImage = getResources().getDrawable(R.drawable.test_user_img);
+
+        mNameView.setText(userName);
+        mAvatarView.setImageDrawable(avatarImage);
+    }
+
+    @SingleClick
+    @Override
+    public void onClick(View view) {
+        int viewId = view.getId();
+
+        if (viewId == mUserCenterView.getId()) {
+            startActivity(UserCenterActivity.class);
+        } else if (viewId == mCollectionLayout.getId()) {
+            // TODO:
+            // startActivity(CollectionActivity.class);
+        } else if (viewId == mHistoryLayout.getId()) {
+            // TODO:
+            // startActivity(HistoryActivity.class);
+        } else if (viewId == mSettingLayout.getId()) {
+            startActivity(SettingActivity.class);
+        }
+
     }
 
     @Override
