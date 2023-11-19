@@ -99,7 +99,8 @@
             android:layout_width="@dimen/dp_90"
             android:layout_height="@dimen/dp_100"
             android:orientation="vertical"
-            android:padding="@dimen/dp_10">
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/white_selector">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/collect_icon"
@@ -130,7 +131,8 @@
             android:layout_height="@dimen/dp_100"
             android:orientation="vertical"
             android:padding="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_25">
+            android:layout_marginStart="@dimen/dp_25"
+            android:background="@drawable/white_selector">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/history_icon"
@@ -161,7 +163,8 @@
             android:layout_height="@dimen/dp_100"
             android:orientation="vertical"
             android:padding="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_25">
+            android:layout_marginStart="@dimen/dp_25"
+            android:background="@drawable/white_selector">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/setting_icon"
