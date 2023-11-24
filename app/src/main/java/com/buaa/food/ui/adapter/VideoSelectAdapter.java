@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.activity.VideoSelectActivity;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.manager.CacheDataManager;
 import com.buaa.food.widget.PlayerView;
 

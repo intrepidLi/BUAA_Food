@@ -14,10 +14,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.buaa.food.DataBaseHelper;
+import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.fragment.MineFragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.buaa.food.R;
@@ -25,7 +28,6 @@ import com.buaa.food.aop.Log;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.http.api.LoginApi;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.http.model.HttpData;
 import com.buaa.food.manager.InputTextManager;
 import com.buaa.food.other.KeyboardWatcher;
@@ -62,6 +64,7 @@ public final class LoginActivity extends AppActivity
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
+        System.out.println("Start Login !!!!");
         context.startActivity(intent);
     }
 
@@ -77,6 +80,7 @@ public final class LoginActivity extends AppActivity
     private View mOtherView;
     private View mQQView;
     private View mWeChatView;
+    private DataBaseHelper dataBaseHelper;
 
     /** logo 缩放比例 */
     private final float mLogoScale = 0.8f;
@@ -99,6 +103,8 @@ public final class LoginActivity extends AppActivity
         mOtherView = findViewById(R.id.ll_login_other);
         mQQView = findViewById(R.id.iv_login_qq);
         mWeChatView = findViewById(R.id.iv_login_wechat);
+        dataBaseHelper = new DataBaseHelper(this);
+        System.out.println("Enter Login InitView!!!!");
 
         setOnClickListener(mForgetView, mCommitView, mQQView, mWeChatView);
 
@@ -113,6 +119,7 @@ public final class LoginActivity extends AppActivity
 
     @Override
     protected void initData() {
+        System.out.println("Start Login InitData!!!!");
         postDelayed(() -> {
             KeyboardWatcher.with(LoginActivity.this)
                     .setListener(LoginActivity.this);
@@ -140,6 +147,7 @@ public final class LoginActivity extends AppActivity
 
     @Override
     public void onRightClick(View view) {
+        System.out.println("Start Login OnRightClick!!!!");
         // 跳转到注册界面
         RegisterActivity.start(this, mPhoneView.getText().toString(),
                 mPasswordView.getText().toString(), (phone, password) -> {
@@ -152,9 +160,10 @@ public final class LoginActivity extends AppActivity
         });
     }
 
-    @SingleClick
+    @SingleClick    
     @Override
     public void onClick(View view) {
+        System.out.println("Start Login OnClick!!!!");
         if (view == mForgetView) {
             startActivity(PasswordForgetActivity.class);
             return;
@@ -171,56 +180,84 @@ public final class LoginActivity extends AppActivity
             // 隐藏软键盘
             hideKeyboard(getCurrentFocus());
 
-            if (true) {
-                mCommitView.showProgress();
-                postDelayed(() -> {
+//            if (true) {
+//                mCommitView.showProgress();
+//                postDelayed(() -> {
+//                    mCommitView.showSucceed();
+//                    postDelayed(() -> {
+//                        HomeActivity.start(getContext(), MineFragment.class);
+//                        finish();
+//                    }, 1000);
+//                }, 2000);
+//                return;
+//            }
+
+            boolean checkUserPhone = dataBaseHelper.checkPhone(mPhoneView.getText().toString());
+
+            if (checkUserPhone) {
+//                boolean insert = dataBaseHelper.insert(mUserNameView.getText().toString(),
+//                        mFirstPassword.getText().toString(), mPhoneView.getText().toString());
+
+                boolean checkPhonePassWord = dataBaseHelper.checkPhonePassword(mPhoneView.getText().toString(),
+                        mPasswordView.getText().toString());
+
+                if (checkPhonePassWord) {
+                    Toast.makeText(LoginActivity.this, "Login Successfully",
+                            Toast.LENGTH_SHORT).show();
                     mCommitView.showSucceed();
-                    postDelayed(() -> {
-                        HomeActivity.start(getContext(), MineFragment.class);
-                        finish();
-                    }, 1000);
-                }, 2000);
+                    HomeActivity.start(getContext(), MineFragment.class);
+                    return;
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login Failed",
+                            Toast.LENGTH_SHORT).show();
+                    mCommitView.showError(3000);
+                    return;
+                }
+            } else {
+                Toast.makeText(LoginActivity.this, "No this User!!!",
+                        Toast.LENGTH_SHORT).show();
+                mCommitView.showError(3000);
                 return;
             }
 
-            EasyHttp.post(this)
-                    .api(new LoginApi()
-                            .setPhone(mPhoneView.getText().toString())
-                            .setPassword(mPasswordView.getText().toString()))
-                    .request(new HttpCallback<HttpData<LoginApi.Bean>>(this) {
 
-                        @Override
-                        public void onStart(Call call) {
-                            mCommitView.showProgress();
-                        }
-
-                        @Override
-                        public void onEnd(Call call) {}
-
-                        @Override
-                        public void onSucceed(HttpData<LoginApi.Bean> data) {
-                            // 更新 Token
-                            EasyConfig.getInstance()
-                                    .addParam("token", data.getData().getToken());
-                            postDelayed(() -> {
-                                mCommitView.showSucceed();
-                                postDelayed(() -> {
-                                    // 跳转到首页
-                                    HomeActivity.start(getContext(), MineFragment.class);
-                                    finish();
-                                }, 1000);
-                            }, 1000);
-                        }
-
-                        @Override
-                        public void onFail(Exception e) {
-                            super.onFail(e);
-                            postDelayed(() -> {
-                                mCommitView.showError(3000);
-                            }, 1000);
-                        }
-                    });
-            return;
+//            EasyHttp.post(this)
+//                    .api(new LoginApi()
+//                            .setPhone(mPhoneView.getText().toString())
+//                            .setPassword(mPasswordView.getText().toString()))
+//                    .request(new HttpCallback<HttpData<LoginApi.Bean>>(this) {
+//
+//                        @Override
+//                        public void onStart(Call call) {
+//                            mCommitView.showProgress();
+//                        }
+//
+//                        @Override
+//                        public void onEnd(Call call) {}
+//
+//                        @Override
+//                        public void onSucceed(HttpData<LoginApi.Bean> data) {
+//                            // 更新 Token
+//                            EasyConfig.getInstance()
+//                                    .addParam("token", data.getData().getToken());
+//                            postDelayed(() -> {
+//                                mCommitView.showSucceed();
+//                                postDelayed(() -> {
+//                                    // 跳转到首页
+//                                    HomeActivity.start(getContext(), MineFragment.class);
+//                                    finish();
+//                                }, 1000);
+//                            }, 1000);
+//                        }
+//
+//                        @Override
+//                        public void onFail(Exception e) {
+//                            super.onFail(e);
+//                            postDelayed(() -> {
+//                                mCommitView.showError(3000);
+//                            }, 1000);
+//                        }
+//                    });
         }
 
         if (view == mQQView || view == mWeChatView) {

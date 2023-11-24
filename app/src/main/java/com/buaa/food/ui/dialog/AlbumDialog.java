@@ -11,12 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.hjq.base.BaseAdapter;
 import com.hjq.base.BaseDialog;
 import com.hjq.base.BottomSheetDialog;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
-import com.buaa.food.http.glide.GlideApp;
 
 import java.util.List;
 

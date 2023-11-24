@@ -5,10 +5,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
-import com.buaa.food.http.glide.GlideApp;
 
 /**
  *    author : Android 轮子哥

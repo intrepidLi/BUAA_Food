@@ -3,12 +3,12 @@ package com.buaa.food.ui.activity;
 import android.view.Gravity;
 import android.view.View;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.http.api.LogoutApi;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.http.model.HttpData;
 import com.buaa.food.manager.ActivityManager;
 import com.buaa.food.manager.CacheDataManager;

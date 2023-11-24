@@ -3,12 +3,12 @@ package com.buaa.food.ui.fragment;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.buaa.food.R;
 import com.buaa.food.aop.Permissions;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.TitleBarFragment;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.activity.HomeActivity;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
