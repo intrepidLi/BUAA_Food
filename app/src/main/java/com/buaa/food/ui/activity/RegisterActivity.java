@@ -1,15 +1,20 @@
 package com.buaa.food.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
+import com.buaa.food.DataBaseHelper;
+import com.buaa.food.ui.fragment.MineFragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.base.BaseActivity;
 import com.buaa.food.R;
@@ -68,6 +73,10 @@ public final class RegisterActivity extends AppActivity
     private EditText mUserNameView;
 
     private SubmitButton mCommitView;
+    private SubmitButton mReturnView;
+
+    // 连接数据库
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected int getLayoutId() {
@@ -83,10 +92,13 @@ public final class RegisterActivity extends AppActivity
         mFirstPassword = findViewById(R.id.et_register_password1);
         mSecondPassword = findViewById(R.id.et_register_password2);
         mCommitView = findViewById(R.id.btn_register_commit);
+        mReturnView = findViewById(R.id.btn_return_login);
 
-        // setOnClickListener(mCountdownView, mCommitView);
+        // Log.e("Enter Register InitView!!!!");
+        setOnClickListener(mReturnView, mCommitView);
 
         mSecondPassword.setOnEditorActionListener(this);
+        dataBaseHelper = new DataBaseHelper(this);
 
         // 给这个 View 设置沉浸式，避免状态栏遮挡
         ImmersionBar.setTitleBar(this, findViewById(R.id.tv_register_title));
@@ -106,11 +118,14 @@ public final class RegisterActivity extends AppActivity
         mPhoneView.setText(getString(INTENT_KEY_PHONE));
         mFirstPassword.setText(getString(INTENT_KEY_PASSWORD));
         mSecondPassword.setText(getString(INTENT_KEY_PASSWORD));
+
+
     }
 
     @SingleClick
     @Override
     public void onClick(View view) {
+        // Log.e("Enter onClick!!!!");
 //        if (view == mCountdownView) {
 //            if (mPhoneView.getText().toString().length() != 11) {
 //                mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
@@ -169,58 +184,89 @@ public final class RegisterActivity extends AppActivity
             // 隐藏软键盘
             hideKeyboard(getCurrentFocus());
 
-            if (true) {
-                mCommitView.showProgress();
-                postDelayed(() -> {
+//            if (true) {
+//                mCommitView.showProgress();
+//                postDelayed(() -> {
+//                    mCommitView.showSucceed();
+//                    postDelayed(() -> {
+//                        setResult(RESULT_OK, new Intent()
+//                                .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
+//                                .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
+//                        finish();
+//                    }, 1000);
+//                }, 2000);
+//                return;
+//            }
+
+            boolean checkUserPhone = dataBaseHelper.checkPhone(mPhoneView.getText().toString());
+
+            if (!checkUserPhone) {
+                boolean insert = dataBaseHelper.insert(mUserNameView.getText().toString(),
+                        mFirstPassword.getText().toString(), mPhoneView.getText().toString());
+
+                if (insert) {
+                    Toast.makeText(RegisterActivity.this, "SignUp Successfully",
+                            Toast.LENGTH_SHORT).show();
                     mCommitView.showSucceed();
-                    postDelayed(() -> {
-                        setResult(RESULT_OK, new Intent()
-                                .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
-                                .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
-                        finish();
-                    }, 1000);
-                }, 2000);
+                    HomeActivity.start(getContext(), MineFragment.class);
+                    return;
+                } else {
+                    Toast.makeText(RegisterActivity.this, "SignUp Failed",
+                            Toast.LENGTH_SHORT).show();
+                    mCommitView.showError(3000);
+                    return;
+                }
+            } else {
+                Toast.makeText(RegisterActivity.this, "User Already Exists!!!",
+                        Toast.LENGTH_SHORT).show();
+                mCommitView.showError(3000);
                 return;
             }
 
+
             // 提交注册
-            EasyHttp.post(this)
-                    .api(new RegisterApi()
-                            .setPhone(mPhoneView.getText().toString())
-                            // .setCode(mCodeView.getText().toString())
-                            .setPassword(mFirstPassword.getText().toString()))
-                    .request(new HttpCallback<HttpData<RegisterApi.Bean>>(this) {
-
-                        @Override
-                        public void onStart(Call call) {
-                            mCommitView.showProgress();
-                        }
-
-                        @Override
-                        public void onEnd(Call call) {}
-
-                        @Override
-                        public void onSucceed(HttpData<RegisterApi.Bean> data) {
-                            postDelayed(() -> {
-                                mCommitView.showSucceed();
-                                postDelayed(() -> {
-                                    setResult(RESULT_OK, new Intent()
-                                            .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
-                                            .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
-                                    finish();
-                                }, 1000);
-                            }, 1000);
-                        }
-
-                        @Override
-                        public void onFail(Exception e) {
-                            super.onFail(e);
-                            postDelayed(() -> {
-                                mCommitView.showError(3000);
-                            }, 1000);
-                        }
-                    });
+//            EasyHttp.post(this)
+//                    .api(new RegisterApi()
+//                            .setPhone(mPhoneView.getText().toString())
+//                            // .setCode(mCodeView.getText().toString())
+//                            .setPassword(mFirstPassword.getText().toString()))
+//                    .request(new HttpCallback<HttpData<RegisterApi.Bean>>(this) {
+//
+//                        @Override
+//                        public void onStart(Call call) {
+//                            mCommitView.showProgress();
+//                        }
+//
+//                        @Override
+//                        public void onEnd(Call call) {}
+//
+//                        @Override
+//                        public void onSucceed(HttpData<RegisterApi.Bean> data) {
+//                            postDelayed(() -> {
+//                                mCommitView.showSucceed();
+//                                postDelayed(() -> {
+//                                    setResult(RESULT_OK, new Intent()
+//                                            .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
+//                                            .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
+//                                    finish();
+//                                }, 1000);
+//                            }, 1000);
+//                        }
+//
+//                        @Override
+//                        public void onFail(Exception e) {
+//                            super.onFail(e);
+//                            postDelayed(() -> {
+//                                mCommitView.showError(3000);
+//                            }, 1000);
+//                        }
+//                    });
         }
+        else if (view == mReturnView) {
+            startActivity(LoginActivity.class);
+            return;
+        }
+
     }
 
     @NonNull

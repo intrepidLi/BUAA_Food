@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -13,7 +14,6 @@ import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.http.api.UpdateImageApi;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.http.model.HttpData;
 import com.buaa.food.ui.dialog.AddressDialog;
 import com.buaa.food.ui.dialog.InputDialog;

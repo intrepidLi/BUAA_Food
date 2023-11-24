@@ -33,7 +33,7 @@ public final class SplashActivity extends AppActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
             mLottieView.removeAnimatorListener(this);
-            HomeActivity.start(getContext());
+            startActivity(LoginActivity.class);
             finish();
             }
         });

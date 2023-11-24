@@ -3,6 +3,7 @@ package com.buaa.food.ui.fragment;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -10,7 +11,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.TitleBarFragment;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.activity.HomeActivity;
 import com.hjq.widget.view.CountdownView;
 import com.hjq.widget.view.SwitchButton;

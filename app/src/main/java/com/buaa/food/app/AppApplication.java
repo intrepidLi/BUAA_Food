@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.http.model.RequestHandler;
 import com.buaa.food.http.model.RequestServer;
 import com.buaa.food.manager.ActivityManager;
@@ -26,7 +27,6 @@ import com.buaa.food.other.ToastStyle;
 import com.hjq.bar.TitleBar;
 import com.buaa.food.R;
 import com.buaa.food.aop.Log;
-import com.buaa.food.http.glide.GlideApp;
 import com.hjq.gson.factory.GsonFactory;
 import com.hjq.http.EasyConfig;
 import com.hjq.toast.ToastUtils;
