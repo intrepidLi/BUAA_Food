@@ -21,8 +21,6 @@ public final class SplashActivity extends AppActivity {
 
     private LottieAnimationView mLottieView;
 
-    private Boolean isLogin = false;
-
     @Override
     protected int getLayoutId() {
         return R.layout.splash_activity;
@@ -34,14 +32,9 @@ public final class SplashActivity extends AppActivity {
         mLottieView.addAnimatorListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                mLottieView.removeAnimatorListener(this);
-                if (isLogin) {
-                    HomeActivity.start(getContext());
-                } else {
-                    startActivity(LoginActivity.class);
-                }
-                // HomeActivity.start(getContext());
-                finish();
+            mLottieView.removeAnimatorListener(this);
+            startActivity(LoginActivity.class);
+            finish();
             }
         });
     }
