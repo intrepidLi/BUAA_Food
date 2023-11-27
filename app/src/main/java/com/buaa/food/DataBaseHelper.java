@@ -87,4 +87,16 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public String getUsername(String phone){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where phone=?",
+                new String[]{phone});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            return cursor.getString(cursor.getColumnIndex("username"));
+        } else {
+            return null;
+        }
+    }
+
 }
