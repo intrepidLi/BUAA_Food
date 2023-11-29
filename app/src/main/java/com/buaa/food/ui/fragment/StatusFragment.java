@@ -52,14 +52,6 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        TextView headerView = mRecyclerView.addHeaderView(R.layout.picker_item);
-        headerView.setText("我是头部");
-        headerView.setOnClickListener(v -> toast("点击了头部"));
-
-        TextView footerView = mRecyclerView.addFooterView(R.layout.picker_item);
-        footerView.setText("我是尾部");
-        footerView.setOnClickListener(v -> toast("点击了尾部"));
-
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
     }
 
@@ -74,7 +66,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
     private List<String> analogData() {
         List<String> data = new ArrayList<>();
         for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-            data.add("我是第" + i + "条目");
+            data.add("第" + i + "道菜品");
         }
         return data;
     }

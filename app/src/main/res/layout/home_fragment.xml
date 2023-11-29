@@ -13,6 +13,38 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0px">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_home_title"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/common_accent_color"
+            android:padding="0dp"
+            app:layout_collapseMode="pin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="0dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_home_hint"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp_20"
+                    android:layout_weight="1"
+                    android:background="@drawable/home_search_bar_transparent_bg"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/dp_5"
+                    android:text="今天吃什么?"
+                    android:textColor="@color/white60"
+                    android:textSize="@dimen/sp_15" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
         <com.buaa.food.widget.XCollapsingToolbarLayout
             android:id="@+id/ctl_home_bar"
             android:layout_width="match_parent"
@@ -21,6 +53,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:scrimVisibleHeightTrigger="@dimen/dp_100">
 
+            <!-- Background Image -->
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -28,63 +61,154 @@
                 app:layout_collapseMode="parallax"
                 app:srcCompat="@drawable/example_bg" />
 
+            <!-- Toolbar with Three Rows -->
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tb_home_title"
+                android:id="@+id/tb_home_subTitle"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                app:layout_collapseMode="pin" >
+                android:layout_height="match_parent"
+                app:layout_collapseMode="pin">
 
+                <!-- Linear Layout for Three Rows -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_home_address"
-                        android:layout_width="wrap_content"
+                    <!-- First Row with Two Columns -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="63dp"
+                        android:orientation="horizontal">
+
+                        <!-- First Column -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="早餐"
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_20"/>
+
+                        <!-- Second Column -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="中餐"
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_20"/>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="晚餐"
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_20"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="广州"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_15" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_home_hint"
-                        android:layout_width="0px"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp_20"
-                        android:layout_weight="1"
-                        android:background="@drawable/home_search_bar_transparent_bg"
-                        android:gravity="center"
-                        android:paddingVertical="@dimen/dp_5"
-                        android:text="完善细节，追求完美"
-                        android:textColor="@color/white60"
-                        android:textSize="@dimen/sp_13" />
+                        <!-- First Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/iv_home_search"
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:layout_marginEnd="@dimen/dp_10"
-                        app:srcCompat="@drawable/search_ic"
-                        app:tint="@color/white" />
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="学一食堂"
+                                    android:textColor="@color/white85"
+                                    android:textSize="@dimen/dp_20"
+                                    android:layout_gravity="center_vertical" />
+
+                                <ImageView
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/dp_10"
+                                    android:src="@drawable/canteen_1" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/dp_20"
+                                    android:text="学二食堂"
+                                    android:textColor="@color/white85"
+                                    android:textSize="@dimen/dp_20" />
+
+                                <ImageView
+                                    android:layout_width="75dp"
+                                    android:layout_height="75dp"
+                                    android:layout_marginStart="@dimen/dp_10"
+                                    android:src="@drawable/canteen_2"
+                                    android:layout_gravity="center_vertical" />
+                        </LinearLayout>
+
+                        <!-- Second Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="学三食堂"
+                                android:textColor="@color/white85"
+                                android:textSize="@dimen/dp_20"
+                                android:layout_gravity="center_vertical" />
+
+                            <ImageView
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:src="@drawable/canteen_1" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/dp_20"
+                                android:text="学四食堂"
+                                android:textColor="@color/white85"
+                                android:textSize="@dimen/dp_20" />
+
+                            <ImageView
+                                android:layout_width="75dp"
+                                android:layout_height="75dp"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:src="@drawable/canteen_2"
+                                android:layout_gravity="center_vertical" />
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                 </LinearLayout>
-
             </androidx.appcompat.widget.Toolbar>
-
         </com.buaa.food.widget.XCollapsingToolbarLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:itemCount="2"
+            tools:itemCount="1"
             tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/tab_item_design"
-            tools:spanCount="2" />
+            tools:spanCount="1" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

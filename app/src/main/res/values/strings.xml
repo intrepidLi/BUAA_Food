@@ -151,8 +151,8 @@
 
     <!-- 首页 -->
     <string name="home_exit_hint">再按一次退出</string>
-    <string name="home_nav_index">首页</string>
-    <string name="home_nav_found">发现</string>
+    <string name="home_nav_index">发现</string>
+    <string name="home_nav_found">航味</string>
     <string name="home_nav_message">消息</string>
     <string name="home_nav_me">我的</string>
 
@@ -201,7 +201,7 @@
 
     <!-- 重置密码 -->
     <string name="password_reset_title">设置登录密码</string>
-    <string name="password_reset_phone_hint1">设置6&#8211;18位登录密码</string>
+    <string name="password_reset_phone_hint1">输入6&#8211;18位登录密码</string>
     <string name="password_reset_phone_hint2">重新输入一次密码</string>
     <string name="password_reset_input_error">两次密码输入不一致，请重新输入</string>
     <string name="password_reset_success">修改成功</string>

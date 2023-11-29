@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.buaa.food.ui.fragment.FindFragment">
+    tools:context="com.buaa.food.ui.fragment.HangWeiFragment">
 
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"

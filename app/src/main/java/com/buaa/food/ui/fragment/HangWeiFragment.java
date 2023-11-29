@@ -21,7 +21,7 @@ import com.hjq.widget.view.SwitchButton;
  *    time   : 2018/10/18
  *    desc   : 发现 Fragment
  */
-public final class FindFragment extends TitleBarFragment<HomeActivity>
+public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         implements SwitchButton.OnCheckedChangeListener {
 
     private ImageView mCircleView;
@@ -29,13 +29,13 @@ public final class FindFragment extends TitleBarFragment<HomeActivity>
     private SwitchButton mSwitchButton;
     private CountdownView mCountdownView;
 
-    public static FindFragment newInstance() {
-        return new FindFragment();
+    public static HangWeiFragment newInstance() {
+        return new HangWeiFragment();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.find_fragment;
+        return R.layout.hangwei_fragment;
     }
 
     @Override
