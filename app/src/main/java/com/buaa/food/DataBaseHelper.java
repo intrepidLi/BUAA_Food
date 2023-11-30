@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DataBaseHelper extends SQLiteOpenHelper{
-    private static final String DB_NAME = "SignUp.db";
+    private static final String DB_NAME = "BuaaFood.db";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "SignUp.db", null, 1);
+        super(context, "BuaaFood.db", null, 1);
     }
 
     @Override
@@ -84,6 +84,18 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             return true;
         }else{
             return false;
+        }
+    }
+
+    public String getUsername(String phone){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where phone=?",
+                new String[]{phone});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            return cursor.getString(cursor.getColumnIndex("username"));
+        } else {
+            return null;
         }
     }
 

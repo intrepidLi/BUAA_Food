@@ -206,18 +206,15 @@ public final class LoginActivity extends AppActivity
                             Toast.LENGTH_SHORT).show();
                     mCommitView.showSucceed();
                     HomeActivity.start(getContext(), MineFragment.class);
-                    return;
                 } else {
                     Toast.makeText(LoginActivity.this, "Login Failed",
                             Toast.LENGTH_SHORT).show();
                     mCommitView.showError(3000);
-                    return;
                 }
             } else {
                 Toast.makeText(LoginActivity.this, "No this User!!!",
                         Toast.LENGTH_SHORT).show();
                 mCommitView.showError(3000);
-                return;
             }
 
 
