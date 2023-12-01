@@ -32,7 +32,6 @@ public final class UserCenterActivity extends AppActivity {
     private ImageView mAvatarView;
     private SettingBar mIdView;
     private SettingBar mNameView;
-    private SettingBar mAddressView;
 
     /** 省 */
     private String mProvince = "广东省";
@@ -55,8 +54,7 @@ public final class UserCenterActivity extends AppActivity {
         mAvatarView = findViewById(R.id.iv_person_data_avatar);
         mIdView = findViewById(R.id.sb_person_data_id);
         mNameView = findViewById(R.id.sb_person_data_name);
-        mAddressView = findViewById(R.id.sb_person_data_address);
-        setOnClickListener(mAvatarLayout, mAvatarView, mNameView, mAddressView);
+        setOnClickListener(mAvatarLayout, mAvatarView, mNameView);
     }
 
     @Override
@@ -72,7 +70,6 @@ public final class UserCenterActivity extends AppActivity {
         mNameView.setRightText("Android 轮子哥");
 
         String address = mProvince + mCity + mArea;
-        mAddressView.setRightText(address);
     }
 
     @SingleClick
@@ -108,26 +105,8 @@ public final class UserCenterActivity extends AppActivity {
                         }
                     })
                     .show();
-        } else if (view == mAddressView) {
-            new AddressDialog.Builder(this)
-                    //.setTitle("选择地区")
-                    // 设置默认省份
-                    .setProvince(mProvince)
-                    // 设置默认城市（必须要先设置默认省份）
-                    .setCity(mCity)
-                    // 不选择县级区域
-                    //.setIgnoreArea()
-                    .setListener((dialog, province, city, area) -> {
-                        String address = province + city + area;
-                        if (!mAddressView.getRightText().equals(address)) {
-                            mProvince = province;
-                            mCity = city;
-                            mArea = area;
-                            mAddressView.setRightText(address);
-                        }
-                    })
-                    .show();
         }
+
     }
 
     /**

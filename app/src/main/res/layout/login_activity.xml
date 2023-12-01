@@ -27,13 +27,24 @@
         android:layout_width="@dimen/dp_120"
         android:layout_height="@dimen/dp_120"
         android:layout_marginVertical="@dimen/dp_10"
-        app:srcCompat="@drawable/logo_big_ic" />
+        app:srcCompat="@drawable/buaa" />
 
     <LinearLayout
         android:id="@+id/ll_login_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_login_additional_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="航味——北航吃什么？"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_20" />
+
 
         <com.hjq.widget.view.ClearEditText
             android:id="@+id/et_login_phone"

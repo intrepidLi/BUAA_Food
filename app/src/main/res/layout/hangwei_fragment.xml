@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.buaa.food.ui.fragment.HangWeiFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_hangwei_title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_collapseMode="pin" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_hangwei_hint"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_20"
+                android:layout_weight="1"
+                android:background="@drawable/home_search_bar_transparent_bg"
+                android:gravity="center"
+                android:paddingVertical="@dimen/dp_5"
+                android:text="今天吃什么?"
+                android:textColor="@color/black70"
+                android:textSize="@dimen/sp_13" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_hangwei_search"
+                android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                app:srcCompat="@drawable/search_ic"
+                app:tint="@color/black70" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- 第一行 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:orientation="horizontal">
+
+                <!-- 第一列 -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="学院路校区"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_20" />
+
+                <!-- 第二列 -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="沙河校区"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_20" />
+            </LinearLayout>
+
+            <!-- 第二行 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="第二级目录"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_16" />
+
+            <!-- 第三行 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="第三级目录"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_10" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hangwei_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

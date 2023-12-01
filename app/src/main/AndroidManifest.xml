@@ -248,6 +248,12 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <activity
+            android:name="com.buaa.food.ui.activity.DishDetailsActivity"
+            android:label="Dish Details"> <!-- Set the label to your preference -->
+            <!-- Add any additional intent filters or configurations if needed -->
+        </activity>
+
     </application>
 
     <!-- Android 11 软件包可见性适配：https://www.jianshu.com/p/d1ccd425c4ce -->

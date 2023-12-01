@@ -32,9 +32,7 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
     private XCollapsingToolbarLayout mCollapsingToolbarLayout;
     private Toolbar mToolbar;
 
-    private TextView mAddressView;
     private TextView mHintView;
-    private AppCompatImageView mSearchView;
 
     private RecyclerView mTabView;
     private ViewPager mViewPager;
@@ -56,16 +54,13 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
         mCollapsingToolbarLayout = findViewById(R.id.ctl_home_bar);
         mToolbar = findViewById(R.id.tb_home_title);
 
-        mAddressView = findViewById(R.id.tv_home_address);
         mHintView = findViewById(R.id.tv_home_hint);
-        mSearchView = findViewById(R.id.iv_home_search);
 
         mTabView = findViewById(R.id.rv_home_tab);
         mViewPager = findViewById(R.id.vp_home_pager);
 
         mPagerAdapter = new FragmentPagerAdapter<>(this);
-        mPagerAdapter.addFragment(StatusFragment.newInstance(), "列表演示");
-        mPagerAdapter.addFragment(BrowserFragment.newInstance("https://github.com/getActivity"), "网页演示");
+        mPagerAdapter.addFragment(StatusFragment.newInstance(), "餐品热度排行榜");
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
 
@@ -81,8 +76,7 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
 
     @Override
     protected void initData() {
-        mTabAdapter.addItem("列表演示");
-        mTabAdapter.addItem("网页演示");
+        mTabAdapter.addItem("餐品热度排行榜");
         mTabAdapter.setOnTabListener(this);
     }
 
@@ -134,10 +128,8 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
     @Override
     public void onScrimsStateChange(XCollapsingToolbarLayout layout, boolean shown) {
         getStatusBarConfig().statusBarDarkFont(shown).init();
-        mAddressView.setTextColor(ContextCompat.getColor(getAttachActivity(), shown ? R.color.black : R.color.white));
         mHintView.setBackgroundResource(shown ? R.drawable.home_search_bar_gray_bg : R.drawable.home_search_bar_transparent_bg);
         mHintView.setTextColor(ContextCompat.getColor(getAttachActivity(), shown ? R.color.black60 : R.color.white60));
-        mSearchView.setSupportImageTintList(ColorStateList.valueOf(getColor(shown ? R.color.common_icon_color : R.color.white)));
     }
 
     @Override

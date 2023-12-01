@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_40"
             android:text="@string/register_title"
-            android:textColor="@color/black60"
+            android:textColor="@color/black70"
             android:textSize="@dimen/sp_23" />
 
         <androidx.appcompat.widget.AppCompatTextView

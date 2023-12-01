@@ -61,7 +61,6 @@ public final class PersonalDataActivity extends AppActivity {
         mAvatarView = findViewById(R.id.iv_person_data_avatar);
         mIdView = findViewById(R.id.sb_person_data_id);
         mNameView = findViewById(R.id.sb_person_data_name);
-        mAddressView = findViewById(R.id.sb_person_data_address);
         setOnClickListener(mAvatarLayout, mAvatarView, mNameView, mAddressView);
     }
 

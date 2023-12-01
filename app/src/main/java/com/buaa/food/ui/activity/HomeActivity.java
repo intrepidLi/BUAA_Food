@@ -10,10 +10,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.buaa.food.ui.fragment.FindFragment;
+import com.buaa.food.ui.fragment.HangWeiFragment;
 import com.buaa.food.ui.fragment.HomeFragment;
-import com.buaa.food.ui.fragment.MessageFragment;
-import com.buaa.food.ui.fragment.MineFragment;
 import com.buaa.food.ui.fragment.UserFragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.base.FragmentPagerAdapter;
@@ -70,8 +68,6 @@ public final class HomeActivity extends AppActivity
                 ContextCompat.getDrawable(this, R.drawable.home_home_selector)));
         mNavigationAdapter.addItem(new NavigationAdapter.MenuItem(getString(R.string.home_nav_found),
                 ContextCompat.getDrawable(this, R.drawable.home_found_selector)));
-        mNavigationAdapter.addItem(new NavigationAdapter.MenuItem(getString(R.string.home_nav_message),
-                ContextCompat.getDrawable(this, R.drawable.home_message_selector)));
         mNavigationAdapter.addItem(new NavigationAdapter.MenuItem(getString(R.string.home_nav_me),
                 ContextCompat.getDrawable(this, R.drawable.home_me_selector)));
         mNavigationAdapter.setOnNavigationListener(this);
@@ -82,8 +78,8 @@ public final class HomeActivity extends AppActivity
     protected void initData() {
         mPagerAdapter = new FragmentPagerAdapter<>(this);
         mPagerAdapter.addFragment(HomeFragment.newInstance());
-        mPagerAdapter.addFragment(FindFragment.newInstance());
-        mPagerAdapter.addFragment(MessageFragment.newInstance());
+        mPagerAdapter.addFragment(HangWeiFragment.newInstance());
+        //mPagerAdapter.addFragment(MessageFragment.newInstance());
         mPagerAdapter.addFragment(UserFragment.newInstance());
         mViewPager.setAdapter(mPagerAdapter);
 
@@ -119,7 +115,6 @@ public final class HomeActivity extends AppActivity
             case 0:
             case 1:
             case 2:
-            case 3:
                 mViewPager.setCurrentItem(fragmentIndex);
                 mNavigationAdapter.setSelectedPosition(fragmentIndex);
                 break;
@@ -138,7 +133,6 @@ public final class HomeActivity extends AppActivity
             case 0:
             case 1:
             case 2:
-            case 3:
                 mViewPager.setCurrentItem(position);
                 return true;
             default:
