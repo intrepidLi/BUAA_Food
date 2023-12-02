@@ -29,6 +29,7 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.hjq.widget.view.CountdownView;
 import com.hjq.widget.view.SubmitButton;
+import com.buaa.food.UserAuth;
 
 import okhttp3.Call;
 
@@ -125,55 +126,22 @@ public final class RegisterActivity extends AppActivity
     @SingleClick
     @Override
     public void onClick(View view) {
-        // Log.e("Enter onClick!!!!");
-//        if (view == mCountdownView) {
-//            if (mPhoneView.getText().toString().length() != 11) {
-//                mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
-//                toast(R.string.common_phone_input_error);
-//                return;
-//            }
-//
-//            if (true) {
-//                toast(R.string.common_code_send_hint);
-//                mCountdownView.start();
-//                return;
-//            }
-//
-//            // 获取验证码
-//            EasyHttp.post(this)
-//                    .api(new GetCodeApi()
-//                            .setPhone(mPhoneView.getText().toString()))
-//                    .request(new HttpCallback<HttpData<Void>>(this) {
-//
-//                        @Override
-//                        public void onSucceed(HttpData<Void> data) {
-//                            toast(R.string.common_code_send_hint);
-//                            mCountdownView.start();
-//                        }
-//
-//                        @Override
-//                        public void onFail(Exception e) {
-//                            super.onFail(e);
-//                            mCountdownView.start();
-//                        }
-//                    });
-//        } else
         if (view == mCommitView) {
-            if (mPhoneView.getText().toString().length() != 11) {
+            String username = mUserNameView.getText().toString();
+            String password = mFirstPassword.getText().toString();
+            String secondPassword = mSecondPassword.getText().toString();
+            String phone = mPhoneView.getText().toString();
+
+            hideKeyboard(getCurrentFocus()); // 隐藏软键盘
+
+            if (phone.length() != 11) {
                 mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
                 mCommitView.showError(3000);
                 toast(R.string.common_phone_input_error);
                 return;
             }
 
-//            if (mCodeView.getText().toString().length() != getResources().getInteger(R.integer.sms_code_length)) {
-//                mCodeView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
-//                mCommitView.showError(3000);
-//                toast(R.string.common_code_error_hint);
-//                return;
-//            }
-
-            if (!mFirstPassword.getText().toString().equals(mSecondPassword.getText().toString())) {
+            if (!password.equals(secondPassword)) {
                 mFirstPassword.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
                 mSecondPassword.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
                 mCommitView.showError(3000);
@@ -181,92 +149,25 @@ public final class RegisterActivity extends AppActivity
                 return;
             }
 
-            // 隐藏软键盘
-            hideKeyboard(getCurrentFocus());
-
-//            if (true) {
-//                mCommitView.showProgress();
-//                postDelayed(() -> {
-//                    mCommitView.showSucceed();
-//                    postDelayed(() -> {
-//                        setResult(RESULT_OK, new Intent()
-//                                .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
-//                                .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
-//                        finish();
-//                    }, 1000);
-//                }, 2000);
-//                return;
-//            }
-
-            boolean checkUserPhone = dataBaseHelper.checkPhone(mPhoneView.getText().toString());
-
-            if (!checkUserPhone) {
-                boolean insert = dataBaseHelper.insert(mUserNameView.getText().toString(),
-                        mFirstPassword.getText().toString(), mPhoneView.getText().toString());
-
-                if (insert) {
-                    Toast.makeText(RegisterActivity.this, "SignUp Successfully",
-                            Toast.LENGTH_SHORT).show();
-                    mCommitView.showSucceed();
-                    HomeActivity.start(getContext(), MineFragment.class);
-                    return;
-                } else {
-                    Toast.makeText(RegisterActivity.this, "SignUp Failed",
-                            Toast.LENGTH_SHORT).show();
-                    mCommitView.showError(3000);
-                    return;
-                }
-            } else {
-                Toast.makeText(RegisterActivity.this, "User Already Exists!!!",
-                        Toast.LENGTH_SHORT).show();
+            if (dataBaseHelper.checkPhone(phone)) {
+                Toast.makeText(RegisterActivity.this, "User Already Exists", Toast.LENGTH_SHORT).show();
                 mCommitView.showError(3000);
-                return;
             }
 
-
-            // 提交注册
-//            EasyHttp.post(this)
-//                    .api(new RegisterApi()
-//                            .setPhone(mPhoneView.getText().toString())
-//                            // .setCode(mCodeView.getText().toString())
-//                            .setPassword(mFirstPassword.getText().toString()))
-//                    .request(new HttpCallback<HttpData<RegisterApi.Bean>>(this) {
-//
-//                        @Override
-//                        public void onStart(Call call) {
-//                            mCommitView.showProgress();
-//                        }
-//
-//                        @Override
-//                        public void onEnd(Call call) {}
-//
-//                        @Override
-//                        public void onSucceed(HttpData<RegisterApi.Bean> data) {
-//                            postDelayed(() -> {
-//                                mCommitView.showSucceed();
-//                                postDelayed(() -> {
-//                                    setResult(RESULT_OK, new Intent()
-//                                            .putExtra(INTENT_KEY_PHONE, mPhoneView.getText().toString())
-//                                            .putExtra(INTENT_KEY_PASSWORD, mFirstPassword.getText().toString()));
-//                                    finish();
-//                                }, 1000);
-//                            }, 1000);
-//                        }
-//
-//                        @Override
-//                        public void onFail(Exception e) {
-//                            super.onFail(e);
-//                            postDelayed(() -> {
-//                                mCommitView.showError(3000);
-//                            }, 1000);
-//                        }
-//                    });
+            if (dataBaseHelper.insert(username, password, phone)) {
+                Toast.makeText(RegisterActivity.this, "SignUp Successfully", Toast.LENGTH_SHORT).show();
+                mCommitView.showSucceed();
+                UserAuth.setLocalUserPhone(phone);
+                HomeActivity.start(getContext(), MineFragment.class);
+            } else {
+                Toast.makeText(RegisterActivity.this, "SignUp Failed", Toast.LENGTH_SHORT).show();
+                mCommitView.showError(3000);
+            }
         }
-        else if (view == mReturnView) {
+
+        if (view == mReturnView) {
             startActivity(LoginActivity.class);
-            return;
         }
-
     }
 
     @NonNull

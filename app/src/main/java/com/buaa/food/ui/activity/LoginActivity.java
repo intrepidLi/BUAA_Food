@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.buaa.food.DataBaseHelper;
+import com.buaa.food.UserAuth;
 import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.fragment.MineFragment;
 import com.gyf.immersionbar.ImmersionBar;
@@ -64,12 +65,10 @@ public final class LoginActivity extends AppActivity
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        System.out.println("Start Login !!!!");
         context.startActivity(intent);
     }
 
     private ImageView mLogoView;
-
     private ViewGroup mBodyLayout;
     private EditText mPhoneView;
     private EditText mPasswordView;
@@ -119,7 +118,6 @@ public final class LoginActivity extends AppActivity
 
     @Override
     protected void initData() {
-        System.out.println("Start Login InitData!!!!");
         postDelayed(() -> {
             KeyboardWatcher.with(LoginActivity.this)
                     .setListener(LoginActivity.this);
@@ -163,98 +161,38 @@ public final class LoginActivity extends AppActivity
     @SingleClick    
     @Override
     public void onClick(View view) {
-        System.out.println("Start Login OnClick!!!!");
         if (view == mForgetView) {
             startActivity(PasswordForgetActivity.class);
             return;
         }
 
         if (view == mCommitView) {
-            if (mPhoneView.getText().toString().length() != 11) {
+            String phone = mPhoneView.getText().toString();
+            String password = mPasswordView.getText().toString();
+
+            hideKeyboard(getCurrentFocus()); // 隐藏软键盘
+
+            if (phone.length() != 11) {
                 mPhoneView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_anim));
                 mCommitView.showError(3000);
                 toast(R.string.common_phone_input_error);
                 return;
             }
 
-            // 隐藏软键盘
-            hideKeyboard(getCurrentFocus());
-
-//            if (true) {
-//                mCommitView.showProgress();
-//                postDelayed(() -> {
-//                    mCommitView.showSucceed();
-//                    postDelayed(() -> {
-//                        HomeActivity.start(getContext(), MineFragment.class);
-//                        finish();
-//                    }, 1000);
-//                }, 2000);
-//                return;
-//            }
-
-            boolean checkUserPhone = dataBaseHelper.checkPhone(mPhoneView.getText().toString());
-
-            if (checkUserPhone) {
-//                boolean insert = dataBaseHelper.insert(mUserNameView.getText().toString(),
-//                        mFirstPassword.getText().toString(), mPhoneView.getText().toString());
-
-                boolean checkPhonePassWord = dataBaseHelper.checkPhonePassword(mPhoneView.getText().toString(),
-                        mPasswordView.getText().toString());
-
-                if (checkPhonePassWord) {
-                    Toast.makeText(LoginActivity.this, "Login Successfully",
-                            Toast.LENGTH_SHORT).show();
+            if (dataBaseHelper.checkPhone(phone)) {
+                if (dataBaseHelper.checkPhonePassword(phone, password)) {
+                    Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     mCommitView.showSucceed();
+                    UserAuth.setLocalUserPhone(phone);
                     HomeActivity.start(getContext(), MineFragment.class);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Login Failed",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     mCommitView.showError(3000);
                 }
             } else {
-                Toast.makeText(LoginActivity.this, "No this User!!!",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "No User Found", Toast.LENGTH_SHORT).show();
                 mCommitView.showError(3000);
             }
-
-
-//            EasyHttp.post(this)
-//                    .api(new LoginApi()
-//                            .setPhone(mPhoneView.getText().toString())
-//                            .setPassword(mPasswordView.getText().toString()))
-//                    .request(new HttpCallback<HttpData<LoginApi.Bean>>(this) {
-//
-//                        @Override
-//                        public void onStart(Call call) {
-//                            mCommitView.showProgress();
-//                        }
-//
-//                        @Override
-//                        public void onEnd(Call call) {}
-//
-//                        @Override
-//                        public void onSucceed(HttpData<LoginApi.Bean> data) {
-//                            // 更新 Token
-//                            EasyConfig.getInstance()
-//                                    .addParam("token", data.getData().getToken());
-//                            postDelayed(() -> {
-//                                mCommitView.showSucceed();
-//                                postDelayed(() -> {
-//                                    // 跳转到首页
-//                                    HomeActivity.start(getContext(), MineFragment.class);
-//                                    finish();
-//                                }, 1000);
-//                            }, 1000);
-//                        }
-//
-//                        @Override
-//                        public void onFail(Exception e) {
-//                            super.onFail(e);
-//                            postDelayed(() -> {
-//                                mCommitView.showError(3000);
-//                            }, 1000);
-//                        }
-//                    });
         }
 
         if (view == mQQView || view == mWeChatView) {
