@@ -11,9 +11,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.buaa.food.app.AppFragment;
 import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.adapter.DishAdapter;
+import com.buaa.food.ui.adapter.TabAdapter;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -23,6 +26,7 @@ import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.TitleBarFragment;
 import com.buaa.food.ui.activity.HomeActivity;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.base.FragmentPagerAdapter;
 import com.hjq.widget.view.CountdownView;
 import com.hjq.widget.view.SwitchButton;
 
@@ -38,12 +42,17 @@ import javax.xml.transform.sax.SAXResult;
  */
 
 public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
-        implements SwitchButton.OnCheckedChangeListener {
+        implements SwitchButton.OnCheckedChangeListener,ViewPager.OnPageChangeListener, TabAdapter.OnTabListener {
 
     private Toolbar mToolbar;
     private EditText mHintView;
     private AppCompatImageView mSearchView;
     private RecyclerView recyclerView;
+
+    private ViewPager mViewPager;
+
+    private TabAdapter mTabAdapter;
+    private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
 
     public static HangWeiFragment newInstance() {
         return new HangWeiFragment();
@@ -59,13 +68,21 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         mToolbar = findViewById(R.id.tb_hangwei_title);
         mHintView = findViewById(R.id.tv_hangwei_hint);
         mSearchView = findViewById(R.id.iv_hangwei_search);
-        recyclerView = findViewById(R.id.hangwei_recyclerView);
+        recyclerView = findViewById(R.id.rv_hangwei_tab);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        mViewPager = findViewById(R.id.vp_hangwei_pager);
 
-        ArrayList<String> dishes = createDishesList();
-        recyclerView.setAdapter(new DishAdapter(dishes));
+        mPagerAdapter = new FragmentPagerAdapter<>(this);
+        mPagerAdapter.addFragment(StatusFragment.newInstance(), "新北食堂");
+        mPagerAdapter.addFragment(StatusFragment.newInstance(), "东区食堂");
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(this);
+
+        mTabAdapter = new TabAdapter(getAttachActivity());
+        recyclerView.setAdapter(mTabAdapter);
+
+        //ArrayList<String> dishes = createDishesList();
+        //recyclerView.setAdapter(new DishAdapter(dishes));
         // 给这个 ToolBar 设置顶部内边距，才能和 TitleBar 进行对齐
         ImmersionBar.setTitleBar(getAttachActivity(), mToolbar);
 
@@ -90,7 +107,29 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
 
     @Override
     protected void initData() {
+        mTabAdapter.addItem("新北食堂");
+        mTabAdapter.addItem("东区食堂");
+        mTabAdapter.setOnTabListener(this);
+    }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+    @Override
+    public void onPageSelected(int position) {
+        if (mTabAdapter == null) {
+            return;
+        }
+        mTabAdapter.setSelectedPosition(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
+
+    @Override
+    public boolean onTabSelected(RecyclerView recyclerView, int position) {
+        mViewPager.setCurrentItem(position);
+        return true;
     }
 
     @SingleClick
@@ -120,5 +159,13 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
             dishList.add("菜品名称 " + i);
         }
         return dishList;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewPager.setAdapter(null);
+        mViewPager.removeOnPageChangeListener(this);
+        mTabAdapter.setOnTabListener(null);
     }
 }
