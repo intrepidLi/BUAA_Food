@@ -126,6 +126,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+
         <!-- 忘记密码 -->
         <activity
             android:name="com.buaa.food.ui.activity.PasswordForgetActivity"
@@ -149,6 +150,21 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
+        <!-- 收藏表页 -->
+        <activity
+            android:name="com.buaa.food.ui.activity.CollectionActivity"
+            android:label="收藏表页"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <!-- 历史记录页 -->
+
+        <activity
+            android:name="com.buaa.food.ui.activity.HistoryActivity"
+            android:label="历史记录页"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!-- 关于我们 -->
         <activity

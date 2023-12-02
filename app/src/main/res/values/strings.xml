@@ -180,7 +180,7 @@
     <string name="setting_update">检查更新</string>
 
     <string name="setting_password">修改密码</string>
-    <string name="setting_phone">修改手机</string>
+    <string name="setting_userName">用户名</string>
 
     <string name="setting_auto">自动登录</string>
     <string name="setting_cache">清空缓存</string>
@@ -192,9 +192,9 @@
 
     <!-- 关于 -->
     <string name="about_title">关于我们</string>
-    <string name="about_author"><font color="#85b84f">Android</font> 轮子哥</string>
+    <string name="about_author"><font color="#85b84f">BUAA Android 开发小组\n</font> </string>
 
-    <string name="about_copyright">Copyright © 2018 &#8211; 2021</string>
+    <string name="about_copyright">Copyright © 2023 &#8211; 2023</string>
 
     <!-- 忘记密码 -->
     <string name="password_forget_title">忘记密码</string>
@@ -214,7 +214,7 @@
     <string name="phone_reset_commit_succeed">绑定成功</string>
 
     <!-- 个人资料 -->
-    <string name="personal_data_title">个人资料</string>
+    <string name="personal_data_title">编辑个人资料</string>
     <string name="user_center_title">个人中心</string>
     <string name="personal_data_head">头像</string>
 
@@ -230,7 +230,7 @@
 
     <!-- 用户主页  -->
     <string name="user_home_page">主页</string>
-    <string name="user_center_page">个人中心</string>
+    <string name="user_center_page">个人资料</string>
     <string name="user_collection_page">收藏</string>
     <string name="user_history_page">历史</string>
     <string name="user_setting_page">设置</string>
@@ -264,5 +264,12 @@
     <!-- 拍照和拍摄 -->
     <string name="camera_launch_fail">无法启动相机</string>
     <string name="camera_image_error">目标地址错误</string>
+
+    <!-- 收藏夹 -->
+    <string name="favorite_title">收藏夹</string>
+    <string name="favorite_item">条目1</string>
+
+    <!-- 历史记录 -->
+    <string name="history_title">历史记录</string>
 
 </resources>

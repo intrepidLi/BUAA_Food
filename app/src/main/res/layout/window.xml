@@ -8,11 +8,11 @@
 
     <!-- Dish Image -->
     <ImageView
-        android:id="@+id/iv_canteen_image"
+        android:id="@+id/iv_window_image"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="292dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/canteen_1"/>
+        android:src="@drawable/window" />
 
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_30"
             android:gravity="center"
-            android:text="Canteen Name = 学一食堂"
+            android:text="Window Name = 食过飘香"
             android:textSize="25sp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -38,14 +38,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:text="开放时间:"
+        android:text="招牌菜品:"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:padding="@dimen/material_emphasis_high_type">
 
         <TextView
@@ -53,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_15"
-            android:text="早餐：7：00 - 9：00\n 午餐：11：00 - 13：00 \n 晚餐：17：00 - 19：00"
-            android:textSize="14sp"
+            android:text="西红柿滑蛋牛肉盖饭\n 小炒肉盖饭 \n 白斩鸡饭 \n 香煎鸡扒饭"
+            android:textSize="16sp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
@@ -71,7 +71,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_120"
             android:layout_marginTop="18dp"
-            android:text="收藏该食堂"
+            android:text="收藏该窗口"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"

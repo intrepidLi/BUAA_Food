@@ -21,15 +21,15 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.hjq.widget.layout.SettingBar;
 import com.hjq.widget.view.SwitchButton;
+import com.buaa.food.DataBaseHelper;
+import com.buaa.food.UserAuth;
 
 public final class SettingActivity extends AppActivity
         implements SwitchButton.OnCheckedChangeListener {
 
-    private SettingBar mLanguageView;
-    private SettingBar mPhoneView;
+    private SettingBar mNameView;
     private SettingBar mPasswordView;
-    private SettingBar mCleanCacheView;
-    private SwitchButton mAutoSwitchView;
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected int getLayoutId() {
@@ -38,27 +38,21 @@ public final class SettingActivity extends AppActivity
 
     @Override
     protected void initView() {
-        mLanguageView = findViewById(R.id.sb_setting_language);
-        mPhoneView = findViewById(R.id.sb_setting_phone);
+        mNameView = findViewById(R.id.sb_setting_userName);
         mPasswordView = findViewById(R.id.sb_setting_password);
-        mCleanCacheView = findViewById(R.id.sb_setting_cache);
-        mAutoSwitchView = findViewById(R.id.sb_setting_switch);
 
-        // 设置切换按钮的监听
-        mAutoSwitchView.setOnCheckedChangeListener(this);
 
-        setOnClickListener(R.id.sb_setting_language, R.id.sb_setting_update, R.id.sb_setting_phone,
-                R.id.sb_setting_password, R.id.sb_setting_agreement, R.id.sb_setting_about,
-                R.id.sb_setting_cache, R.id.sb_setting_auto, R.id.sb_setting_exit);
+        setOnClickListener(R.id.sb_setting_password, R.id.sb_setting_agreement, R.id.sb_setting_about,
+                R.id.sb_setting_exit);
     }
 
     @Override
     protected void initData() {
-        // 获取应用缓存大小
-        mCleanCacheView.setRightText(CacheDataManager.getTotalCacheSize(this));
+        dataBaseHelper = new DataBaseHelper(this.getContext());
+        String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
 
-        mLanguageView.setRightText("简体中文");
-        mPhoneView.setRightText("181****1413");
+        // 获取应用缓存大小
+        mNameView.setRightText(username);
         mPasswordView.setRightText("密码强度较低");
     }
 
@@ -66,37 +60,7 @@ public final class SettingActivity extends AppActivity
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.sb_setting_language) {
-
-            // 底部选择框
-            new MenuDialog.Builder(this)
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setList(R.string.setting_language_simple, R.string.setting_language_complex)
-                    .setListener((MenuDialog.OnListener<String>) (dialog, position, string) -> {
-                        mLanguageView.setRightText(string);
-                        BrowserActivity.start(getActivity(), "https://github.com/getActivity/MultiLanguages");
-                    })
-                    .setGravity(Gravity.BOTTOM)
-                    .setAnimStyle(BaseDialog.ANIM_BOTTOM)
-                    .show();
-
-        } else if (viewId == R.id.sb_setting_update) {
-
-            // 本地的版本码和服务器的进行比较
-            if (20 > AppConfig.getVersionCode()) {
-                new UpdateDialog.Builder(this)
-                        .setVersionName("2.0")
-                        .setForceUpdate(false)
-                        .setUpdateLog("修复Bug\n优化用户体验")
-                        .setDownloadUrl("https://down.qq.com/qqweb/QQ_1/android_apk/Android_8.5.0.5025_537066738.apk")
-                        .setFileMd5("560017dc94e8f9b65f4ca997c7feb326")
-                        .show();
-            } else {
-                toast(R.string.update_no_update);
-            }
-
-        } else if (viewId == R.id.sb_setting_phone) {
+        if (viewId == R.id.sb_setting_userName) {
 
             new SafeDialog.Builder(this)
                     .setListener((dialog, phone, code) -> PhoneResetActivity.start(getActivity(), code))
@@ -108,32 +72,13 @@ public final class SettingActivity extends AppActivity
                     .setListener((dialog, phone, code) -> PasswordResetActivity.start(getActivity(), phone, code))
                     .show();
 
-        } else if (viewId == R.id.sb_setting_agreement) {
-
-            BrowserActivity.start(this, "https://github.com/getActivity/Donate");
-
-        } else if (viewId == R.id.sb_setting_about) {
+        }  else if (viewId == R.id.sb_setting_about) {
 
             startActivity(AboutActivity.class);
 
-        } else if (viewId == R.id.sb_setting_auto) {
+        } else if (viewId == R.id.sb_setting_agreement) {
 
-            // 自动登录
-            mAutoSwitchView.setChecked(!mAutoSwitchView.isChecked());
-
-        } else if (viewId == R.id.sb_setting_cache) {
-
-            // 清除内存缓存（必须在主线程）
-            GlideApp.get(getActivity()).clearMemory();
-            ThreadPoolManager.getInstance().execute(() -> {
-                CacheDataManager.clearAllCache(this);
-                // 清除本地缓存（必须在子线程）
-                GlideApp.get(getActivity()).clearDiskCache();
-                post(() -> {
-                    // 重新获取应用缓存大小
-                    mCleanCacheView.setRightText(CacheDataManager.getTotalCacheSize(getActivity()));
-                });
-            });
+            BrowserActivity.start(this, "https://github.com/intrepidLi/BUAA_Food");
 
         } else if (viewId == R.id.sb_setting_exit) {
 

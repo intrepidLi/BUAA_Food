@@ -22,44 +22,12 @@
             android:orientation="vertical">
 
             <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_language"
+                android:id="@+id/sb_setting_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_15"
-                app:bar_leftText="@string/setting_language_switchover"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
-                tools:bar_rightHint="@string/setting_language_simple" />
-
-            <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_update"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:bar_leftText="@string/setting_update">
-
-                <com.hjq.shape.view.ShapeTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="@dimen/dp_30"
-                    android:paddingHorizontal="@dimen/dp_6"
-                    android:paddingBottom="@dimen/dp_3"
-                    android:text="new"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_15"
-                    app:shape="rectangle"
-                    app:shape_radius="@dimen/dp_720"
-                    app:shape_solidColor="#F85E5E" />
-
-            </com.hjq.widget.layout.SettingBar>
-
-            <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                app:bar_leftText="@string/setting_phone"
-                app:bar_rightDrawable="@drawable/arrows_right_ic"
-                tools:bar_rightText="181****1413" />
+                app:bar_leftText="@string/setting_userName"
+                tools:bar_rightText="pp" />
 
             <com.hjq.widget.layout.SettingBar
                 android:id="@+id/sb_setting_password"
@@ -82,29 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:bar_leftText="@string/setting_about"
-                app:bar_rightDrawable="@drawable/arrows_right_ic" />
-
-            <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                app:bar_leftText="@string/setting_auto">
-
-                <com.hjq.widget.view.SwitchButton
-                    android:id="@+id/sb_setting_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginHorizontal="@dimen/dp_15" />
-
-            </com.hjq.widget.layout.SettingBar>
-
-            <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_cache"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:bar_leftText="@string/setting_cache"
                 app:bar_rightDrawable="@drawable/arrows_right_ic" />
 
             <com.hjq.widget.layout.SettingBar

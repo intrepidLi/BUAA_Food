@@ -77,7 +77,7 @@
                     <!-- First Row with Two Columns -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="63dp"
+                        android:layout_height="100dp"
                         android:orientation="horizontal">
 
                         <!-- First Column -->
@@ -86,7 +86,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="早餐"
+                            android:text="早餐吃什么：    "
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20"/>
 
@@ -96,16 +96,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="中餐"
-                            android:textColor="@color/white85"
-                            android:textSize="@dimen/dp_20"/>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="晚餐"
+                            android:text="早餐推荐"
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20"/>
 
@@ -120,77 +111,53 @@
                         <!-- First Row -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="115dp"
+                            android:layout_height="100dp"
                             android:orientation="horizontal">
 
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="学一食堂"
-                                    android:textColor="@color/white85"
-                                    android:textSize="@dimen/dp_20"
-                                    android:layout_gravity="center_vertical" />
+                            <!-- First Column -->
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="午餐吃什么：    "
+                                android:textColor="@color/white85"
+                                android:textSize="@dimen/dp_20"/>
 
-                                <ImageView
-                                    android:layout_width="75dp"
-                                    android:layout_height="75dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="@dimen/dp_10"
-                                    android:src="@drawable/canteen_1" />
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginStart="@dimen/dp_20"
-                                    android:text="学二食堂"
-                                    android:textColor="@color/white85"
-                                    android:textSize="@dimen/dp_20" />
-
-                                <ImageView
-                                    android:layout_width="75dp"
-                                    android:layout_height="75dp"
-                                    android:layout_marginStart="@dimen/dp_10"
-                                    android:src="@drawable/canteen_2"
-                                    android:layout_gravity="center_vertical" />
+                            <!-- Second Column -->
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="午餐推荐"
+                                android:textColor="@color/white85"
+                                android:textSize="@dimen/dp_20"/>
                         </LinearLayout>
 
-                        <!-- Second Row -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="115dp"
+                            android:layout_height="100dp"
                             android:orientation="horizontal">
+                        <!-- First Column -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="晚餐吃什么：    "
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_20"/>
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="学三食堂"
-                                android:textColor="@color/white85"
-                                android:textSize="@dimen/dp_20"
-                                android:layout_gravity="center_vertical" />
-
-                            <ImageView
-                                android:layout_width="75dp"
-                                android:layout_height="75dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="@dimen/dp_10"
-                                android:src="@drawable/canteen_1" />
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginStart="@dimen/dp_20"
-                                android:text="学四食堂"
-                                android:textColor="@color/white85"
-                                android:textSize="@dimen/dp_20" />
-
-                            <ImageView
-                                android:layout_width="75dp"
-                                android:layout_height="75dp"
-                                android:layout_marginStart="@dimen/dp_10"
-                                android:src="@drawable/canteen_2"
-                                android:layout_gravity="center_vertical" />
+                        <!-- Second Column -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="晚餐推荐"
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_20"/>
                         </LinearLayout>
                     </LinearLayout>
 

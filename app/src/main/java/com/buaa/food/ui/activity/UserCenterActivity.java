@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
+import com.buaa.food.UserAuth;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.http.api.UpdateImageApi;
@@ -33,12 +35,6 @@ public final class UserCenterActivity extends AppActivity {
     private SettingBar mIdView;
     private SettingBar mNameView;
 
-    /** 省 */
-    private String mProvince = "广东省";
-    /** 市 */
-    private String mCity = "广州市";
-    /** 区 */
-    private String mArea = "天河区";
 
     /** 头像地址 */
     private Uri mAvatarUrl;
@@ -66,10 +62,10 @@ public final class UserCenterActivity extends AppActivity {
                 .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
                 .into(mAvatarView);
 
-        mIdView.setRightText("880634");
-        mNameView.setRightText("Android 轮子哥");
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getContext());
+        mIdView.setRightText("000000");
+        mNameView.setRightText(dataBaseHelper.getUsername(UserAuth.getLocalUserPhone()));
 
-        String address = mProvince + mCity + mArea;
     }
 
     @SingleClick
