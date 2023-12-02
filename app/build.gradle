@@ -143,7 +143,6 @@ dependencies {
 
     // 标题栏框架：https://github.com/getActivity/TitleBar
     implementation 'com.github.getActivity:TitleBar:9.2'
-    implementation 'com.opencsv:opencsv:4.6'
 
     // 吐司框架：https://github.com/getActivity/ToastUtils
     implementation 'com.github.getActivity:ToastUtils:9.5'
@@ -164,6 +163,8 @@ dependencies {
 
     // AOP 插件库：https://mvnrepository.com/artifact/org.aspectj/aspectjrt
     implementation 'org.aspectj:aspectjrt:1.9.6'
+    // csv
+    implementation 'com.opencsv:opencsv:4.6'
 
     // 图片加载框架：https://github.com/bumptech/glide
     // 官方使用文档：https://github.com/Muyangmin/glide-docs-cn
