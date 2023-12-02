@@ -32,8 +32,8 @@ public final class StatusAdapter extends AppAdapter<String> {
         private final TextView mTextView;
 
         private ViewHolder() {
-            super(R.layout.status_item);
-            mTextView = findViewById(R.id.tv_status_text);
+            super(R.layout.hangwei_dish);
+            mTextView = findViewById(R.id.tv_hangwei_dishName);
         }
 
         @Override
