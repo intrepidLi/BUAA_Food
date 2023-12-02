@@ -163,6 +163,8 @@ dependencies {
 
     // AOP 插件库：https://mvnrepository.com/artifact/org.aspectj/aspectjrt
     implementation 'org.aspectj:aspectjrt:1.9.6'
+    // csv
+    implementation 'com.opencsv:opencsv:4.6'
 
     // 图片加载框架：https://github.com/bumptech/glide
     // 官方使用文档：https://github.com/Muyangmin/glide-docs-cn
