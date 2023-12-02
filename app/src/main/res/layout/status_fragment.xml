@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listCount="4"
-            tools:listitem="@layout/picker_item" />
+            tools:listitem="@layout/hangwei_dish" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </FrameLayout>
