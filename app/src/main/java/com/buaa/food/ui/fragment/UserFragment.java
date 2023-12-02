@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppFragment;
@@ -44,6 +45,7 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.hjq.http.model.FileContentResolver;
 import com.hjq.widget.layout.SettingBar;
+import com.buaa.food.UserAuth;
 
 import java.io.File;
 import java.net.URI;
@@ -63,8 +65,9 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
     private LinearLayout mCollectionLayout;
     private LinearLayout mHistoryLayout;
     private LinearLayout mSettingLayout;
-
     private LinearLayout mUserCenterView;
+
+    private DataBaseHelper dataBaseHelper;
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -87,22 +90,18 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
         mSettingLayout = findViewById(R.id.user_setting);
 
         setOnClickListener(mUserCenterView, mCollectionLayout, mHistoryLayout, mSettingLayout);
+
+        dataBaseHelper = new DataBaseHelper(this.getContext());
     }
 
     @Override
     protected void initData() {
-//        GlideApp.with(getActivity())
-//                .load(R.drawable.test_user_img)
-//                .placeholder(R.drawable.test_user_img)
-//                .error(R.drawable.test_user_img)
-//                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
-//                .into(mAvatarView);
-
         // TODO: get user name and avatar from server
-        String userName = "UserName";
+        String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
+        // String username = "Username";
         @SuppressLint("UseCompatLoadingForDrawables") Drawable avatarImage = getResources().getDrawable(R.drawable.test_user_img);
 
-        mNameView.setText(userName);
+        mNameView.setText(username);
         mAvatarView.setImageDrawable(avatarImage);
     }
 
