@@ -201,7 +201,7 @@ public final class RegisterActivity extends AppActivity
             boolean checkUserPhone = dataBaseHelper.checkPhone(mPhoneView.getText().toString());
 
             if (!checkUserPhone) {
-                boolean insert = dataBaseHelper.insert(mUserNameView.getText().toString(),
+                boolean insert = dataBaseHelper.insertUser(mUserNameView.getText().toString(),
                         mFirstPassword.getText().toString(), mPhoneView.getText().toString());
 
                 if (insert) {
