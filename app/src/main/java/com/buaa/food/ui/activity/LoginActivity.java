@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.buaa.food.DataBaseHelper;
+import com.buaa.food.UserAuth;
 import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.fragment.MineFragment;
 import com.gyf.immersionbar.ImmersionBar;
@@ -185,6 +186,7 @@ public final class LoginActivity extends AppActivity
             if (dataBaseHelper.checkPhone(phone)) {
                 if (dataBaseHelper.checkPhonePassword(phone, password)) {
                     Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                    UserAuth.setLocalUserPhone(phone);
                     mCommitView.showSucceed();
                     HomeActivity.start(getContext(), MineFragment.class);
                 } else {
