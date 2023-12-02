@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
 import com.buaa.food.DataBaseHelper;
-import com.buaa.food.UserAuth;
 import com.buaa.food.ui.fragment.MineFragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.base.BaseActivity;
@@ -30,7 +29,7 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.hjq.widget.view.CountdownView;
 import com.hjq.widget.view.SubmitButton;
-
+import com.buaa.food.UserAuth;
 import okhttp3.Call;
 
 /**
@@ -165,6 +164,7 @@ public final class RegisterActivity extends AppActivity
                 mCommitView.showError(3000);
             }
         }
+
         else if (view == mReturnView) {
             startActivity(LoginActivity.class);
             return;
