@@ -1,6 +1,8 @@
 package com.buaa.food.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +42,28 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateUserData(); // 更新数据的方法
+    }
+
+    private void updateUserData() {
+        String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
+        // String username = "Username";
+        byte[] image = dataBaseHelper.getUserAvatar(UserAuth.getLocalUserPhone());
+        if (image == null || image.length == 0) {
+            mAvatarView.setImageResource(R.drawable.avatar_placeholder_ic);
+        } else {
+            Bitmap avatar = BitmapFactory.decodeByteArray(image, 0, image.length);
+            mAvatarView.setImageBitmap(avatar);
+        }
+
+        // @SuppressLint("UseCompatLoadingForDrawables") Drawable avatarImage = getResources().getDrawable(R.drawable.test_user_img);
+
+        mNameView.setText(username);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.user_fragment;
     }
@@ -65,10 +89,18 @@ public final class UserFragment extends TitleBarFragment<HomeActivity> {
         // TODO: get user name and avatar from server
         String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
         // String username = "Username";
-        @SuppressLint("UseCompatLoadingForDrawables") Drawable avatarImage = getResources().getDrawable(R.drawable.test_user_img);
+        byte[] image = dataBaseHelper.getUserAvatar(UserAuth.getLocalUserPhone());
+        if (image == null || image.length == 0) {
+            mAvatarView.setImageResource(R.drawable.avatar_placeholder_ic);
+        } else {
+            Bitmap avatar = BitmapFactory.decodeByteArray(image, 0, image.length);
+            mAvatarView.setImageBitmap(avatar);
+        }
+
+        // @SuppressLint("UseCompatLoadingForDrawables") Drawable avatarImage = getResources().getDrawable(R.drawable.test_user_img);
 
         mNameView.setText(username);
-        mAvatarView.setImageDrawable(avatarImage);
+
     }
 
     @SingleClick

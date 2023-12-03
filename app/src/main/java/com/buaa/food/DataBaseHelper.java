@@ -4,7 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
@@ -12,6 +17,7 @@ import androidx.annotation.Nullable;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +28,9 @@ import timber.log.Timber;
 public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String DB_NAME = "BuaaFood.db";
     private Context context;
+
+    private ByteArrayOutputStream byteArrayOutputStream;
+    private byte[] imageInByte;
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "BuaaFood.db", null, 1);
@@ -55,7 +64,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 "id integer primary key autoincrement," +
                 "username varchar(20)," +
                 " password varchar(20)," +
-                " phone varchar(20) unique)" );
+                " phone varchar(20) unique, " +
+                "image BLOB)" );
 
         // 需要新增菜品表 （id(主键)，名字，窗口id，食堂id，被点餐的量，被浏览的量，菜品剩余量，图片URL）
         myDataBase.execSQL("create table if not exists dishes(" +
@@ -294,9 +304,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean insertUser(String username, String password, String phone){
+    public boolean insertInitUser(String username, String password, String phone){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
+        // ContentValues contentValues = new ContentValues();
+        contentValues.put("image", new byte[0]);
         contentValues.put("username", username);
         contentValues.put("password", password);
         contentValues.put("phone", phone);
@@ -338,8 +351,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
         if(cursor.getCount() > 0){
+            cursor.close();
+            db.close();
             return true;
         }else{
+            cursor.close();
+            db.close();
             return false;
         }
     }
@@ -349,8 +366,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery("select * from users where phone=? and password=?",
                 new String[]{phone, password});
         if(cursor.getCount() > 0){
+            cursor.close();
+            // db.close();
             return true;
         }else{
+            cursor.close();
+            // db.close();
             return false;
         }
     }
@@ -361,8 +382,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 new String[]{phone});
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
-            return cursor.getString(cursor.getColumnIndex("username"));
+            String username = cursor.getString(cursor.getColumnIndex("username"));
+            cursor.close();
+            // db.close();
+            return username;
         } else {
+            cursor.close();
+            // db.close();
             return null;
         }
     }
@@ -373,9 +399,76 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 new String[]{phone});
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
-            return cursor.getString(cursor.getColumnIndex("id"));
+            String id = cursor.getString(cursor.getColumnIndex("id"));
+            cursor.close();
+            // db.close();
+            return id;
         } else {
+            cursor.close();
+            // db.close();
             return null;
+        }
+    }
+
+    public byte[] getUserAvatar(String phone){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where phone=?",
+                new String[]{phone});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+            cursor.close();
+            // db.close();
+            return image;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public Cursor getData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM users";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public void updateUserAvatar(String phone, Bitmap bitmapImage) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        imageInByte = byteArrayOutputStream.toByteArray();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("image", imageInByte);
+
+        long result = db.update("users", contentValues, "phone=?", new String[]{phone});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update avatar", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Failed to update avatar");
+        }else{
+            Toast.makeText(context, "Successfully updated avatar", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Successfully updated avatar");
+            db.close();
+        }
+    }
+
+    public void updateUsername(String phone, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username", username);
+
+        long result = db.update("users", contentValues, "phone=?", new String[]{phone});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update username", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Failed to update username");
+        }else{
+            Toast.makeText(context, "Successfully updated username", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Successfully updated username");
+            // db.close();
         }
     }
 
