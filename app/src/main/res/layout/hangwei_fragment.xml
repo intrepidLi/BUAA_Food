@@ -39,7 +39,7 @@
                     android:gravity="center"
                     android:hint="今天吃什么？"
                     android:textSize="@dimen/sp_13"
-                    app:regexType="chinese" />
+                    app:regexType="mobile" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_hangwei_search"

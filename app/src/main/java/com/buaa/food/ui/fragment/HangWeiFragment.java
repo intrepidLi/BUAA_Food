@@ -1,5 +1,6 @@
 package com.buaa.food.ui.fragment;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -131,7 +132,11 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
     @Override
     public void onClick(View view) {
         if (view == mSearchView) {
-            startActivity(ResultActivity.class);
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
+            intent.putExtra("searchHint", mHintView.getText().toString());
+            startActivity(intent);
+            // finish();
+            // startActivity(ResultActivity.class);
         }
     }
 

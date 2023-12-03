@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public final class ResultActivity extends AppActivity {
 
-    // private StatusLayout mStatusLayout;
     private ViewPager mViewPager;
     private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
 
@@ -36,11 +35,12 @@ public final class ResultActivity extends AppActivity {
 
     @Override
     protected void initView() {
-        // mStatusLayout = findViewById(R.id.hl_status_hint);
+        String searchHint = getIntent().getStringExtra("searchHint");
+
         mViewPager = findViewById(R.id.vp_result_pager);
 
         mPagerAdapter = new FragmentPagerAdapter<>(this);
-        mPagerAdapter.addFragment(StatusFragment.newInstance());
+        mPagerAdapter.addFragment(StatusFragment.newInstance(searchHint));
         mViewPager.setAdapter(mPagerAdapter);
     }
 
