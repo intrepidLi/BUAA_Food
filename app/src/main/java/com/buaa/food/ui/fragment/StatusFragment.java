@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.food.ui.activity.DishDetailsActivity;
 import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
@@ -120,6 +121,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
      */
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+        startActivity(DishDetailsActivity.class);
         toast(mAdapter.getItem(position));
     }
 
