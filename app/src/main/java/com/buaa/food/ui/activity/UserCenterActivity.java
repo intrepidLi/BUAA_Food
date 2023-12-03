@@ -34,6 +34,7 @@ public final class UserCenterActivity extends AppActivity {
     private ImageView mAvatarView;
     private SettingBar mIdView;
     private SettingBar mNameView;
+    private DataBaseHelper dataBaseHelper;
 
 
     /** 头像地址 */
@@ -51,6 +52,7 @@ public final class UserCenterActivity extends AppActivity {
         mIdView = findViewById(R.id.sb_person_data_id);
         mNameView = findViewById(R.id.sb_person_data_name);
         setOnClickListener(mAvatarLayout, mAvatarView, mNameView);
+        dataBaseHelper = new DataBaseHelper(this);
     }
 
     @Override
@@ -62,8 +64,8 @@ public final class UserCenterActivity extends AppActivity {
                 .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
                 .into(mAvatarView);
 
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getContext());
-        mIdView.setRightText("000000");
+        // DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getContext());
+        mIdView.setRightText(dataBaseHelper.getUserId(UserAuth.getLocalUserPhone()));
         mNameView.setRightText(dataBaseHelper.getUsername(UserAuth.getLocalUserPhone()));
 
     }
