@@ -41,12 +41,10 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         private ShapeTextView dishNameTextView;
-        private AppCompatRadioButton favoriteButton;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
             dishNameTextView = itemView.findViewById(R.id.tv_hangwei_dishName);
-            favoriteButton = itemView.findViewById(R.id.hangwei_favorite_button);
             dishNameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -54,13 +52,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                     Context context = view.getContext();
                     Intent intent = new Intent(context, DishDetailsActivity.class);
                     context.startActivity(intent);
-                }
-            });
-            favoriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // 切换选中状态
-                    favoriteButton.setChecked(!favoriteButton.isChecked());
                 }
             });
         }

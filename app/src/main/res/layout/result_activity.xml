@@ -7,18 +7,34 @@
     android:orientation="vertical"
     tools:context="com.buaa.food.ui.activity.StatusActivity">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/rl_result_refresh"
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="搜索结果" />
+
+<!--    <com.buaa.food.widget.StatusLayout-->
+<!--        android:id="@+id/hl_status_hint"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <fragment-->
+<!--            android:name="com.buaa.food.ui.fragment.StatusFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            tools:ignore="MissingId"-->
+<!--            tools:layout="@layout/status_fragment" />-->
+<!--        <FrameLayout-->
+<!--            android:id="@+id/status_fragment_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--    </com.buaa.food.widget.StatusLayout>-->
+
+    <com.hjq.widget.layout.NestedViewPager
+        android:id="@+id/vp_result_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnablePreviewInEditMode="false">
-
-        <com.hjq.widget.layout.WrapRecyclerView
-            android:id="@+id/rv_result_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listCount="10"
-            tools:listitem="@layout/picker_item" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </LinearLayout>

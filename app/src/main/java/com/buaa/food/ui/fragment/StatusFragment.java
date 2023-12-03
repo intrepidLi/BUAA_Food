@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.food.ui.activity.DishDetailsActivity;
 import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
@@ -29,8 +30,32 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         implements OnRefreshLoadMoreListener,
         BaseAdapter.OnItemClickListener {
 
+    private enum Type {
+        HotRank,
+        Hangwei,
+        SearchResult,
+        Collection,
+    }
+
+    private final Type type;
+
+    private String searchHint;
+
     public static StatusFragment newInstance() {
-        return new StatusFragment();
+        return new StatusFragment(Type.Hangwei);
+    }
+
+    public static StatusFragment newInstance(String searchHint) {
+        return new StatusFragment(Type.SearchResult, searchHint);
+    }
+
+    StatusFragment(Type type) {
+        this.type = type;
+    }
+
+    StatusFragment(Type type, String searchHint) {
+        this.type = type;
+        this.searchHint = searchHint;
     }
 
     private SmartRefreshLayout mRefreshLayout;
@@ -60,13 +85,29 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         mAdapter.setData(analogData());
     }
 
-    /**
-     * 模拟数据
-     */
     private List<String> analogData() {
         List<String> data = new ArrayList<>();
-        for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-            data.add("第" + i + "道菜品");
+        switch (type) {
+            case HotRank:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add("热度第" + i + "的菜品");
+                }
+                break;
+            case Hangwei:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add("第" + i + "航味");
+                }
+                break;
+            case SearchResult:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add(searchHint + "的搜索结果" + i);
+                }
+                break;
+            case Collection:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add("第" + i + "道菜品");
+                }
+                break;
         }
         return data;
     }
@@ -80,6 +121,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
      */
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+        startActivity(DishDetailsActivity.class);
         toast(mAdapter.getItem(position));
     }
 

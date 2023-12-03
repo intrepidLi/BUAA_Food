@@ -27,8 +27,8 @@ import com.buaa.food.UserAuth;
 public final class SettingActivity extends AppActivity
         implements SwitchButton.OnCheckedChangeListener {
 
-    private SettingBar mNameView;
-    private SettingBar mPasswordView;
+//    private SettingBar mNameView;
+//    private SettingBar mPasswordView;
     private DataBaseHelper dataBaseHelper;
 
     @Override
@@ -38,42 +38,42 @@ public final class SettingActivity extends AppActivity
 
     @Override
     protected void initView() {
-        mNameView = findViewById(R.id.sb_setting_userName);
-        mPasswordView = findViewById(R.id.sb_setting_password);
+//        mNameView = findViewById(R.id.sb_setting_userName);
+//        mPasswordView = findViewById(R.id.sb_setting_password);
 
 
-        setOnClickListener(R.id.sb_setting_password, R.id.sb_setting_agreement, R.id.sb_setting_about,
+        setOnClickListener(R.id.sb_setting_agreement, R.id.sb_setting_about,
                 R.id.sb_setting_exit);
     }
 
     @Override
     protected void initData() {
-        dataBaseHelper = new DataBaseHelper(this.getContext());
-        String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
-
-        // 获取应用缓存大小
-        mNameView.setRightText(username);
-        mPasswordView.setRightText("密码强度较低");
+//        dataBaseHelper = new DataBaseHelper(this.getContext());
+//        String username = dataBaseHelper.getUsername(UserAuth.getLocalUserPhone());
+//
+//        // 获取应用缓存大小
+//        mNameView.setRightText(username);
+//        mPasswordView.setRightText("密码强度较低");
     }
 
     @SingleClick
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
-        if (viewId == R.id.sb_setting_userName) {
-
-            new SafeDialog.Builder(this)
-                    .setListener((dialog, phone, code) -> PhoneResetActivity.start(getActivity(), code))
-                    .show();
-
-        } else if (viewId == R.id.sb_setting_password) {
-
-            new SafeDialog.Builder(this)
-                    .setListener((dialog, phone, code) -> PasswordResetActivity.start(getActivity(), phone, code))
-                    .show();
-
-        }  else if (viewId == R.id.sb_setting_about) {
-
+//        if (viewId == R.id.sb_setting_userName) {
+//
+//            new SafeDialog.Builder(this)
+//                    .setListener((dialog, phone, code) -> PhoneResetActivity.start(getActivity(), code))
+//                    .show();
+//
+//        } else if (viewId == R.id.sb_setting_password) {
+//
+//            new SafeDialog.Builder(this)
+//                    .setListener((dialog, phone, code) -> PasswordResetActivity.start(getActivity(), phone, code))
+//                    .show();
+//
+//        }  else if (viewId == R.id.sb_setting_about) {
+        if (viewId == R.id.sb_setting_about) {
             startActivity(AboutActivity.class);
 
         } else if (viewId == R.id.sb_setting_agreement) {

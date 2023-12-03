@@ -5,12 +5,17 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
+import com.buaa.food.app.AppFragment;
 import com.buaa.food.app.TitleBarFragment;
 import com.buaa.food.ui.adapter.StatusAdapter;
+import com.buaa.food.ui.fragment.StatusFragment;
+import com.buaa.food.widget.StatusLayout;
 import com.hjq.base.BaseAdapter;
+import com.hjq.base.FragmentPagerAdapter;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
@@ -18,14 +23,10 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public final class ResultActivity extends TitleBarFragment<AppActivity>
-        implements OnRefreshLoadMoreListener,
-        BaseAdapter.OnItemClickListener {
+public final class ResultActivity extends AppActivity {
 
-    private SmartRefreshLayout mRefreshLayout;
-    private RecyclerView mRecyclerView;
-
-    private StatusAdapter mAdapter;
+    private ViewPager mViewPager;
+    private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -34,52 +35,15 @@ public final class ResultActivity extends TitleBarFragment<AppActivity>
 
     @Override
     protected void initView() {
-        mRefreshLayout = findViewById(R.id.rl_result_refresh);
-        mRecyclerView = findViewById(R.id.rv_result_list);
+        String searchHint = getIntent().getStringExtra("searchHint");
 
-        mAdapter = new StatusAdapter(getAttachActivity());
-        mAdapter.setOnItemClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
+        mViewPager = findViewById(R.id.vp_result_pager);
 
-        mRefreshLayout.setOnRefreshLoadMoreListener(this);
+        mPagerAdapter = new FragmentPagerAdapter<>(this);
+        mPagerAdapter.addFragment(StatusFragment.newInstance(searchHint));
+        mViewPager.setAdapter(mPagerAdapter);
     }
 
     @Override
-    protected void initData() {
-        mAdapter.setData(analogData());
-    }
-
-    private List<String> analogData() {
-        List<String> data = new ArrayList<>();
-        // TODO : 获取搜索结果
-
-        for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 10; i++) {
-            data.add("搜索结果" + i);
-        }
-        return data;
-    }
-
-    @Override
-    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        // TODO : 点击搜索结果, 跳转到餐品详情页
-    }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        postDelayed(() -> {
-            mAdapter.addData(analogData());
-            mRefreshLayout.finishLoadMore();
-            mAdapter.setLastPage(mAdapter.getCount() >= 100);
-            mRefreshLayout.setNoMoreData(mAdapter.isLastPage());
-        }, 1000);
-    }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        postDelayed(() -> {
-            mAdapter.clearData();
-            mAdapter.setData(analogData());
-            mRefreshLayout.finishRefresh();
-        }, 1000);
-    }
+    protected void initData() {}
 }

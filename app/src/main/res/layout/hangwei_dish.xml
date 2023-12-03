@@ -7,37 +7,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/dish_background"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 菜品名称 -->
-        <com.hjq.shape.view.ShapeTextView
-            android:id="@+id/tv_hangwei_dishName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:text="菜品名称"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:shape="rectangle"
-            app:shape_angle="0"
-            app:shape_centerX="0.5"
-            app:shape_centerY="0.5"
-            app:shape_endColor="@color/common_accent_color"
-            app:shape_radius="@dimen/dp_20"
-            app:shape_startColor="@color/common_button_pressed_color" />
+        <LinearLayout
+            android:layout_width="@dimen/dp_310"
+            android:layout_height="@dimen/dp_100">
 
-        <!-- 收藏按钮 -->
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/hangwei_favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:button="@drawable/radiobutton_selector"
-            android:checked="false" />
+            <!-- 菜品图片 -->
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_hangwei_dishImage"
+                android:layout_width="@dimen/dp_105"
+                android:layout_height="@dimen/dp_105"
+                android:src="@drawable/test_user_img" />
+
+            <LinearLayout
+                android:layout_width="246dp"
+                android:layout_height="103dp"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <!-- 菜品名称 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_hangwei_dishName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/dp_10"
+                    android:text="菜品名称"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    app:shape="rectangle"
+                    app:shape_angle="0"
+                    app:shape_centerX="0.5"
+                    app:shape_centerY="0.5"
+                    app:shape_radius="@dimen/dp_20"/>
+
+                <!-- 菜品价格 -->
+                <com.hjq.shape.view.ShapeTextView
+                    android:id="@+id/tv_hangwei_dishPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/dp_1"
+                    android:text="菜品价格"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:shape="rectangle"
+                    app:shape_angle="0"
+                    app:shape_centerX="0.5"
+                    app:shape_centerY="0.5"
+                    app:shape_radius="@dimen/dp_20"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

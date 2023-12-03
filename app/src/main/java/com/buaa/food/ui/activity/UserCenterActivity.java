@@ -36,6 +36,7 @@ public final class UserCenterActivity extends AppActivity {
     private ImageView mAvatarView;
     private SettingBar mIdView;
     private SettingBar mNameView;
+    private SettingBar mPasswordView;
     private DataBaseHelper dataBaseHelper;
 
 
@@ -55,7 +56,8 @@ public final class UserCenterActivity extends AppActivity {
         mAvatarView = findViewById(R.id.iv_person_data_avatar);
         mIdView = findViewById(R.id.sb_person_data_id);
         mNameView = findViewById(R.id.sb_person_data_name);
-        setOnClickListener(mAvatarLayout, mAvatarView, mNameView);
+        mPasswordView = findViewById(R.id.sb_person_data_password);
+        setOnClickListener(mPasswordView, mAvatarLayout, mAvatarView, mNameView);
         dataBaseHelper = new DataBaseHelper(this);
     }
 
@@ -83,7 +85,7 @@ public final class UserCenterActivity extends AppActivity {
         // DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getContext());
         mIdView.setRightText(dataBaseHelper.getUserId(UserAuth.getLocalUserPhone()));
         mNameView.setRightText(dataBaseHelper.getUsername(UserAuth.getLocalUserPhone()));
-
+        mPasswordView.setRightText("***");
     }
 
     @SingleClick
@@ -94,7 +96,9 @@ public final class UserCenterActivity extends AppActivity {
                 // 裁剪头像
                 cropImageFile(new File(data.get(0)));
             });
-        } else if (view == mAvatarView) {
+        } else if (view == mPasswordView) {
+            startActivity(PasswordResetActivity.class);
+        }else if (view == mAvatarView) {
             if (mAvatarUrl != null) {
                 // 查看头像
                 ImagePreviewActivity.start(getActivity(), mAvatarUrl.toString());

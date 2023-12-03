@@ -167,7 +167,6 @@ public final class RegisterActivity extends AppActivity
 
         else if (view == mReturnView) {
             startActivity(LoginActivity.class);
-            return;
         }
 
     }
