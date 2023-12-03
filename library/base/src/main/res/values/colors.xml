@@ -70,5 +70,6 @@
     <color name="orange">#FFFFA500</color>
     <!-- perfect blue -->
     <color name="perfect_blue">#DAF0FF</color>
+    <color name="background">#CD90C4FB</color>
 
 </resources>
