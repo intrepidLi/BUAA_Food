@@ -12,12 +12,6 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : FragmentPagerAdapter 封装
- */
 public final class FragmentPagerAdapter<F extends Fragment> extends androidx.fragment.app.FragmentPagerAdapter {
 
     /** Fragment 集合 */

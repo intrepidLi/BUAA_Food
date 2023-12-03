@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.buaa.food.app.AppFragment;
 import com.buaa.food.http.glide.GlideApp;
+import com.buaa.food.ui.activity.ResultActivity;
 import com.buaa.food.ui.adapter.DishAdapter;
 import com.buaa.food.ui.adapter.TabAdapter;
 import com.bumptech.glide.load.MultiTransformation;
@@ -33,13 +34,6 @@ import com.hjq.widget.view.SwitchButton;
 import java.util.ArrayList;
 
 import javax.xml.transform.sax.SAXResult;
-
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 发现 Fragment
- */
 
 public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         implements SwitchButton.OnCheckedChangeListener,ViewPager.OnPageChangeListener, TabAdapter.OnTabListener {
@@ -103,6 +97,7 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
             }
         });
 
+        setOnClickListener(mSearchView);
     }
 
     @Override
@@ -135,7 +130,9 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
     @SingleClick
     @Override
     public void onClick(View view) {
-
+        if (view == mSearchView) {
+            startActivity(ResultActivity.class);
+        }
     }
 
     @Override
