@@ -13,13 +13,6 @@ import com.hjq.base.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/19
- *    desc   : RecyclerView 适配器业务基类
- */
 public abstract class AppAdapter<T> extends BaseAdapter<BaseAdapter<?>.ViewHolder> {
 
     /** 列表数据 */

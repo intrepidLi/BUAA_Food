@@ -1,10 +1,8 @@
 package com.buaa.food.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,7 +58,7 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
         mViewPager = findViewById(R.id.vp_home_pager);
 
         mPagerAdapter = new FragmentPagerAdapter<>(this);
-        mPagerAdapter.addFragment(StatusFragment.newInstance(), "餐品热度排行榜");
+        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.HotRank), "餐品热度排行榜");
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
 

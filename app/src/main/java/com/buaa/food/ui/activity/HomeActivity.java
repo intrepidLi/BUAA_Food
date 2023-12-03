@@ -22,12 +22,6 @@ import com.buaa.food.manager.ActivityManager;
 import com.buaa.food.other.DoubleClickHelper;
 import com.buaa.food.ui.adapter.NavigationAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 首页界面
- */
 public final class HomeActivity extends AppActivity
         implements NavigationAdapter.OnNavigationListener {
 

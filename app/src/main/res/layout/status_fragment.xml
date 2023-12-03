@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.buaa.food.ui.fragment.StatusFragment" >
+    tools:context="com.buaa.food.ui.fragment.DishesFragment" >
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/rl_status_refresh"

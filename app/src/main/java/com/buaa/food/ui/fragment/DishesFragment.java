@@ -1,7 +1,6 @@
 package com.buaa.food.ui.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,49 +10,46 @@ import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.app.TitleBarFragment;
-import com.buaa.food.ui.adapter.StatusAdapter;
+import com.buaa.food.ui.adapter.DishesAdapter;
 import com.hjq.widget.layout.WrapRecyclerView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+import com.buaa.food.DishPreview;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/07/10
- *    desc   : 加载案例 Fragment
- */
-public final class StatusFragment extends TitleBarFragment<AppActivity>
+
+public final class DishesFragment extends TitleBarFragment<AppActivity>
         implements OnRefreshLoadMoreListener,
         BaseAdapter.OnItemClickListener {
 
-    private enum Type {
+    public enum StatusType {
         HotRank,
         Hangwei,
         SearchResult,
         Collection,
+        History,
     }
 
-    private final Type type;
+    private final StatusType type;
 
     private String searchHint;
 
-    public static StatusFragment newInstance() {
-        return new StatusFragment(Type.Hangwei);
+    public static DishesFragment newInstance(StatusType type) {
+        return new DishesFragment(type);
     }
 
-    public static StatusFragment newInstance(String searchHint) {
-        return new StatusFragment(Type.SearchResult, searchHint);
+    public static DishesFragment newInstance(String searchHint) {
+        return new DishesFragment(StatusType.SearchResult, searchHint);
     }
 
-    StatusFragment(Type type) {
+    public DishesFragment(StatusType type) {
         this.type = type;
     }
 
-    StatusFragment(Type type, String searchHint) {
+    public DishesFragment(StatusType type, String searchHint) {
         this.type = type;
         this.searchHint = searchHint;
     }
@@ -61,7 +57,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
     private SmartRefreshLayout mRefreshLayout;
     private WrapRecyclerView mRecyclerView;
 
-    private StatusAdapter mAdapter;
+    private DishesAdapter mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -73,7 +69,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         mRefreshLayout = findViewById(R.id.rl_status_refresh);
         mRecyclerView = findViewById(R.id.rv_status_list);
 
-        mAdapter = new StatusAdapter(getAttachActivity());
+        mAdapter = new DishesAdapter(getAttachActivity());
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -85,27 +81,32 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         mAdapter.setData(analogData());
     }
 
-    private List<String> analogData() {
-        List<String> data = new ArrayList<>();
+    private List<DishPreview> analogData() {
+        List<DishPreview> data = new ArrayList<>();
         switch (type) {
             case HotRank:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add("热度第" + i + "的菜品");
+                    data.add(new DishPreview("热度第" + i, "￥" + i));
                 }
                 break;
             case Hangwei:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add("第" + i + "航味");
+                    data.add(new DishPreview("第" + i + "道航味", "￥" + i));
                 }
                 break;
             case SearchResult:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(searchHint + "的搜索结果" + i);
+                    data.add(new DishPreview(searchHint + i, "￥" + i));
                 }
                 break;
             case Collection:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add("第" + i + "道菜品");
+                    data.add(new DishPreview("收藏" + i, "￥" + i));
+                }
+                break;
+            case History:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add(new DishPreview("历史记录" + i, "￥" + i));
                 }
                 break;
         }
@@ -128,7 +129,6 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
     /**
      * {@link OnRefreshLoadMoreListener}
      */
-
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         postDelayed(() -> {

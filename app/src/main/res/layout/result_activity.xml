@@ -19,7 +19,7 @@
 <!--        android:layout_height="match_parent">-->
 
 <!--        <fragment-->
-<!--            android:name="com.buaa.food.ui.fragment.StatusFragment"-->
+<!--            android:name="com.buaa.food.ui.fragment.DishesFragment"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent"-->
 <!--            tools:ignore="MissingId"-->

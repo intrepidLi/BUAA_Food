@@ -5,36 +5,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.buaa.food.app.AppFragment;
-import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.ui.activity.ResultActivity;
-import com.buaa.food.ui.adapter.DishAdapter;
 import com.buaa.food.ui.adapter.TabAdapter;
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.TitleBarFragment;
 import com.buaa.food.ui.activity.HomeActivity;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.base.FragmentPagerAdapter;
-import com.hjq.widget.view.CountdownView;
 import com.hjq.widget.view.SwitchButton;
 
 import java.util.ArrayList;
-
-import javax.xml.transform.sax.SAXResult;
 
 public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         implements SwitchButton.OnCheckedChangeListener,ViewPager.OnPageChangeListener, TabAdapter.OnTabListener {
@@ -68,8 +56,8 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         mViewPager = findViewById(R.id.vp_hangwei_pager);
 
         mPagerAdapter = new FragmentPagerAdapter<>(this);
-        mPagerAdapter.addFragment(StatusFragment.newInstance(), "新北食堂");
-        mPagerAdapter.addFragment(StatusFragment.newInstance(), "东区食堂");
+        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei), "新北食堂");
+        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei), "东区食堂");
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
 
