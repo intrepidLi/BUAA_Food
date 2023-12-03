@@ -410,6 +410,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public String getUserPassword(String phone){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where phone=?",
+                new String[]{phone});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String password = cursor.getString(cursor.getColumnIndex("password"));
+            cursor.close();
+            // db.close();
+            return password;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
     public byte[] getUserAvatar(String phone){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
@@ -469,6 +486,26 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             Toast.makeText(context, "Successfully updated username", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully updated username");
             // db.close();
+        }
+    }
+
+    public boolean updatePassword(String phone, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("password", password);
+
+        long result = db.update("users", contentValues, "phone=?", new String[]{phone});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update password", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Failed to update password");
+            return false;
+        }else{
+            Toast.makeText(context, "Successfully updated password", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Successfully updated password");
+
+            // db.close();
+            return true;
         }
     }
 
