@@ -15,7 +15,6 @@ import com.buaa.food.manager.CacheDataManager;
 import com.buaa.food.manager.ThreadPoolManager;
 import com.buaa.food.other.AppConfig;
 import com.buaa.food.ui.dialog.MenuDialog;
-import com.buaa.food.ui.dialog.SafeDialog;
 import com.buaa.food.ui.dialog.UpdateDialog;
 import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
@@ -62,15 +61,9 @@ public final class SettingActivity extends AppActivity
         int viewId = view.getId();
         if (viewId == R.id.sb_setting_userName) {
 
-            new SafeDialog.Builder(this)
-                    .setListener((dialog, phone, code) -> PhoneResetActivity.start(getActivity(), code))
-                    .show();
 
         } else if (viewId == R.id.sb_setting_password) {
-
-            new SafeDialog.Builder(this)
-                    .setListener((dialog, phone, code) -> PasswordResetActivity.start(getActivity(), phone, code))
-                    .show();
+            startActivity(PasswordResetActivity.class);
 
         }  else if (viewId == R.id.sb_setting_about) {
 

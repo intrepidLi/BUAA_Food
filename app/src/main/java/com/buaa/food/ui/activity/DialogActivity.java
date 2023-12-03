@@ -18,7 +18,6 @@ import com.buaa.food.ui.dialog.InputDialog;
 import com.buaa.food.ui.dialog.MenuDialog;
 import com.buaa.food.ui.dialog.MessageDialog;
 import com.buaa.food.ui.dialog.PayPasswordDialog;
-import com.buaa.food.ui.dialog.SafeDialog;
 import com.buaa.food.ui.dialog.SelectDialog;
 import com.buaa.food.ui.dialog.ShareDialog;
 import com.buaa.food.ui.dialog.TimeDialog;
@@ -451,24 +450,6 @@ public final class DialogActivity extends AppActivity {
                     .setDownloadUrl("https://dldir1.qq.com/weixin/android/weixin807android1920_arm64.apk")
                     // 文件 MD5
                     .setFileMd5("df2f045dfa854d8461d9cefe08b813c8")
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_safe) {
-
-            // 身份校验对话框
-            new SafeDialog.Builder(this)
-                    .setListener(new SafeDialog.OnListener() {
-
-                        @Override
-                        public void onConfirm(BaseDialog dialog, String phone, String code) {
-                            toast("手机号：" + phone + "\n验证码：" + code);
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
                     .show();
 
         } else if (viewId == R.id.btn_dialog_custom) {
