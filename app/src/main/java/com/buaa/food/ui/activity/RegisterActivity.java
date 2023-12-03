@@ -154,7 +154,7 @@ public final class RegisterActivity extends AppActivity
                 mCommitView.showError(3000);
             }
 
-            if (dataBaseHelper.insertUser(username, password, phone)) {
+            if (dataBaseHelper.insertInitUser(username, password, phone)) {
                 Toast.makeText(RegisterActivity.this, "SignUp Successfully", Toast.LENGTH_SHORT).show();
                 mCommitView.showSucceed();
                 UserAuth.setLocalUserPhone(phone);

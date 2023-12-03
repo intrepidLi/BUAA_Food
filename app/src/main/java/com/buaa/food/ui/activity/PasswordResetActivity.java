@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
+import com.buaa.food.UserAuth;
 import com.buaa.food.aop.Log;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
@@ -48,11 +50,7 @@ public final class PasswordResetActivity extends AppActivity
     private EditText mFirstPassword;
     private EditText mSecondPassword;
     private Button mCommitView;
-
-    /** 手机号 */
-    private String mPhoneNumber;
-    /** 验证码 */
-    private String mVerifyCode;
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected int getLayoutId() {
@@ -74,12 +72,13 @@ public final class PasswordResetActivity extends AppActivity
                 .addView(mSecondPassword)
                 .setMain(mCommitView)
                 .build();
+        this.dataBaseHelper = new DataBaseHelper(this);
     }
 
     @Override
     protected void initData() {
-        mPhoneNumber = getString(INTENT_KEY_IN_PHONE);
-        mVerifyCode = getString(INTENT_KEY_IN_CODE);
+
+
     }
 
     @SingleClick
@@ -97,7 +96,7 @@ public final class PasswordResetActivity extends AppActivity
             // 隐藏软键盘
             hideKeyboard(getCurrentFocus());
 
-            if (true) {
+            if (dataBaseHelper.updatePassword(UserAuth.getLocalUserPhone(), mFirstPassword.getText().toString())) {
                 new TipsDialog.Builder(this)
                         .setIcon(TipsDialog.ICON_FINISH)
                         .setMessage(R.string.password_reset_success)
@@ -106,25 +105,6 @@ public final class PasswordResetActivity extends AppActivity
                         .show();
                 return;
             }
-
-            // 重置密码
-            EasyHttp.post(this)
-                    .api(new PasswordApi()
-                            .setPhone(mPhoneNumber)
-                            .setCode(mVerifyCode)
-                            .setPassword(mFirstPassword.getText().toString()))
-                    .request(new HttpCallback<HttpData<Void>>(this) {
-
-                        @Override
-                        public void onSucceed(HttpData<Void> data) {
-                            new TipsDialog.Builder(getActivity())
-                                    .setIcon(TipsDialog.ICON_FINISH)
-                                    .setMessage(R.string.password_reset_success)
-                                    .setDuration(2000)
-                                    .addOnDismissListener(dialog -> finish())
-                                    .show();
-                        }
-                    });
         }
     }
 

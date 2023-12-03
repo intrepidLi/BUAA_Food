@@ -33,7 +33,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sb_person_data_name"
             android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_50"
+            android:layout_height="@dimen/dp_40"
             android:layout_gravity="end|center_horizontal"
             android:gravity="center"
             android:layout_margin="@dimen/dp_30"
@@ -47,38 +47,39 @@
 
         <LinearLayout
             android:id="@+id/btn_user_center"
-            android:layout_width="@dimen/dp_130"
+            android:layout_width="@dimen/dp_150"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/dp_40"
+            android:layout_margin="@dimen/dp_30"
             android:gravity="center"
             android:scaleType="centerCrop"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/user_center_icon"
-                android:layout_width="@dimen/dp_18"
-                android:layout_height="@dimen/dp_18"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
                 android:src="@drawable/user_center" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/user_center_name"
                 android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_20"
+                android:layout_height="@dimen/dp_60"
                 android:layout_gravity="start|center_horizontal"
                 android:gravity="center"
                 android:maxLines="1"
                 android:scaleType="centerCrop"
                 android:layout_marginStart="@dimen/dp_5"
                 android:text="@string/user_center_page"
-                app:autoSizeMaxTextSize="@dimen/sp_20"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="@dimen/sp_30"
                 app:autoSizeStepGranularity="1sp"
                 app:autoSizeTextType="uniform" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/user_center_right_icon"
                 android:layout_width="@dimen/dp_15"
-                android:layout_height="@dimen/dp_15"
+                android:layout_height="@dimen/dp_60"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_gravity="center"
                 android:src="@drawable/arrows_right_ic" />
