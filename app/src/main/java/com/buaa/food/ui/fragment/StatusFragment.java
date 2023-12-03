@@ -36,7 +36,7 @@ public final class StatusFragment extends TitleBarFragment<AppActivity>
         Collection,
     }
 
-    private Type type;
+    private final Type type;
 
     private String searchHint;
 
