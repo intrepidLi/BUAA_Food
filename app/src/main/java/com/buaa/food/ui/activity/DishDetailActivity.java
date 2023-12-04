@@ -1,5 +1,6 @@
 package com.buaa.food.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.umeng.commonsdk.debug.D;
 public final class DishDetailActivity extends AppActivity {
 
     private int dishId;
+    boolean isCollected = false;
 
     private AppCompatImageView mDishImageView;
     private AppCompatTextView mDishNameView;
@@ -62,6 +64,7 @@ public final class DishDetailActivity extends AppActivity {
         dataBaseHelper = new DataBaseHelper(this);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initData() {
         byte[] imgByte = dataBaseHelper.getDishImage(dishId);
@@ -72,22 +75,30 @@ public final class DishDetailActivity extends AppActivity {
                 .load(imgBitmap)
                 .placeholder(R.drawable.dish_1)
                 .error(R.drawable.dish_1)
-                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+                .transform(new MultiTransformation<>(new CenterCrop()))
                 .into(mDishImageView);
         } else {
             GlideApp.with(getActivity())
                 .load(R.drawable.dish_1)
                 .placeholder(R.drawable.dish_1)
                 .error(R.drawable.dish_1)
-                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+                .transform(new MultiTransformation<>(new CenterCrop()))
                 .into(mDishImageView);
         }
 
         mDishNameView.setText(dataBaseHelper.getDishName(dishId));
-        mDishPriceView.setText(String.valueOf(dataBaseHelper.getDishPrice(dishId)));
-        mDishRemainingView.setText(String.valueOf(dataBaseHelper.getDishRemaining(dishId)));
+        mDishPriceView.setText(dataBaseHelper.getDishPrice(dishId) + " 元");
+        mDishRemainingView.setText(dataBaseHelper.getDishRemaining(dishId) + " 份");
         mDishCanteenView.setText(dataBaseHelper.getDishCanteen(dishId));
         mDishWindowView.setText(dataBaseHelper.getDishWindow(dishId));
+
+        // TODO : init mCollectionView
+        // isCollected = dataBaseHelper.isDishCollected(dishId);
+        if (isCollected) {
+            mCollectionView.setImageResource(R.drawable.collected);
+        } else {
+            mCollectionView.setImageResource(R.drawable.collection_icon);
+        }
     }
 
     @SingleClick
@@ -97,14 +108,29 @@ public final class DishDetailActivity extends AppActivity {
             dataBaseHelper.updateDishRemaining(dishId, dataBaseHelper.getDishRemaining(dishId) - 1);
             dataBaseHelper.updateDishViewed(dishId, dataBaseHelper.getDishViewed(dishId) + 1);
 
+            // TODO : Add to user's history
+
             Toast.makeText(DishDetailActivity.this, "购买成功", Toast.LENGTH_SHORT).show();
             finish();
 
         } else if (view == mCommentEnterBar) {
 
+            // TODO : Enter comment activity
 
         } else if (view == mCollectionView) {
+            // dataBaseHelper.uploadFavorite(dishId);
 
+            // TODO : Add to user's collection or cancel collection
+
+            if (isCollected) {
+                toast("取消收藏");
+                mCollectionView.setImageResource(R.drawable.collection_icon);
+                isCollected = false;
+            } else {
+                toast("收藏成功");
+                mCollectionView.setImageResource(R.drawable.collected);
+                isCollected = true;
+            }
 
         }
     }

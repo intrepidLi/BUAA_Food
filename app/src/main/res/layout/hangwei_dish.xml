@@ -10,7 +10,10 @@
         android:layout_gravity="center_vertical"
         android:background="@drawable/dish_background"
         android:gravity="center"
-        android:layout_margin="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginRight="@dimen/dp_8"
+        android:layout_marginBottom="@dimen/dp_2"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent">

@@ -974,7 +974,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean upLoadFavorite(int dishId) {
+    public boolean uploadFavorite(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         int userId = getUserId(UserAuth.getLocalUserPhone());
 
