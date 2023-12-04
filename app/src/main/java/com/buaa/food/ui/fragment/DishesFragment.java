@@ -1,10 +1,12 @@
 package com.buaa.food.ui.fragment;
 
+import android.provider.ContactsContract;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.ui.activity.DishDetailsActivity;
 import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
@@ -16,6 +18,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.buaa.food.DishPreview;
+import com.umeng.commonsdk.debug.D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,27 +40,50 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
     private String searchHint;
 
+    // 标识哪个食堂
+    private String canteenTitle;
+    // 标识构造方法，第二个String是searchHint还是canteenTitle
+    // 0: searchHint, 1: canteenTitle
+    private int constructFlag;
+    // 从数据库拉取所有餐品
+    private List<DishPreview> allDishes;
+
     public static DishesFragment newInstance(StatusType type) {
         return new DishesFragment(type);
     }
 
+    public static DishesFragment newInstance(StatusType type, String canteenTitle) {
+        return new DishesFragment(type, canteenTitle, 1);
+    }
+
     public static DishesFragment newInstance(String searchHint) {
-        return new DishesFragment(StatusType.SearchResult, searchHint);
+        return new DishesFragment(StatusType.SearchResult, searchHint, 0);
     }
 
     public DishesFragment(StatusType type) {
         this.type = type;
     }
 
-    public DishesFragment(StatusType type, String searchHint) {
+//    public DishesFragment(StatusType type, String canteenTitle) {
+//        this.type = type;
+//    }
+
+    public DishesFragment(StatusType type, String searchHint, int constructFlag) {
         this.type = type;
-        this.searchHint = searchHint;
+        if (constructFlag == 0) {
+            this.searchHint = searchHint;
+        } else if (constructFlag == 1) {
+            this.canteenTitle = searchHint;
+        }
     }
 
     private SmartRefreshLayout mRefreshLayout;
     private WrapRecyclerView mRecyclerView;
 
     private DishesAdapter mAdapter;
+
+    // 添加数据库连接
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected int getLayoutId() {
@@ -74,6 +100,9 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mRecyclerView.setAdapter(mAdapter);
 
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
+        this.dataBaseHelper = new DataBaseHelper(this.getContext());
+
+        allDishes = dataBaseHelper.fetchCanteenDishes(canteenTitle);
     }
 
     @Override
@@ -81,27 +110,31 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mAdapter.setData(analogData());
     }
 
+    private void hangWeiProcess() {
+
+    }
+
     private List<DishPreview> analogData() {
         List<DishPreview> data = new ArrayList<>();
         switch (type) {
             case HotRank:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("热度第" + i, "￥" + i));
+                    // data.add(new DishPreview("热度第" + i, "￥" + i));
                 }
                 break;
             case Hangwei:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("第" + i + "道航味", "￥" + i));
+                    // data.add(new DishPreview("第" + i + "道航味", "￥" + i));
                 }
                 break;
             case SearchResult:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview(searchHint + i, "￥" + i));
+                    // data.add(new DishPreview(searchHint + i, "￥" + i));
                 }
                 break;
             case Collection:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("收藏" + i, "￥" + i));
+                    // data.add(new DishPreview("收藏" + i, "￥" + i));
                 }
                 break;
             case History:
