@@ -1,6 +1,5 @@
 package com.buaa.food.ui.activity.admin;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -8,8 +7,6 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,23 +18,17 @@ import androidx.appcompat.widget.AppCompatTextView;
 import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
 import com.buaa.food.UserAuth;
-import com.buaa.food.aop.Log;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.http.glide.GlideApp;
 import com.buaa.food.manager.InputTextManager;
-import com.buaa.food.ui.activity.HomeActivity;
 import com.buaa.food.ui.activity.ImageCropActivity;
 import com.buaa.food.ui.activity.ImageSelectActivity;
-import com.buaa.food.ui.activity.LoginActivity;
-import com.buaa.food.ui.activity.SettingActivity;
 import com.buaa.food.ui.dialog.SelectDialog;
-import com.buaa.food.ui.fragment.MineFragment;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.gyf.immersionbar.ImmersionBar;
-import com.hjq.base.BaseActivity;
 import com.hjq.base.BaseDialog;
 import com.hjq.http.model.FileContentResolver;
 import com.hjq.widget.view.SubmitButton;
@@ -46,9 +37,6 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Map;
-
-import timber.log.Timber;
 
 public final class DishUploadActivity extends AppActivity
         implements TextView.OnEditorActionListener {

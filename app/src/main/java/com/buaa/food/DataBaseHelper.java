@@ -22,6 +22,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -77,7 +81,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 " viewed integer," +
                 " remain integer, " +
                 " price float, " +
-                "image varchar(100), " +
+                "image BLOB, " +
                 "foreign key(windowId) references windows(id), " +
                 "foreign key(canteenId) references canteens(id))");
 
@@ -265,7 +269,17 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                     contentValues.put("viewed", Integer.parseInt(line[5]));
                     contentValues.put("remain", Integer.parseInt(line[6]));
                     contentValues.put("price", Float.parseFloat(line[7]));
-                    contentValues.put("image", line[8]);
+                    // TODO: 数据库里的图片初始化除了4张时都为new byte[0]
+                    if (!Objects.equals(line[8], "default")) {
+                        String base64ImageData = line[8];
+                        byte[] imageData = new byte[0];
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            imageData = Base64.getDecoder().decode(base64ImageData);
+                        }
+                        contentValues.put("image", imageData);
+                    } else {
+                        contentValues.put("image", new byte[0]);
+                    }
                     // String image = values[3];
 
                     // 使用占位符插入数据，防止SQL注入
@@ -499,6 +513,39 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             // db.close();
             return true;
         }
+    }
+
+    public List<DishPreview> fetchCanteenDishes(String canteenName) {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        // 使用数据库帮助类获取数据库实例
+        SQLiteDatabase db = getReadableDatabase();
+
+        // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
+        String query = "SELECT d.id, d.name, d.price, d.image FROM dishes d" +
+                "INNER JOIN canteens c ON d.canteenId = c.id " +
+                "WHERE c.address = ?";
+
+        // 执行查询
+        Cursor cursor = db.rawQuery(query, new String[]{canteenName});
+
+        // 处理查询结果
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+                // 根据查询结果创建 DishPreview 对象并添加到数据列表
+                dishPreviews.add(new DishPreview(id, name, price, image));
+            } while (cursor.moveToNext());
+
+            // 关闭 cursor
+            cursor.close();
+        }
+
+        return dishPreviews;
     }
 
     public String getDishName(int dishId) {
@@ -797,4 +844,5 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             return -1;
         }
     }
+
 }

@@ -56,8 +56,8 @@ public final class HangWeiFragment extends TitleBarFragment<HomeActivity>
         mViewPager = findViewById(R.id.vp_hangwei_pager);
 
         mPagerAdapter = new FragmentPagerAdapter<>(this);
-        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei), "新北食堂");
-        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei), "东区食堂");
+        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei, "新北食堂"), "新北食堂");
+        mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Hangwei, "东区食堂"), "东区食堂");
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(this);
 
