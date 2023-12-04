@@ -46,13 +46,6 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
     private final StatusType type;
 
     private String searchHint;
-
-    // 标识哪个食堂
-    private String canteenTitle;
-    // 标识构造方法，第二个String是searchHint还是canteenTitle
-    // 0: searchHint, 1: canteenTitle
-    private int constructFlag;
-    // 从数据库拉取所有餐品
     private List<DishPreview> allDishes;
 
     public static DishesFragment newInstance(StatusType type) {
@@ -104,21 +97,22 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
         this.dataBaseHelper = new DataBaseHelper(this.getContext());
         // canteenTitle = "新北食堂";
-        allDishes = new ArrayList<>();
+        allDishes = dataBaseHelper.fetchAllDishes();
     }
 
     @Override
     protected void initData() {
-        mAdapter.setData(analogData());
-    }
-
-    private void hangWeiProcess(List<DishPreview> data, StatusType type) {
+        Timber.tag("dishesFragment").d("Enter initData");
         if (type == StatusType.HangweiXinBei) {
             allDishes = dataBaseHelper.fetchCanteenDishes("新北食堂");
         } else if (type == StatusType.HangweiDongQu) {
             allDishes = dataBaseHelper.fetchCanteenDishes("东区食堂");
         }
 
+        mAdapter.setData(analogData());
+    }
+
+    private void hangWeiProcess(List<DishPreview> data, StatusType type) {
         for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
             DishPreview dishPreview = allDishes.get(i);
             data.add(dishPreview);

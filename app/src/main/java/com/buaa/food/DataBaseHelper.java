@@ -549,6 +549,37 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return dishPreviews;
     }
 
+    public List<DishPreview> fetchAllDishes() {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        // 使用数据库帮助类获取数据库实例
+        SQLiteDatabase db = getReadableDatabase();
+
+        // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
+        String query = "SELECT id, name, price, image FROM dishes";
+
+        // 执行查询
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 处理查询结果
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+                // 根据查询结果创建 DishPreview 对象并添加到数据列表
+                dishPreviews.add(new DishPreview(id, name, price, image));
+            } while (cursor.moveToNext());
+
+            // 关闭 cursor
+            cursor.close();
+        }
+
+        return dishPreviews;
+    }
+
     public String getDishName(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
