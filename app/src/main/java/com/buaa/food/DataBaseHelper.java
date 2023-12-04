@@ -314,25 +314,17 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("password", password);
         contentValues.put("phone", phone);
         long result = db.insert("users", null, contentValues);
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        return result != -1;
     }
 
-    public boolean update(String username, String password, String phone){
+    public boolean updateUser(String username, String password, String phone){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
         contentValues.put("password", password);
         contentValues.put("phone", phone);
         long result = db.update("users", contentValues, "username=?", new String[]{username});
-        if(result == -1){
-            return false;
-        }else{
-            return true;
-        }
+        return result != -1;
     }
 
     public boolean checkUsername(String username){
@@ -509,4 +501,300 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public String getDishName(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            cursor.close();
+            // db.close();
+            return name;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public float getDishPrice(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            float price = cursor.getFloat(cursor.getColumnIndex("price"));
+            cursor.close();
+            // db.close();
+            return price;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1f;
+        }
+    }
+
+    public int getDishRemaining(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int remaining = cursor.getInt(cursor.getColumnIndex("remain"));
+            cursor.close();
+            // db.close();
+            return remaining;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1;
+        }
+    }
+
+    public byte[] getDishImage(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+            cursor.close();
+            // db.close();
+            return image;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public String getDishCanteen(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int canteenId = cursor.getInt(cursor.getColumnIndex("canteenId"));
+            cursor.close();
+            // db.close();
+            return getCanteenName(canteenId);
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public String getDishWindow(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int windowId = cursor.getInt(cursor.getColumnIndex("windowId"));
+            cursor.close();
+            // db.close();
+            return getWindowName(windowId);
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public String getCanteenName(int canteenId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from canteens where id=?", new String[]{String.valueOf(canteenId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            cursor.close();
+            // db.close();
+            return name;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public String getWindowName(int windowId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from windows where id=?", new String[]{String.valueOf(windowId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            cursor.close();
+            // db.close();
+            return name;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
+    public boolean updateDishName(int dishId, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish name");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish name");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishPrice(int dishId, float price) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("price", price);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish price");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish price");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishRemaining(int dishId, int remaining) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("remain", remaining);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishImage(int dishId, Bitmap bitmapImage) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        imageInByte = byteArrayOutputStream.toByteArray();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("image", imageInByte);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish image");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish image");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishCanteen(int dishId, int canteenId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("canteenId", canteenId);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish canteen");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish canteen");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishWindow(int dishId, int windowId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("windowId", windowId);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish window");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish window");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean insertDish(String name, float price, int remaining, int windowId, int canteenId){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("name", name);
+        contentValues.put("price", price);
+        contentValues.put("remain", remaining);
+        contentValues.put("windowId", windowId);
+        contentValues.put("canteenId", canteenId);
+        contentValues.put("image", new byte[0]);
+
+        long result = db.insert("dishes", null, contentValues);
+        return result != -1;
+    }
+
+    public boolean updateDish(int id, String name, float price, int remaining, int windowId, int canteenId){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("name", name);
+        contentValues.put("price", price);
+        contentValues.put("remain", remaining);
+        contentValues.put("windowId", windowId);
+        contentValues.put("canteenId", canteenId);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(id)});
+        return result != -1;
+    }
+
+    public int getCanteenId(String canteenName) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from canteens where name=?", new String[]{canteenName});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            cursor.close();
+            // db.close();
+            return id;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1;
+        }
+    }
+
+    public int getWindowId(String windowName) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from windows where name=?", new String[]{windowName});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            cursor.close();
+            // db.close();
+            return id;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1;
+        }
+    }
 }
