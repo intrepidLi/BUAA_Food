@@ -97,7 +97,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
         this.dataBaseHelper = new DataBaseHelper(this.getContext());
         // canteenTitle = "新北食堂";
-        allDishes = new ArrayList<>();
+        allDishes = dataBaseHelper.fetchAllDishes();
     }
 
     @Override
