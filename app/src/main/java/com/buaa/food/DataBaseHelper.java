@@ -252,7 +252,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         try {
             // 打开CSV文件输入流
             CSVReader reader = new CSVReader(new InputStreamReader(
-                    (context).getAssets().open("dishes1.csv")
+                    (context).getAssets().open("dishes2.csv")
             ));
             // 跳过CSV文件的标题行
             String[] header = reader.readNext();
@@ -273,6 +273,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                     if (!Objects.equals(line[8], "default")) {
                         String base64ImageData = line[8];
                         byte[] imageData = new byte[0];
+                        Timber.tag("uploadDishImage").d(base64ImageData);
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                             imageData = Base64.getDecoder().decode(base64ImageData);
                         }
@@ -534,7 +535,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
 
         // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
-        String query = "SELECT d.id, d.name, d.price, d.image FROM dishes d" +
+        String query = "SELECT d.id, d.name, d.price, d.image FROM dishes d " +
                 "INNER JOIN canteens c ON d.canteenId = c.id " +
                 "WHERE c.address = ?";
 

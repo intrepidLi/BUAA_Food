@@ -20,8 +20,11 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.buaa.food.DishPreview;
 import com.umeng.commonsdk.debug.D;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 
 public final class DishesFragment extends TitleBarFragment<AppActivity>
@@ -30,10 +33,12 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
     public enum StatusType {
         HotRank,
-        Hangwei,
+        HangweiXinBei,
+        HangweiDongQu,
         SearchResult,
         Collection,
         History,
+        Admin,
     }
 
     private final StatusType type;
@@ -49,15 +54,13 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
     private List<DishPreview> allDishes;
 
     public static DishesFragment newInstance(StatusType type) {
+        Timber.tag("dishesFragment").d("Enter newInstance1");
         return new DishesFragment(type);
     }
 
-    public static DishesFragment newInstance(StatusType type, String canteenTitle) {
-        return new DishesFragment(type, canteenTitle, 1);
-    }
-
     public static DishesFragment newInstance(String searchHint) {
-        return new DishesFragment(StatusType.SearchResult, searchHint, 0);
+        Timber.tag("dishesFragment").d("Enter newInstance3");
+        return new DishesFragment(StatusType.SearchResult, searchHint);
     }
 
     public DishesFragment(StatusType type) {
@@ -68,13 +71,10 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 //        this.type = type;
 //    }
 
-    public DishesFragment(StatusType type, String searchHint, int constructFlag) {
+    public DishesFragment(StatusType type, String searchHint) {
+        Timber.tag("dishesFragment").d("Construct DishesFragment");
         this.type = type;
-        if (constructFlag == 0) {
-            this.searchHint = searchHint;
-        } else if (constructFlag == 1) {
-            this.canteenTitle = searchHint;
-        }
+        this.searchHint = searchHint;
     }
 
     private SmartRefreshLayout mRefreshLayout;
@@ -101,8 +101,8 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
         this.dataBaseHelper = new DataBaseHelper(this.getContext());
-
-        allDishes = dataBaseHelper.fetchCanteenDishes(canteenTitle);
+        // canteenTitle = "新北食堂";
+        allDishes = new ArrayList<>();
     }
 
     @Override
@@ -110,8 +110,18 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mAdapter.setData(analogData());
     }
 
-    private void hangWeiProcess() {
+    private void hangWeiProcess(List<DishPreview> data, StatusType type) {
+        if (type == StatusType.HangweiXinBei) {
+            allDishes = dataBaseHelper.fetchCanteenDishes("新北食堂");
+        } else if (type == StatusType.HangweiDongQu) {
+            allDishes = dataBaseHelper.fetchCanteenDishes("东区食堂");
+        }
 
+        for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+            DishPreview dishPreview = allDishes.get(i);
+            // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
+            data.add(dishPreview);
+        }
     }
 
     private List<DishPreview> analogData() {
@@ -119,27 +129,31 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         switch (type) {
             case HotRank:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    // data.add(new DishPreview("热度第" + i, "￥" + i));
+                    data.add(new DishPreview("热度第" + i, "￥" + i));
                 }
                 break;
-            case Hangwei:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    // data.add(new DishPreview("第" + i + "道航味", "￥" + i));
-                }
+            case HangweiXinBei:
+            case HangweiDongQu:
+                hangWeiProcess(data, type);
                 break;
             case SearchResult:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    // data.add(new DishPreview(searchHint + i, "￥" + i));
+                    data.add(new DishPreview(searchHint + i, "￥" + i));
                 }
                 break;
             case Collection:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    // data.add(new DishPreview("收藏" + i, "￥" + i));
+                    data.add(new DishPreview("收藏" + i, "￥" + i));
                 }
                 break;
             case History:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
                     data.add(new DishPreview("历史记录" + i, "￥" + i));
+                }
+                break;
+            case Admin:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add(new DishPreview("管理" + i, "￥" + i));
                 }
                 break;
         }

@@ -4,6 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.buaa.food.http.glide.GlideApp;
+import com.buaa.food.ui.activity.admin.AdminActivity;
 import com.buaa.food.ui.activity.admin.DishUploadActivity;
 import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
@@ -85,7 +86,7 @@ public final class SettingActivity extends AppActivity
             BrowserActivity.start(this, "https://github.com/intrepidLi/BUAA_Food");
 
         }else if (viewId == R.id.sb_admin_enter) {
-            startActivity(DishUploadActivity.class);
+            startActivity(AdminActivity.class);
 
         } else if (viewId == R.id.sb_setting_exit) {
 

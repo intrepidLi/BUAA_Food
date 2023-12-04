@@ -29,6 +29,10 @@ public class DishPreview {
         return dishPrice;
     }
 
+    public void setDishPrice(String dishPrice) {
+        this.dishPrice = dishPrice;
+    }
+
     public byte[] getImage() {
         return image;
     }
