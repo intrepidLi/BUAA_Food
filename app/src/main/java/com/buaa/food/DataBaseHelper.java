@@ -53,7 +53,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL("drop Table if exists secondComments");
         db.execSQL("drop Table if exists comments");
         db.execSQL("drop Table if exists orders");
-        db.execSQL("drop Table if exists viewedDishes");
+        db.execSQL("drop Table if exists historyDishes");
         db.execSQL("drop Table if exists dishes");
         db.execSQL("drop Table if exists windows");
         db.execSQL("drop Table if exists canteens");
@@ -157,8 +157,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 "foreign key(userId) references users(id)," +
                 "foreign key(canteenId) references canteens(id))");
 
-        // 新建浏览记录表 （id（主键），用户，菜品，时间）
-        myDataBase.execSQL("create table if not exists viewedDishes(" +
+        // 新建历史记录表 （id（主键），用户，菜品，时间）
+        myDataBase.execSQL("create table if not exists historyDishes(" +
                 "id integer primary key autoincrement," +
                 " userId integer," +
                 " dishId integer," +
@@ -193,6 +193,70 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         initInsertWindow(myDataBase);
         initInsertDish(myDataBase);
         initInsertBreakfast(myDataBase);
+        initSuperAdmin(myDataBase);
+        initTestUser1(myDataBase);
+        initTestFavoriteDish(myDataBase);
+        initTestHistoryDish(myDataBase);
+    }
+
+    public void initSuperAdmin(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("username", "admin");
+        values.put("password", "123456");
+        values.put("phone", "12345678901");
+        values.put("image", new byte[0]);
+
+        long newRowId = myDataBase.insert("users", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initSuperAdmin").d("initSuperAdmin Success!!!");
+        } else {
+            Timber.tag("initSuperAdmin").d("initSuperAdmin Failed!!!");
+        }
+    }
+
+    public void initTestUser1(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("username", "user1");
+        values.put("password", "12345678");
+        values.put("phone", "12345678902");
+        values.put("image", new byte[0]);
+
+        long newRowId = myDataBase.insert("users", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initTestUser1").d("initTestUser1 Success!!!");
+        } else {
+            Timber.tag("initTestUser1").d("initTestUser1 Failed!!!");
+        }
+    }
+
+    public void initTestFavoriteDish(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("userId", 2);
+        values.put("dishId", 2);
+
+        long newRowId = myDataBase.insert("favoriteDishes", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initTestFavoriteDish").d("initTestFavoriteDish Success!!!");
+        } else {
+            Timber.tag("initTestFavoriteDish").d("initTestFavoriteDish Failed!!!");
+        }
+    }
+
+    public void initTestHistoryDish(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("userId", 2);
+        values.put("dishId", 3);
+
+        long newRowId = myDataBase.insert("historyDishes", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initTestHistoryDish").d("initTestHistoryDish Success!!!");
+        } else {
+            Timber.tag("initTestHistoryDish").d("initTestHistoryDish Failed!!!");
+        }
     }
 
     public void initInsertCanteen(SQLiteDatabase myDataBase) {
@@ -400,7 +464,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public String getUserId(String phone){
+    public int getUserId(String phone){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
@@ -409,11 +473,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             String id = cursor.getString(cursor.getColumnIndex("id"));
             cursor.close();
             // db.close();
-            return id;
+            return Integer.parseInt(id);
         } else {
             cursor.close();
             // db.close();
-            return null;
+            return -1;
         }
     }
 
@@ -875,6 +939,106 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             // db.close();
             return -1;
         }
+    }
+
+    public boolean upLoadFavorite(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        Cursor cursor = db.rawQuery("select * from favoriteDishes where userId=? and dishId=?",
+                new String[]{String.valueOf(userId), String.valueOf(dishId)});
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            return false;
+        } else {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("userId", userId);
+            contentValues.put("dishId", dishId);
+
+            long result = db.insert("favoriteDishes", null, contentValues);
+            return result != -1;
+        }
+    }
+
+    public List<DishPreview> fetchFavorites() {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image " +
+                        "FROM dishes d " +
+                        "INNER JOIN favoriteDishes f ON d.id = f.dishId " +
+                        "WHERE f.userId = ?",
+                new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+                dishPreviews.add(new DishPreview(id, name, price, image));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return dishPreviews;
+    }
+
+    public List<DishPreview> fetchHistorys() {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image " +
+                        "FROM dishes d " +
+                        "INNER JOIN historyDishes h ON d.id = h.dishId " +
+                        "WHERE h.userId = ?",
+                new String[]{String.valueOf(userId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+                dishPreviews.add(new DishPreview(id, name, price, image));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return dishPreviews;
+    }
+
+    public void clearFavoriteDishes() {
+        SQLiteDatabase db = getReadableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        int deletedRows = db.delete("favoriteDishes",
+                "userId = ?", new String[]{String.valueOf(userId)});
+
+        Toast.makeText(context, "收藏夹已请空", Toast.LENGTH_SHORT).show();
+        // 输出删除的行数，以便进行调试
+        Timber.tag("DatabaseHelper").d("Deleted " + deletedRows + " rows from favoriteDishes table");
+    }
+
+    public void clearHistoryDishes() {
+        SQLiteDatabase db = getReadableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        int deletedRows = db.delete("historyDishes",
+                "userId = ?", new String[]{String.valueOf(userId)});
+
+        Toast.makeText(context, "历史记录已请空", Toast.LENGTH_SHORT).show();
+        // 输出删除的行数，以便进行调试
+        Timber.tag("DatabaseHelper").d("Deleted " + deletedRows + " rows from historyDishes table");
     }
 
 }

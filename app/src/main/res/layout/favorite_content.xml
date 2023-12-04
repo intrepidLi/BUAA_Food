@@ -9,7 +9,12 @@
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="@string/favorite_title" />
+        app:title="@string/favorite_title"
+        app:rightIcon="@mipmap/trash_icon"
+        app:rightIconHeight="20dp"
+        app:rightIconTint="#ff0000"
+        app:rightIconWidth="20dp"
+        app:rightTitle="清空" />
 
 
     <com.hjq.widget.layout.NestedViewPager

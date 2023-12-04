@@ -47,6 +47,8 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
     private String searchHint;
     private List<DishPreview> allDishes;
+    private List<DishPreview> allFavoriteDishes;
+    private List<DishPreview> allHistoryDishes;
 
     public static DishesFragment newInstance(StatusType type) {
         Timber.tag("dishesFragment").d("Enter newInstance1");
@@ -109,12 +111,43 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
             allDishes = dataBaseHelper.fetchCanteenDishes("东区食堂");
         }
 
+        if (type == StatusType.Collection) {
+            allFavoriteDishes = dataBaseHelper.fetchFavorites();
+        }
+
+        if (type == StatusType.History) {
+            allHistoryDishes = dataBaseHelper.fetchHistorys();
+        }
+
         mAdapter.setData(analogData());
     }
 
     private void hangWeiProcess(List<DishPreview> data, StatusType type) {
+        if (type == StatusType.HangweiXinBei) {
+            allDishes = dataBaseHelper.fetchCanteenDishes("新北食堂");
+        } else if (type == StatusType.HangweiDongQu) {
+            allDishes = dataBaseHelper.fetchCanteenDishes("东区食堂");
+        }
         for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
             DishPreview dishPreview = allDishes.get(i);
+            // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
+            data.add(dishPreview);
+        }
+    }
+
+    private void collectionProcess(List<DishPreview> data) {
+        allFavoriteDishes = dataBaseHelper.fetchFavorites();
+        for (int i = mAdapter.getCount(); i < allFavoriteDishes.size(); i++) {
+            DishPreview dishPreview = allFavoriteDishes.get(i);
+            // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
+            data.add(dishPreview);
+        }
+    }
+
+    private void historyProcess(List<DishPreview> data) {
+        allHistoryDishes = dataBaseHelper.fetchHistorys();
+        for (int i = mAdapter.getCount(); i < allHistoryDishes.size(); i++) {
+            DishPreview dishPreview = allHistoryDishes.get(i);
             // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
             data.add(dishPreview);
         }
@@ -138,14 +171,10 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
                 }
                 break;
             case Collection:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("收藏" + i, "￥" + i));
-                }
+                collectionProcess(data);
                 break;
             case History:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("历史记录" + i, "￥" + i));
-                }
+                historyProcess(data);
                 break;
             case Admin:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {

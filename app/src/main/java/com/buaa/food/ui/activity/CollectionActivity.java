@@ -1,7 +1,10 @@
 package com.buaa.food.ui.activity;
 
+import android.view.View;
+
 import androidx.viewpager.widget.ViewPager;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.app.AppFragment;
@@ -11,6 +14,7 @@ import com.hjq.base.FragmentPagerAdapter;
 public class CollectionActivity extends AppActivity {
     private ViewPager mViewPager;
     private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
+    private DataBaseHelper dataBaseHelper;
 
     protected int getLayoutId() {
         return R.layout.favorite_content;
@@ -21,8 +25,14 @@ public class CollectionActivity extends AppActivity {
         mPagerAdapter = new FragmentPagerAdapter<>(this);
         mPagerAdapter.addFragment(DishesFragment.newInstance(DishesFragment.StatusType.Collection));
         mViewPager.setAdapter(mPagerAdapter);
+        dataBaseHelper = new DataBaseHelper(this);
     }
 
 
     protected void initData() {}
+
+    @Override
+    public void onRightClick(View view) {
+        dataBaseHelper.clearFavoriteDishes();
+    }
 }

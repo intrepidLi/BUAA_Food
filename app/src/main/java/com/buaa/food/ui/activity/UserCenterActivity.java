@@ -83,7 +83,7 @@ public final class UserCenterActivity extends AppActivity {
                     .into(mAvatarView);
         }
         // DataBaseHelper dataBaseHelper = new DataBaseHelper(this.getContext());
-        mIdView.setRightText(dataBaseHelper.getUserId(UserAuth.getLocalUserPhone()));
+        mIdView.setRightText(String.valueOf(dataBaseHelper.getUserId(UserAuth.getLocalUserPhone())));
         mNameView.setRightText(dataBaseHelper.getUsername(UserAuth.getLocalUserPhone()));
         mPasswordView.setRightText("******");
     }
