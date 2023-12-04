@@ -121,7 +121,6 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
         for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
             DishPreview dishPreview = allDishes.get(i);
-            // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
             data.add(dishPreview);
         }
     }
@@ -155,7 +154,8 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
                 break;
             case Admin:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("管理" + i, "￥" + i));
+                    DishPreview dishPreview = allDishes.get(i);
+                    data.add(dishPreview);
                 }
                 break;
         }
