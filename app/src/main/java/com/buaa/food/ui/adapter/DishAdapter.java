@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buaa.food.R;
-import com.buaa.food.app.AppAdapter;
-import com.buaa.food.ui.activity.DishDetailsActivity;
+import com.buaa.food.ui.activity.DishDetailActivity;
 import com.hjq.shape.view.ShapeTextView;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
@@ -48,9 +45,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             dishNameTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Handle the click event by starting DishDetailsActivity
+                    // Handle the click event by starting DishDetailActivity
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, DishDetailsActivity.class);
+                    Intent intent = new Intent(context, DishDetailActivity.class);
                     context.startActivity(intent);
                 }
             });

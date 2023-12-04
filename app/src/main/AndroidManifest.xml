@@ -265,10 +265,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
-            android:name="com.buaa.food.ui.activity.DishDetailsActivity"
-            android:label="Dish Details"> <!-- Set the label to your preference -->
-            <!-- Add any additional intent filters or configurations if needed -->
-        </activity>
+            android:name="com.buaa.food.ui.activity.DishDetailActivity"
+            android:label="菜品详情"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.buaa.food.ui.activity.ResultActivity"
