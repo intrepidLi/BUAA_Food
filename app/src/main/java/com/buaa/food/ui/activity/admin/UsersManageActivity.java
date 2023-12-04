@@ -1,511 +1,234 @@
 package com.buaa.food.ui.activity.admin;
 
-import android.content.Intent;
-import android.view.Gravity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 
+import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
-import com.buaa.food.aop.SingleClick;
+import com.buaa.food.UserAuth;
 import com.buaa.food.app.AppActivity;
-import com.buaa.food.manager.DialogManager;
-import com.buaa.food.ui.dialog.AddressDialog;
-import com.buaa.food.ui.dialog.DateDialog;
+import com.buaa.food.http.glide.GlideApp;
+import com.buaa.food.ui.activity.ImageCropActivity;
+import com.buaa.food.ui.activity.ImageSelectActivity;
 import com.buaa.food.ui.dialog.InputDialog;
-import com.buaa.food.ui.dialog.MenuDialog;
-import com.buaa.food.ui.dialog.MessageDialog;
-import com.buaa.food.ui.dialog.PayPasswordDialog;
-import com.buaa.food.ui.dialog.SelectDialog;
-import com.buaa.food.ui.dialog.ShareDialog;
-import com.buaa.food.ui.dialog.TimeDialog;
-import com.buaa.food.ui.dialog.TipsDialog;
-import com.buaa.food.ui.dialog.UpdateDialog;
-import com.buaa.food.ui.dialog.WaitDialog;
-import com.buaa.food.ui.popup.ListPopup;
-import com.hjq.base.BaseDialog;
-import com.hjq.umeng.Platform;
-import com.hjq.umeng.UmengClient;
-import com.hjq.umeng.UmengShare;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMWeb;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.hjq.http.model.FileContentResolver;
+import com.hjq.widget.layout.SettingBar;
+import com.hjq.widget.view.RegexEditText;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/02
- *    desc   : 对话框使用案例
- */
 public final class UsersManageActivity extends AppActivity {
 
-    /** 等待对话框 */
-    private BaseDialog mWaitDialog;
+    private RegexEditText mHintView;
+    private AppCompatImageView mAvatarView;
+    private SettingBar mPhoneView;
+    private SettingBar mNameView;
+    private SettingBar mPasswordView;
+
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_activity;
+        return R.layout.users_manage_activity;
     }
 
     @Override
     protected void initView() {
-        setOnClickListener(R.id.btn_dialog_message, R.id.btn_dialog_input,
-                R.id.btn_dialog_bottom_menu, R.id.btn_dialog_center_menu,
-                R.id.btn_dialog_single_select, R.id.btn_dialog_more_select,
-                R.id.btn_dialog_succeed_toast, R.id.btn_dialog_fail_toast,
-                R.id.btn_dialog_warn_toast, R.id.btn_dialog_wait,
-                R.id.btn_dialog_pay, R.id.btn_dialog_address,
-                R.id.btn_dialog_date, R.id.btn_dialog_time,
-                R.id.btn_dialog_update, R.id.btn_dialog_share,
-                R.id.btn_dialog_safe, R.id.btn_dialog_custom,
-                R.id.btn_dialog_multi);
+        mHintView = findViewById(R.id.tv_user_hint);
+        mAvatarView = findViewById(R.id.iv_user_avatar);
+        mPhoneView = findViewById(R.id.sb_user_phone);
+        mNameView = findViewById(R.id.sb_user_name);
+        mPasswordView = findViewById(R.id.sb_user_password);
+
+        dataBaseHelper = new DataBaseHelper(this);
+
+        setOnClickListener(mAvatarView, mPhoneView, mNameView, mPasswordView);
+
+        mHintView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (mHintView.getText() == null) {
+                    return;
+                }
+                String hintPhone = mHintView.getText().toString();
+                if (hintPhone.length() == 11 && dataBaseHelper.checkPhone(hintPhone)) {
+                    byte[] image = dataBaseHelper.getUserAvatar(hintPhone);
+                    if (image != null && image.length > 0) {
+                        Bitmap avatar = BitmapFactory.decodeByteArray(image, 0, image.length);
+                        GlideApp.with(getActivity())
+                            .load(avatar)
+                            .placeholder(R.drawable.avatar_placeholder_ic)
+                            .error(R.drawable.avatar_placeholder_ic)
+                            .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+                            .into(mAvatarView);
+                    } else {
+                        GlideApp.with(getActivity())
+                            .load(R.drawable.avatar_placeholder_ic)
+                            .placeholder(R.drawable.avatar_placeholder_ic)
+                            .error(R.drawable.avatar_placeholder_ic)
+                            .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+                            .into(mAvatarView);
+                    }
+                    mPhoneView.setRightText(hintPhone);
+                    mNameView.setRightText(dataBaseHelper.getUsername(hintPhone));
+                    mPasswordView.setRightText(dataBaseHelper.getUserPassword(hintPhone));
+                } else {
+                    mAvatarView.setImageResource(R.drawable.avatar_placeholder_ic);
+                    mPhoneView.setRightText("");
+                    mNameView.setRightText("");
+                    mPasswordView.setRightText("");
+                }
+            }
+        });
     }
 
     @Override
     protected void initData() {
+        mAvatarView.setImageResource(R.drawable.avatar_placeholder_ic);
 
+        mPhoneView.setRightText("");
+        mNameView.setRightText("");
+        mPasswordView.setRightText("");
     }
 
-    @SingleClick
     @Override
     public void onClick(View view) {
-        int viewId = view.getId();
-        if (viewId == R.id.btn_dialog_message) {
+        if (view == mPasswordView) {
+            AtomicBoolean isContentChanged = new AtomicBoolean(false);
+            CharSequence oldName = mPasswordView.getRightText();
 
-            // 消息对话框
-            new MessageDialog.Builder(getActivity())
-                    // 标题可以不用填写
-                    .setTitle("我是标题")
-                    // 内容必须要填写
-                    .setMessage("我是内容")
-                    // 确定按钮文本
-                    .setConfirm(getString(R.string.common_confirm))
-                    // 设置 null 表示不显示取消按钮
-                    .setCancel(getString(R.string.common_cancel))
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setListener(new MessageDialog.OnListener() {
-
-                        @Override
-                        public void onConfirm(BaseDialog dialog) {
-                            toast("确定了");
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_input) {
-
-            // 输入对话框
             new InputDialog.Builder(this)
-                    // 标题可以不用填写
-                    .setTitle("我是标题")
-                    // 内容可以不用填写
-                    .setContent("我是内容")
-                    // 提示可以不用填写
-                    .setHint("我是提示")
-                    // 确定按钮文本
-                    .setConfirm(getString(R.string.common_confirm))
-                    // 设置 null 表示不显示取消按钮
-                    .setCancel(getString(R.string.common_cancel))
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setListener(new InputDialog.OnListener() {
+                .setTitle("设置用户密码")
+                .setContent(mPasswordView.getRightText())
+                .setHint("设置用户密码")
+                .setConfirm("确定")
+                .setCancel("取消")
+                .setAutoDismiss(true)
+                .setListener((dialog, content) -> {
+                    if (!mPasswordView.getRightText().equals(content)) {
+                        mPasswordView.setRightText(content);
 
-                        @Override
-                        public void onConfirm(BaseDialog dialog, String content) {
-                            toast("确定了：" + content);
+                        if (mPasswordView.getRightText().toString().isEmpty()) {
+                            Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                            mPasswordView.setRightText(oldName);
+                        } else {
+                            isContentChanged.set(true);
+                            Toast.makeText(this, "密码已修改", Toast.LENGTH_SHORT).show();
+                            dataBaseHelper.updatePassword(UserAuth.getLocalUserPhone(), mPasswordView.getRightText().toString());
                         }
+                    }
+                })
+                .show();
+        } else if (view == mAvatarView) {
+            ImageSelectActivity.start(this, data -> {
+                cropImageFile(new File(data.get(0)));
+            });
+        } else if (view == mNameView) {
+            AtomicBoolean isContentChanged = new AtomicBoolean(false);
+            CharSequence oldName = mNameView.getRightText();
 
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
+            new InputDialog.Builder(this)
+                .setTitle(getString(R.string.personal_data_name_hint))
+                .setContent(mNameView.getRightText())
+                .setHint(getString(R.string.personal_data_name_hint))
+                .setConfirm("确定")
+                .setCancel("取消")
+                .setAutoDismiss(true)
+                .setListener((dialog, content) -> {
+                    if (!mNameView.getRightText().equals(content)) {
+                        mNameView.setRightText(content);
+
+                        if (mNameView.getRightText().toString().isEmpty()) {
+                            Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+                            mNameView.setRightText(oldName);
+                        } else {
+                            isContentChanged.set(true);
+                            Toast.makeText(this, "用户名已修改", Toast.LENGTH_SHORT).show();
+                            dataBaseHelper.updateUsername(UserAuth.getLocalUserPhone(), mNameView.getRightText().toString());
                         }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_bottom_menu) {
-
-            List<String> data = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                data.add("我是数据" + (i + 1));
-            }
-            // 底部选择框
-            new MenuDialog.Builder(this)
-                    // 设置 null 表示不显示取消按钮
-                    //.setCancel(getString(R.string.common_cancel))
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setList(data)
-                    .setListener(new MenuDialog.OnListener<String>() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, int position, String string) {
-                            toast("位置：" + position + "，文本：" + string);
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_center_menu) {
-
-            List<String> data = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                data.add("我是数据" + (i + 1));
-            }
-            // 居中选择框
-            new MenuDialog.Builder(this)
-                    .setGravity(Gravity.CENTER)
-                    // 设置 null 表示不显示取消按钮
-                    //.setCancel(null)
-                    // 设置点击按钮后不关闭对话框
-                    //.setAutoDismiss(false)
-                    .setList(data)
-                    .setListener(new MenuDialog.OnListener<String>() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, int position, String string) {
-                            toast("位置：" + position + "，文本：" + string);
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_single_select) {
-
-            // 单选对话框
-            new SelectDialog.Builder(this)
-                    .setTitle("请选择你的性别")
-                    .setList("男", "女")
-                    // 设置单选模式
-                    .setSingleSelect()
-                    // 设置默认选中
-                    .setSelect(0)
-                    .setListener(new SelectDialog.OnListener<String>() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, HashMap<Integer, String> data) {
-                            toast("确定了：" + data.toString());
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_more_select) {
-
-            // 多选对话框
-            new SelectDialog.Builder(this)
-                    .setTitle("请选择工作日")
-                    .setList("星期一", "星期二", "星期三", "星期四", "星期五")
-                    // 设置最大选择数
-                    .setMaxSelect(3)
-                    // 设置默认选中
-                    .setSelect(2, 3, 4)
-                    .setListener(new SelectDialog.OnListener<String>() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, HashMap<Integer, String> data) {
-                            toast("确定了：" + data.toString());
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_succeed_toast) {
-
-            // 成功对话框
-            new TipsDialog.Builder(this)
-                    .setIcon(TipsDialog.ICON_FINISH)
-                    .setMessage("完成")
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_fail_toast) {
-
-            // 失败对话框
-            new TipsDialog.Builder(this)
-                    .setIcon(TipsDialog.ICON_ERROR)
-                    .setMessage("错误")
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_warn_toast) {
-
-            // 警告对话框
-            new TipsDialog.Builder(this)
-                    .setIcon(TipsDialog.ICON_WARNING)
-                    .setMessage("警告")
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_wait) {
-
-            if (mWaitDialog == null) {
-                mWaitDialog = new WaitDialog.Builder(this)
-                        // 消息文本可以不用填写
-                        .setMessage(getString(R.string.common_loading))
-                        .create();
-            }
-            if (!mWaitDialog.isShowing()) {
-                mWaitDialog.show();
-                postDelayed(mWaitDialog::dismiss, 2000);
-            }
-
-        } else if (viewId == R.id.btn_dialog_pay) {
-
-            // 支付密码输入对话框
-            new PayPasswordDialog.Builder(this)
-                    .setTitle(getString(R.string.pay_title))
-                    .setSubTitle("用于购买一个女盆友")
-                    .setMoney("￥ 100.00")
-                    //.setAutoDismiss(false) // 设置点击按钮后不关闭对话框
-                    .setListener(new PayPasswordDialog.OnListener() {
-
-                        @Override
-                        public void onCompleted(BaseDialog dialog, String password) {
-                            toast(password);
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_address) {
-
-            // 选择地区对话框
-            new AddressDialog.Builder(this)
-                    .setTitle(getString(R.string.address_title))
-                    // 设置默认省份
-                    //.setProvince("广东省")
-                    // 设置默认城市（必须要先设置默认省份）
-                    //.setCity("广州市")
-                    // 不选择县级区域
-                    //.setIgnoreArea()
-                    .setListener(new AddressDialog.OnListener() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, String province, String city, String area) {
-                            toast(province + city + area);
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_date) {
-
-            // 日期选择对话框
-            new DateDialog.Builder(this)
-                    .setTitle(getString(R.string.date_title))
-                    // 确定按钮文本
-                    .setConfirm(getString(R.string.common_confirm))
-                    // 设置 null 表示不显示取消按钮
-                    .setCancel(getString(R.string.common_cancel))
-                    // 设置日期
-                    //.setDate("2018-12-31")
-                    //.setDate("20181231")
-                    //.setDate(1546263036137)
-                    // 设置年份
-                    //.setYear(2018)
-                    // 设置月份
-                    //.setMonth(2)
-                    // 设置天数
-                    //.setDay(20)
-                    // 不选择天数
-                    //.setIgnoreDay()
-                    .setListener(new DateDialog.OnListener() {
-                        @Override
-                        public void onSelected(BaseDialog dialog, int year, int month, int day) {
-                            toast(year + getString(R.string.common_year) + month + getString(R.string.common_month) + day + getString(R.string.common_day));
-
-                            // 如果不指定时分秒则默认为现在的时间
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.YEAR, year);
-                            // 月份从零开始，所以需要减 1
-                            calendar.set(Calendar.MONTH, month - 1);
-                            calendar.set(Calendar.DAY_OF_MONTH, day);
-                            toast("时间戳：" + calendar.getTimeInMillis());
-                            //toast(new SimpleDateFormat("yyyy年MM月dd日 kk:mm:ss").format(calendar.getTime()));
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_time) {
-
-            // 时间选择对话框
-            new TimeDialog.Builder(this)
-                    .setTitle(getString(R.string.time_title))
-                    // 确定按钮文本
-                    .setConfirm(getString(R.string.common_confirm))
-                    // 设置 null 表示不显示取消按钮
-                    .setCancel(getString(R.string.common_cancel))
-                    // 设置时间
-                    //.setTime("23:59:59")
-                    //.setTime("235959")
-                    // 设置小时
-                    //.setHour(23)
-                    // 设置分钟
-                    //.setMinute(59)
-                    // 设置秒数
-                    //.setSecond(59)
-                    // 不选择秒数
-                    //.setIgnoreSecond()
-                    .setListener(new TimeDialog.OnListener() {
-
-                        @Override
-                        public void onSelected(BaseDialog dialog, int hour, int minute, int second) {
-                            toast(hour + getString(R.string.common_hour) + minute + getString(R.string.common_minute) + second + getString(R.string.common_second));
-
-                            // 如果不指定年月日则默认为今天的日期
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE, minute);
-                            calendar.set(Calendar.SECOND, second);
-                            toast("时间戳：" + calendar.getTimeInMillis());
-                            //toast(new SimpleDateFormat("yyyy年MM月dd日 kk:mm:ss").format(calendar.getTime()));
-                        }
-
-                        @Override
-                        public void onCancel(BaseDialog dialog) {
-                            toast("取消了");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_share) {
-
-            toast("记得改好第三方 AppID 和 Secret，否则会调不起来哦");
-
-            UMWeb content = new UMWeb("https://github.com/getActivity/AndroidProject");
-            content.setTitle("Github");
-            content.setThumb(new UMImage(this, R.mipmap.launcher_ic));
-            content.setDescription(getString(R.string.app_name));
-
-            // 分享对话框
-            new ShareDialog.Builder(this)
-                    .setShareLink(content)
-                    .setListener(new UmengShare.OnShareListener() {
-
-                        @Override
-                        public void onSucceed(Platform platform) {
-                            toast("分享成功");
-                        }
-
-                        @Override
-                        public void onError(Platform platform, Throwable t) {
-                            toast(t.getMessage());
-                        }
-
-                        @Override
-                        public void onCancel(Platform platform) {
-                            toast("分享取消");
-                        }
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_update) {
-
-            // 升级对话框
-            new UpdateDialog.Builder(this)
-                    // 版本名
-                    .setVersionName("5.2.0")
-                    // 是否强制更新
-                    .setForceUpdate(false)
-                    // 更新日志
-                    .setUpdateLog("到底更新了啥\n到底更新了啥\n到底更新了啥\n到底更新了啥\n到底更新了啥\n到底更新了啥")
-                    // 下载 URL
-                    .setDownloadUrl("https://dldir1.qq.com/weixin/android/weixin807android1920_arm64.apk")
-                    // 文件 MD5
-                    .setFileMd5("df2f045dfa854d8461d9cefe08b813c8")
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_custom) {
-
-            // 自定义对话框
-            new BaseDialog.Builder<>(this)
-                    .setContentView(R.layout.custom_dialog)
-                    .setAnimStyle(BaseDialog.ANIM_SCALE)
-                    //.setText(id, "我是预设置的文本")
-                    .setOnClickListener(R.id.btn_dialog_custom_ok, (BaseDialog.OnClickListener<Button>) (dialog, button) -> dialog.dismiss())
-                    .setOnCreateListener(dialog -> toast("Dialog 创建了"))
-                    .addOnShowListener(dialog -> toast("Dialog 显示了"))
-                    .addOnCancelListener(dialog -> toast("Dialog 取消了"))
-                    .addOnDismissListener(dialog -> toast("Dialog 销毁了"))
-                    .setOnKeyListener((dialog, event) -> {
-                        toast("按键代码：" + event.getKeyCode());
-                        return false;
-                    })
-                    .show();
-
-        } else if (viewId == R.id.btn_dialog_multi) {
-
-            BaseDialog dialog1 = new MessageDialog.Builder(getActivity())
-                    .setTitle("温馨提示")
-                    .setMessage("我是第一个弹出的对话框")
-                    .setConfirm(getString(R.string.common_confirm))
-                    .setCancel(getString(R.string.common_cancel))
-                    .create();
-
-            BaseDialog dialog2 = new MessageDialog.Builder(getActivity())
-                    .setTitle("温馨提示")
-                    .setMessage("我是第二个弹出的对话框")
-                    .setConfirm(getString(R.string.common_confirm))
-                    .setCancel(getString(R.string.common_cancel))
-                    .create();
-
-            DialogManager.getInstance(this).addShow(dialog1);
-            DialogManager.getInstance(this).addShow(dialog2);
+                    }
+                })
+                .show();
         }
     }
 
-    @Override
-    public void onRightClick(View view) {
-        // 菜单弹窗
-        new ListPopup.Builder(this)
-                .setList("选择拍照", "选取相册")
-                .addOnShowListener(popupWindow -> toast("PopupWindow 显示了"))
-                .addOnDismissListener(popupWindow -> toast("PopupWindow 销毁了"))
-                .setListener((ListPopup.OnListener<String>) (popupWindow, position, s) -> toast("点击了：" + s))
-                .showAsDropDown(view);
+    private void cropImageFile(File sourceFile) {
+        ImageCropActivity.start(this, sourceFile, 1, 1, new ImageCropActivity.OnCropListener() {
+
+            @Override
+            public void onSucceed(Uri fileUri, String fileName) {
+                File outputFile;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    outputFile = new FileContentResolver(getActivity(), fileUri, fileName);
+                } else {
+                    try {
+                        outputFile = new File(new URI(fileUri.toString()));
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                        outputFile = new File(fileUri.toString());
+                    }
+                }
+                updateCropImage(outputFile, true);
+            }
+
+            @Override
+            public void onError(String details) {
+                updateCropImage(sourceFile, false);
+            }
+        });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // 友盟回调
-        UmengClient.onActivityResult(this, requestCode, resultCode, data);
+    private void updateCropImage(File file, boolean deleteFile) {
+        Uri mAvatarUrl;
+        if (file instanceof FileContentResolver) {
+            mAvatarUrl = ((FileContentResolver) file).getContentUri();
+        } else {
+            mAvatarUrl = Uri.fromFile(file);
+        }
+        GlideApp.with(getActivity())
+                .load(mAvatarUrl)
+                .transform(new MultiTransformation<>(new CenterCrop(), new CircleCrop()))
+                .into(mAvatarView);
+
+        try {
+            Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mAvatarUrl);
+            this.storeImage(bitmapImage);
+        } catch (Exception e) {
+            Toast.makeText(this, "图片转换或上传出现问题", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void storeImage(Bitmap bitmapImage) {
+        if (mAvatarView.getDrawable() != null && bitmapImage != null) {
+            dataBaseHelper.updateUserAvatar(UserAuth.getLocalUserPhone(), bitmapImage);
+        } else {
+            Toast.makeText(this, "图片为空", Toast.LENGTH_SHORT).show();
+        }
     }
 }
