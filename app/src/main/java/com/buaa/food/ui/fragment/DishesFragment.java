@@ -31,6 +31,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         SearchResult,
         Collection,
         History,
+        Admin,
     }
 
     private final StatusType type;
@@ -107,6 +108,11 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
             case History:
                 for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
                     data.add(new DishPreview("历史记录" + i, "￥" + i));
+                }
+                break;
+            case Admin:
+                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+                    data.add(new DishPreview("管理" + i, "￥" + i));
                 }
                 break;
         }

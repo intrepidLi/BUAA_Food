@@ -277,8 +277,26 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.buaa.food.ui.activity.admin.AdminActivity"
+            android:label="管理界面"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.buaa.food.ui.activity.admin.DishesManageActivity"
+            android:label="管理菜品"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.buaa.food.ui.activity.admin.DishUploadActivity"
             android:label="上传菜品"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.buaa.food.ui.activity.admin.UsersManageActivity"
+            android:label="管理用户"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 

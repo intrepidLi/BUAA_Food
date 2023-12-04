@@ -9,7 +9,7 @@
     <!-- 边框 -->
     <stroke
         android:width="5dp"
-        android:color="@color/black80" />
+        android:color="@color/gray" />
 
     <!-- 背景 -->
     <solid android:color="@color/white90" />
