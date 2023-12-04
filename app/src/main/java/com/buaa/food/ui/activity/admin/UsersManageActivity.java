@@ -42,7 +42,7 @@ import java.util.List;
  *    time   : 2018/12/02
  *    desc   : 对话框使用案例
  */
-public final class DishSelectActivity extends AppActivity {
+public final class UsersManageActivity extends AppActivity {
 
     /** 等待对话框 */
     private BaseDialog mWaitDialog;
