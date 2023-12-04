@@ -10,7 +10,7 @@
     <com.hjq.bar.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="管理菜品" />
+        app:title="上传菜品" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_margin="@dimen/dp_20"
                     android:scaleType="centerCrop"
-                    tools:src="@drawable/avatar_placeholder_ic" />
+                    tools:src="@drawable/baseline_fastfood_24" />
 
             </com.hjq.widget.layout.SettingBar>
 
@@ -69,8 +69,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:hint="输入菜品价格"
                 android:maxLength="20"
-                android:singleLine="true"
-                app:regexType="number" />
+                android:singleLine="true" />
 
             <View style="@style/HorizontalLineStyle" />
 
@@ -93,7 +92,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
-                android:hint="学三食堂（B1层）"
+                android:hint="选择食堂"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:singleLine="true" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_window"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="选择窗口"
                 android:imeOptions="actionDone"
                 android:maxLength="20"
                 android:singleLine="true" />

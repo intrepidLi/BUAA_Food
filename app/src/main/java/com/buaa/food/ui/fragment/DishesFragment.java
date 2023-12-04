@@ -1,5 +1,6 @@
 package com.buaa.food.ui.fragment;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.view.View;
 
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.buaa.food.DataBaseHelper;
 import com.buaa.food.ui.activity.DishDetailsActivity;
+import com.buaa.food.ui.activity.admin.DishUploadActivity;
 import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
@@ -169,8 +171,17 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
      */
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        startActivity(DishDetailsActivity.class);
-        toast(mAdapter.getItem(position));
+        if (type == StatusType.Admin) {
+            assert mAdapter.getData() != null;
+            // int dishId = mAdapter.getData().get(position).getId();
+            int dishId = 13;
+            Intent intent = new Intent(getAttachActivity(), DishUploadActivity.class);
+            intent.putExtra("dishId", dishId);
+            startActivity(intent);
+        } else {
+            startActivity(DishDetailsActivity.class);
+            toast(mAdapter.getItem(position));
+        }
     }
 
     /**
