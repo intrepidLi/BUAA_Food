@@ -53,10 +53,17 @@
                 app:bar_rightDrawable="@drawable/arrows_right_ic" />
 
             <com.hjq.widget.layout.SettingBar
-                android:id="@+id/sb_setting_exit"
+                android:id="@+id/sb_admin_enter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/dp_15"
+                app:bar_leftText="进入管理界面"
+                app:bar_rightDrawable="@drawable/arrows_right_ic" />
+
+            <com.hjq.widget.layout.SettingBar
+                android:id="@+id/sb_setting_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:bar_leftText="@string/setting_exit"
                 app:bar_leftTextColor="@color/red" />
 

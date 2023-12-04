@@ -276,6 +276,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.buaa.food.ui.activity.admin.DishUploadActivity"
+            android:label="上传菜品"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
     </application>
 
     <!-- Android 11 软件包可见性适配：https://www.jianshu.com/p/d1ccd425c4ce -->

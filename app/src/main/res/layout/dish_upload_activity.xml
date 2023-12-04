@@ -30,14 +30,14 @@
         <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.layout.SettingBar
-            android:id="@+id/fl_person_data_avatar"
+            android:id="@+id/fl_dish_avatar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_selector"
             app:bar_leftText="上传菜品图片">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_person_data_avatar"
+                android:id="@+id/iv_dish_image"
                 android:layout_width="@dimen/dp_110"
                 android:layout_height="@dimen/dp_110"
                 android:layout_gravity="end|center_vertical"
@@ -50,50 +50,50 @@
         <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.view.RegexEditText
-            android:id="@+id/et_register_phone"
+            android:id="@+id/et_dish_name"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="输入菜品名称"
-            android:inputType="textVisiblePassword"
             android:layout_marginTop="@dimen/dp_40"
             android:singleLine="true"
-            app:regexType="mobile" />
+            app:regexType="chinese" />
 
         <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.view.RegexEditText
-            android:id="@+id/et_register_username"
+            android:id="@+id/et_dish_price"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
             android:hint="输入菜品价格"
             android:maxLength="20"
-            android:singleLine="true" />
-
+            android:singleLine="true"
+            app:regexType="number" />
 
         <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.view.RegexEditText
-            android:id="@+id/et_register_password1"
+            android:id="@+id/et_dish_remaining"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
             android:hint="输入菜品余量"
             android:maxLength="20"
-            android:singleLine="true" />
+            android:singleLine="true"
+            app:regexType="number" />
 
         <View style="@style/HorizontalLineStyle" />
 
-        <com.hjq.widget.view.RegexEditText
-            android:id="@+id/et_register_password2"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_canteen"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
-            android:hint="@string/register_password_hint2"
+            android:hint="学三食堂（B1层）"
             android:imeOptions="actionDone"
             android:maxLength="20"
             android:singleLine="true" />
@@ -101,7 +101,7 @@
         <View style="@style/HorizontalLineStyle" />
 
         <com.hjq.widget.view.SubmitButton
-            android:id="@+id/btn_upload_commit"
+            android:id="@+id/btn_dish_upload"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

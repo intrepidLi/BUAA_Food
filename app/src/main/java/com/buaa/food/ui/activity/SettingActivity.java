@@ -4,6 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.buaa.food.http.glide.GlideApp;
+import com.buaa.food.ui.activity.admin.DishUploadActivity;
 import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
@@ -41,9 +42,12 @@ public final class SettingActivity extends AppActivity
 //        mNameView = findViewById(R.id.sb_setting_userName);
 //        mPasswordView = findViewById(R.id.sb_setting_password);
 
-
-        setOnClickListener(R.id.sb_setting_agreement, R.id.sb_setting_about,
-                R.id.sb_setting_exit);
+        setOnClickListener(
+            R.id.sb_setting_agreement,
+            R.id.sb_setting_about,
+            R.id.sb_admin_enter,
+            R.id.sb_setting_exit
+        );
     }
 
     @Override
@@ -79,6 +83,9 @@ public final class SettingActivity extends AppActivity
         } else if (viewId == R.id.sb_setting_agreement) {
 
             BrowserActivity.start(this, "https://github.com/intrepidLi/BUAA_Food");
+
+        }else if (viewId == R.id.sb_admin_enter) {
+            startActivity(DishUploadActivity.class);
 
         } else if (viewId == R.id.sb_setting_exit) {
 
