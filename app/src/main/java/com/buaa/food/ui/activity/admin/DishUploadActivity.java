@@ -114,6 +114,7 @@ public final class DishUploadActivity extends AppActivity
             // TODO: 上传菜品至数据库
 
             mUploadView.showSucceed();
+            Toast.makeText(DishUploadActivity.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
             finish();
 
         } else if (view == mImageView) {
