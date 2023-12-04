@@ -772,6 +772,22 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public int getDishViewed(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+            cursor.close();
+            // db.close();
+            return viewed;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1;
+        }
+    }
+
     public boolean updateDishName(int dishId, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -811,6 +827,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("remain", remaining);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
+            return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
+            // db.close();
+            return true;
+        }
+    }
+
+    public boolean updateDishViewed(int dishId, int viewed) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("viewed", viewed);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
         if(result == -1){

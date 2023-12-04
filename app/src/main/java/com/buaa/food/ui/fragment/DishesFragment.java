@@ -1,14 +1,13 @@
 package com.buaa.food.ui.fragment;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buaa.food.DataBaseHelper;
-import com.buaa.food.ui.activity.DishDetailsActivity;
+import com.buaa.food.ui.activity.DishDetailActivity;
 import com.buaa.food.ui.activity.admin.DishUploadActivity;
 import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
@@ -20,9 +19,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.buaa.food.DishPreview;
-import com.umeng.commonsdk.debug.D;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,17 +191,16 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
      */
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+        assert mAdapter.getData() != null;
+        int dishId = mAdapter.getData().get(position).getDishId();
+        Intent intent;
         if (type == StatusType.Admin) {
-            assert mAdapter.getData() != null;
-            // int dishId = mAdapter.getData().get(position).getId();
-            int dishId = 13;
-            Intent intent = new Intent(getAttachActivity(), DishUploadActivity.class);
-            intent.putExtra("dishId", dishId);
-            startActivity(intent);
+            intent = new Intent(getAttachActivity(), DishUploadActivity.class);
         } else {
-            startActivity(DishDetailsActivity.class);
-            toast(mAdapter.getItem(position));
+            intent = new Intent(getAttachActivity(), DishDetailActivity.class);
         }
+        intent.putExtra("dishId", dishId);
+        startActivity(intent);
     }
 
     /**
