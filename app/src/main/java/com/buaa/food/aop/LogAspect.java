@@ -17,12 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/12/06
- *    desc   : Debug 日志切面
- */
+
 @Aspect
 public class LogAspect {
 

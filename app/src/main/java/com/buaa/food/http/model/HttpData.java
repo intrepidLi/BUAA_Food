@@ -1,11 +1,6 @@
 package com.buaa.food.http.model;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/12/07
- *    desc   : 统一接口数据结构
- */
+
 public class HttpData<T> {
 
     /** 返回码 */

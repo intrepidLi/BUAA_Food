@@ -15,12 +15,7 @@ import androidx.core.content.ContextCompat;
 
 import com.hjq.widget.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/07/11
- *    desc   : 自定义评分控件（系统的 RatingBar 不好用）
- */
+
 public final class SimpleRatingBar extends View {
 
     /** 默认的星星图标 */

@@ -22,12 +22,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/09/12
- *    desc   : 在 BaseDialog 基础上加上 {@link com.google.android.material.bottomsheet.BottomSheetDialog} 特性
- */
+
 public final class BottomSheetDialog extends BaseDialog
         implements OnTouchListener, View.OnClickListener {
 

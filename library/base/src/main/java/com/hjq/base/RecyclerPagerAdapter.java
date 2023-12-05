@@ -8,12 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/08/28
- *    desc   : PagerAdapter 封装
- */
+
 @SuppressWarnings("rawtypes")
 public final class RecyclerPagerAdapter extends PagerAdapter {
 

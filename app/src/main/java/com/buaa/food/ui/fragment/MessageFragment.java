@@ -13,12 +13,7 @@ import com.buaa.food.ui.activity.HomeActivity;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 消息 Fragment
- */
+
 public final class MessageFragment extends TitleBarFragment<HomeActivity> {
 
     private ImageView mImageView;

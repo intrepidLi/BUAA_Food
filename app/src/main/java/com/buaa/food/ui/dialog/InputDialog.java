@@ -15,12 +15,7 @@ import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 import com.hjq.widget.view.RegexEditText;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/02/27
- *    desc   : 输入对话框
- */
+
 public final class InputDialog {
 
     public static final class Builder

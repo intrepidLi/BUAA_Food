@@ -42,12 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/03/01
- *    desc   : 选择视频
- */
+
 public final class VideoSelectActivity extends AppActivity
         implements StatusAction, Runnable,
         BaseAdapter.OnItemClickListener,

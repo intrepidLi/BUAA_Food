@@ -15,12 +15,7 @@ import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/04/03
- *    desc   : 友盟客户端
- */
+
 public final class UmengClient {
 
     private static String sDeviceOaid;

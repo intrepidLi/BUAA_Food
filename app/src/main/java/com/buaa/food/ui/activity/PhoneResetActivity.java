@@ -25,12 +25,7 @@ import com.hjq.http.listener.HttpCallback;
 import com.hjq.toast.ToastUtils;
 import com.hjq.widget.view.CountdownView;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/04/20
- *    desc   : 设置手机号
- */
+
 public final class PhoneResetActivity extends AppActivity
         implements TextView.OnEditorActionListener {
 

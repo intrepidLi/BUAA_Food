@@ -16,12 +16,7 @@ import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/02/28
- *    desc   : 导航栏适配器
- */
+
 public final class NavigationAdapter extends AppAdapter<NavigationAdapter.MenuItem>
         implements BaseAdapter.OnItemClickListener {
 

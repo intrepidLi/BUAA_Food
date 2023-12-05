@@ -41,12 +41,7 @@ import okhttp3.Headers;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/12/07
- *    desc   : 请求处理类
- */
+
 public final class RequestHandler implements IRequestHandler {
 
     private final Application mApplication;

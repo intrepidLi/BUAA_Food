@@ -19,12 +19,6 @@ import com.hjq.http.EasyHttp;
 import com.hjq.http.listener.HttpCallback;
 import com.hjq.widget.view.CountdownView;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/02/27
- *    desc   : 忘记密码
- */
 public final class PasswordForgetActivity extends AppActivity
         implements TextView.OnEditorActionListener {
 

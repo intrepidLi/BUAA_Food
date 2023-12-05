@@ -5,12 +5,7 @@ import androidx.annotation.Nullable;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/04/03
- *    desc   : 友盟第三方分享
- */
+
 public final class UmengShare {
 
     /**

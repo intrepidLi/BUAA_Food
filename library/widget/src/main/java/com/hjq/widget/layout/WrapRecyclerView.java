@@ -16,12 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/09/21
- *    desc   : 支持添加头部和底部的 RecyclerView
- */
+
 @SuppressWarnings("rawtypes")
 public final class WrapRecyclerView extends RecyclerView {
 

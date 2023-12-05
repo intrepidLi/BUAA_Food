@@ -10,12 +10,7 @@ import androidx.annotation.NonNull;
 import com.buaa.food.ui.activity.CrashActivity;
 import com.buaa.food.ui.activity.RestartActivity;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/02/03
- *    desc   : Crash 处理类
- */
+
 public final class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /** Crash 文件名 */

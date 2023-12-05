@@ -3,12 +3,7 @@ package com.buaa.food.ui.activity;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 关于界面
- */
+
 public final class AboutActivity extends AppActivity {
 
     @Override

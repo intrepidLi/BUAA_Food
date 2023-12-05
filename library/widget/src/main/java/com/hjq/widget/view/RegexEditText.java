@@ -13,12 +13,7 @@ import com.hjq.widget.R;
 
 import java.util.regex.Pattern;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/06/29
- *    desc   : 正则输入限制编辑框
- */
+
 public class RegexEditText extends AppCompatEditText implements InputFilter {
 
     /** 手机号（只能以 1 开头） */

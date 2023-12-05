@@ -8,12 +8,7 @@ import androidx.annotation.NonNull;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/11/05
- *    desc   : 可进行拷贝的副本
- */
+
 public final class CopyAdapter extends AppAdapter<String> {
 
     public CopyAdapter(Context context) {

@@ -8,12 +8,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.io.File;
 import java.math.BigDecimal;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/03/01
- *    desc   : 应用缓存管理
- */
+
 public final class CacheDataManager {
 
     /**

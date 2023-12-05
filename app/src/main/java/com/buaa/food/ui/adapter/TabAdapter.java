@@ -17,12 +17,7 @@ import com.hjq.base.BaseAdapter;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/02/28
- *    desc   : Tab 适配器
- */
+
 public final class TabAdapter extends AppAdapter<String> implements BaseAdapter.OnItemClickListener {
 
     public static final int TAB_MODE_DESIGN = 1;

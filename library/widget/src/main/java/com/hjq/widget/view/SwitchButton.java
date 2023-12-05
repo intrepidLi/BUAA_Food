@@ -21,12 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.hjq.widget.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/02/20
- *    desc   : 高仿 ios 开关按钮
- */
+
 public final class SwitchButton extends View {
 
     private static final int STATE_SWITCH_OFF = 1;

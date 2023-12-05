@@ -36,12 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/07/24
- *    desc   : 选择图片
- */
+
 public final class ImageSelectActivity extends AppActivity
         implements StatusAction, Runnable,
         BaseAdapter.OnItemClickListener,

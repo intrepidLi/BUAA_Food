@@ -11,12 +11,7 @@ import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
 import com.buaa.food.aop.SingleClick;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/2
- *    desc   : 消息对话框
- */
+
 public final class MessageDialog {
 
     public static final class Builder

@@ -7,12 +7,7 @@ import android.content.Intent;
 import com.buaa.food.R;
 import com.buaa.food.app.AppActivity;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/11/29
- *    desc   : 重启应用
- */
+
 public final class RestartActivity extends AppActivity {
 
     public static void start(Context context) {

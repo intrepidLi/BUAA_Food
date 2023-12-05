@@ -26,12 +26,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/04/20
- *    desc   : 个人资料
- */
+
 public final class PersonalDataActivity extends AppActivity {
 
     private ViewGroup mAvatarLayout;
@@ -74,7 +69,7 @@ public final class PersonalDataActivity extends AppActivity {
                 .into(mAvatarView);
 
         mIdView.setRightText("880634");
-        mNameView.setRightText("Android 轮子哥");
+        mNameView.setRightText("彭莘");
 
         String address = mProvince + mCity + mArea;
         mAddressView.setRightText(address);

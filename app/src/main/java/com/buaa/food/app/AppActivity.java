@@ -21,12 +21,7 @@ import com.hjq.http.listener.OnHttpListener;
 
 import okhttp3.Call;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : Activity 业务基类
- */
+
 public abstract class AppActivity extends BaseActivity
         implements ToastAction, TitleBarAction, OnHttpListener<Object> {
 

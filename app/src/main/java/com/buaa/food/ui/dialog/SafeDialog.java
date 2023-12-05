@@ -18,12 +18,7 @@ import com.hjq.http.listener.OnHttpListener;
 import com.hjq.toast.ToastUtils;
 import com.hjq.widget.view.CountdownView;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/02/06
- *    desc   : 身份校验对话框
- */
+
 public final class SafeDialog {
 
     public static final class Builder

@@ -15,12 +15,7 @@ import com.buaa.food.http.glide.GlideApp;
 
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/07/24
- *    desc   : 图片选择适配器
- */
+
 public final class ImageSelectAdapter extends AppAdapter<String> {
 
     private final List<String> mSelectImages;

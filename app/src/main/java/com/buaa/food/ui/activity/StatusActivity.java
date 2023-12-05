@@ -8,12 +8,7 @@ import com.buaa.food.app.AppActivity;
 import com.buaa.food.ui.dialog.MenuDialog;
 import com.buaa.food.widget.StatusLayout;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/04/17
- *    desc   : 加载使用案例
- */
+
 public final class StatusActivity extends AppActivity
         implements StatusAction {
 

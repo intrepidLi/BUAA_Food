@@ -38,12 +38,7 @@ import com.tencent.mmkv.MMKV;
 import okhttp3.OkHttpClient;
 import timber.log.Timber;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 应用入口
- */
+
 public final class AppApplication extends Application {
 
     @Log("启动耗时")

@@ -5,12 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/03/08
- *    desc   : Activity 相关意图
- */
+
 public interface ActivityAction {
 
     /**

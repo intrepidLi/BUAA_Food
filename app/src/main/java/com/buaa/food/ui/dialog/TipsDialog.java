@@ -11,12 +11,7 @@ import androidx.annotation.StringRes;
 import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/2
- *    desc   : 提示对话框
- */
+
 public final class TipsDialog {
 
     public final static int ICON_FINISH = R.drawable.tips_finish_ic;

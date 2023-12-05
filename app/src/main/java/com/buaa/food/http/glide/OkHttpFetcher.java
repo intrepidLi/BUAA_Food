@@ -20,12 +20,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/12/15
- *    desc   : OkHttp 加载器
- */
+
 public final class OkHttpFetcher implements DataFetcher<InputStream>, Callback {
 
     private final Call.Factory mCallFactory;

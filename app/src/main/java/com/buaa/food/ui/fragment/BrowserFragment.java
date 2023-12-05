@@ -20,12 +20,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/10/24
- *    desc   : 浏览器 Fragment
- */
+
 public final class BrowserFragment extends AppFragment<AppActivity>
         implements StatusAction, OnRefreshListener {
 

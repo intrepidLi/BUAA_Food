@@ -20,12 +20,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.hjq.widget.R;
 
-/**
- *    author : Unstoppable & Android 轮子哥
- *    github : https://github.com/Someonewow/SubmitButton
- *    time   : 2016/12/31
- *    desc   : 带提交动画按钮
- */
+
 public final class SubmitButton extends AppCompatButton {
 
     /** 无进度 */

@@ -16,12 +16,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/12/06
- *    desc   : 权限申请切面
- */
+
 @Aspect
 public class PermissionsAspect {
 

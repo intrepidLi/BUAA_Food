@@ -9,12 +9,7 @@ import androidx.annotation.NonNull;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/08/28
- *    desc   : 引导页适配器
- */
+
 public final class GuideAdapter extends AppAdapter<Integer> {
 
     public GuideAdapter(Context context) {

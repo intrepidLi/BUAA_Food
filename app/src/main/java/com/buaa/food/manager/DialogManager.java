@@ -11,12 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/01/29
- *    desc   : Dialog 显示管理类
- */
+
 public final class DialogManager implements LifecycleEventObserver, BaseDialog.OnDismissListener {
 
     private final static HashMap<LifecycleOwner, DialogManager> DIALOG_MANAGER = new HashMap<>();

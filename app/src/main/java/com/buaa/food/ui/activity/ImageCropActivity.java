@@ -25,12 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/09/19
- *    desc   : 图片裁剪
- */
+
 public final class ImageCropActivity extends AppActivity {
 
     private static final String INTENT_KEY_IN_SOURCE_IMAGE_PATH = "imagePath";

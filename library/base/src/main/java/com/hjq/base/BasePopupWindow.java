@@ -45,12 +45,6 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/09/16
- *    desc   : PopupWindow 技术基类
- */
 public class BasePopupWindow extends PopupWindow
         implements ActivityAction, HandlerAction, ClickAction,
         AnimAction, KeyboardAction, PopupWindow.OnDismissListener {

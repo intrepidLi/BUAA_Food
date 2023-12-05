@@ -30,12 +30,7 @@ import com.hjq.permissions.Permission;
 
 import java.io.File;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/03/20
- *    desc   : 升级对话框
- */
+
 public final class UpdateDialog {
 
     public static final class Builder

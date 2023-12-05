@@ -10,12 +10,7 @@ import androidx.core.view.NestedScrollingChild;
 import androidx.core.view.NestedScrollingChildHelper;
 import androidx.core.view.ViewCompat;
 
-/**
- *    author : tobiasrohloff & Android 轮子哥
- *    github : https://github.com/tobiasrohloff/NestedScrollWebView
- *    time   : 2020/08/18
- *    desc   : 支持嵌套滚动的 WebView
- */
+
 public class NestedScrollWebView extends WebView implements NestedScrollingChild {
 
     private final NestedScrollingChildHelper mChildHelper;

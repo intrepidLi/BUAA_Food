@@ -15,12 +15,7 @@ import com.buaa.food.app.AppActivity;
 
 import me.relex.circleindicator.CircleIndicator3;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/09/21
- *    desc   : 应用引导页
- */
+
 public final class GuideActivity extends AppActivity {
 
     private ViewPager2 mViewPager;

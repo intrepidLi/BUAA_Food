@@ -8,12 +8,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.hjq.widget.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/08/02
- *    desc   : 长按缩放松手恢复的 ImageView
- */
+
 public final class ScaleImageView extends AppCompatImageView {
 
     private float mScaleSize = 1.2f;

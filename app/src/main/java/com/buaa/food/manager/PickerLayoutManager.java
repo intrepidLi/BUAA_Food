@@ -10,12 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- *    author : 钉某人 & Android 轮子哥
- *    github : https://github.com/DingMouRen/LayoutManagerGroup
- *    time   : 2019/09/11
- *    desc   : 选择器布局管理器
- */
+
 public final class PickerLayoutManager extends LinearLayoutManager {
 
     private final LinearSnapHelper mLinearSnapHelper;

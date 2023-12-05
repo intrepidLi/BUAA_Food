@@ -12,12 +12,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.bar.TitleBar;
 import com.buaa.food.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/10/31
- *    desc   : 带标题栏的 Fragment 业务基类
- */
+
 public abstract class TitleBarFragment<A extends AppActivity> extends AppFragment<A>
         implements TitleBarAction {
 

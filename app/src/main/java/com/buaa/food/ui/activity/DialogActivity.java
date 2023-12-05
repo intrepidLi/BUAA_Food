@@ -36,12 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/02
- *    desc   : 对话框使用案例
- */
+
 public final class DialogActivity extends AppActivity {
 
     /** 等待对话框 */

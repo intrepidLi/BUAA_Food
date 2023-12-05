@@ -8,12 +8,7 @@ import android.util.TypedValue;
 import com.buaa.food.R;
 import com.hjq.toast.style.BlackToastStyle;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/02/27
- *    desc   : Toast 样式配置
- */
+
 public final class ToastStyle extends BlackToastStyle {
 
     @Override

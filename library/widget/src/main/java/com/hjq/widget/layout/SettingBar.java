@@ -25,12 +25,7 @@ import androidx.core.content.ContextCompat;
 
 import com.hjq.widget.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/01/23
- *    desc   : 设置条自定义控件
- */
+
 public final class SettingBar extends FrameLayout {
 
     /** 无色值 */

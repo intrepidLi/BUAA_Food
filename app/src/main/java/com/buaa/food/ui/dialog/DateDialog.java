@@ -20,12 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/12/17
- *    desc   : 日期选择对话框
- */
+
 public final class DateDialog {
 
     public static final class Builder

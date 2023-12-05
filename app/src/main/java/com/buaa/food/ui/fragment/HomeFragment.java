@@ -17,12 +17,7 @@ import com.buaa.food.ui.activity.HomeActivity;
 import com.buaa.food.ui.adapter.TabAdapter;
 import com.buaa.food.widget.XCollapsingToolbarLayout;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : 首页 Fragment
- */
+
 public final class HomeFragment extends TitleBarFragment<HomeActivity>
         implements TabAdapter.OnTabListener, ViewPager.OnPageChangeListener,
         XCollapsingToolbarLayout.OnScrimsListener {

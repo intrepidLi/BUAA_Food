@@ -20,12 +20,7 @@ import com.buaa.food.app.AppAdapter;
 
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/07/27
- *    desc   : 相册专辑选取对话框
- */
+
 public final class AlbumDialog {
 
     public static final class Builder

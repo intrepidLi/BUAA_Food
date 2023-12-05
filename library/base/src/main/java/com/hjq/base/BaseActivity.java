@@ -23,12 +23,7 @@ import com.hjq.base.action.KeyboardAction;
 import java.util.List;
 import java.util.Random;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2018/10/18
- *    desc   : Activity 技术基类
- */
+
 public abstract class BaseActivity extends AppCompatActivity
         implements ActivityAction, ClickAction,
         HandlerAction, BundleAction, KeyboardAction {

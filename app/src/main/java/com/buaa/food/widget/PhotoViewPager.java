@@ -6,12 +6,7 @@ import android.view.MotionEvent;
 
 import com.hjq.widget.layout.NestedViewPager;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/05/07
- *    desc   : ViewPager 中使用 PhotoView 时出现 pointerIndex out of range 异常
- */
+
 public final class PhotoViewPager extends NestedViewPager {
 
     public PhotoViewPager(Context context) {

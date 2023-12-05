@@ -19,12 +19,7 @@ import com.buaa.food.widget.PlayerView;
 
 import java.util.List;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2020/03/01
- *    desc   : 视频选择适配器
- */
+
 public final class VideoSelectAdapter extends AppAdapter<VideoSelectActivity.VideoBean> {
 
     private final List<VideoSelectActivity.VideoBean> mSelectVideo;

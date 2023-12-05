@@ -13,12 +13,7 @@ import com.hjq.bar.style.LightBarStyle;
 import com.buaa.food.R;
 import com.hjq.widget.view.PressAlphaTextView;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2021/02/27
- *    desc   : 标题栏初始器
- */
+
 public final class TitleBarStyle extends LightBarStyle {
 
     @Override

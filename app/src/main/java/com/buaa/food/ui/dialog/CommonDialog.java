@@ -13,12 +13,7 @@ import androidx.annotation.StringRes;
 import com.hjq.base.BaseDialog;
 import com.buaa.food.R;
 
-/**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/09/21
- *    desc   : 项目通用 Dialog 布局封装
- */
+
 public final class CommonDialog {
 
     @SuppressWarnings("unchecked")
