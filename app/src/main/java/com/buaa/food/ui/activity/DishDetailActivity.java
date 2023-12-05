@@ -1,6 +1,7 @@
 package com.buaa.food.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -59,7 +60,7 @@ public final class DishDetailActivity extends AppActivity {
         mBuyBtn = findViewById(R.id.btn_buy);
         mCollectionView = findViewById(R.id.iv_collection);
 
-        setOnClickListener(mBuyBtn, mCollectionView, mCommentEnterBar);
+        setOnClickListener(mCommentEnterBar, mBuyBtn, mCollectionView, mCommentEnterBar);
 
         dataBaseHelper = new DataBaseHelper(this);
     }
@@ -114,9 +115,8 @@ public final class DishDetailActivity extends AppActivity {
             finish();
 
         } else if (view == mCommentEnterBar) {
-
-            // TODO : Enter comment activity
-
+            Intent intent = new Intent(getActivity(), CommentActivity.class);
+            startActivity(intent);
         } else if (view == mCollectionView) {
             // dataBaseHelper.uploadFavorite(dishId);
 

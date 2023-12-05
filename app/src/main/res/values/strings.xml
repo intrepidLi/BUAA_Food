@@ -201,7 +201,7 @@
 
     <!-- 重置密码 -->
     <string name="password_reset_title">设置登录密码</string>
-    <string name="password_reset_phone_hint1">输入6&#8211;18位登录密码</string>
+    <string name="password_reset_phone_hint1">输入登录密码</string>
     <string name="password_reset_phone_hint2">重新输入一次密码</string>
     <string name="password_reset_input_error">两次密码输入不一致，请重新输入</string>
     <string name="password_reset_success">修改成功</string>
@@ -271,5 +271,8 @@
 
     <!-- 历史记录 -->
     <string name="history_title">历史记录</string>
+
+    <!-- 评论 -->
+    <string name="comment_title">评论</string>
 
 </resources>

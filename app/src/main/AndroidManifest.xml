@@ -271,6 +271,12 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.buaa.food.ui.activity.CommentActivity"
+            android:label="评论界面"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.buaa.food.ui.activity.ResultActivity"
             android:label="搜索结果"
             android:launchMode="singleTop"
