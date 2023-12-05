@@ -1,7 +1,6 @@
 // AndroidProject 版本：v13.1
 // 导入配置文件
 apply from : 'configs.gradle'
-
 buildscript {
     // 导入通用的 Maven 库配置
     apply from : 'maven.gradle'
