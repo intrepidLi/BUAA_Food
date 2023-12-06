@@ -72,8 +72,6 @@ public class CommentActivity extends AppActivity implements TextView.OnEditorAct
         mCommentButton = findViewById(R.id.btn_comment);
 
         setOnClickListener(mCommentButton);
-
-        this.dataBaseHelper = new DataBaseHelper(this);
     }
 
 
