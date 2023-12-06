@@ -568,6 +568,70 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public int getCommentId(int dishId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
+                new String[]{String.valueOf(dishId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int commentId = cursor.getInt(cursor.getColumnIndex("id"));
+            cursor.close();
+            // db.close();
+            return commentId;
+        } else {
+            return -1;
+        }
+    }
+
+    public int getCommentUserId(int dishId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
+                new String[]{String.valueOf(dishId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+            cursor.close();
+            // db.close();
+            return userId;
+        } else {
+            return -1;
+        }
+    }
+
+    public String getCommentContent(int dishId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
+                new String[]{String.valueOf(dishId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String comment = cursor.getString(cursor.getColumnIndex("comment"));
+            cursor.close();
+            // db.close();
+            return comment;
+        } else {
+            return null;
+        }
+    }
+
+    public String getCommentTime(int dishId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
+                new String[]{String.valueOf(dishId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            cursor.close();
+            // db.close();
+            return time;
+        } else {
+            return null;
+        }
+    }
+
     public Cursor getData(){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM users";
