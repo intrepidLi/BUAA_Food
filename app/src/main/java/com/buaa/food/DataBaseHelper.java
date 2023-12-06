@@ -585,42 +585,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public int getCommentId(int dishId) {
+    public String getComment(int commentId) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
-
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            int commentId = cursor.getInt(cursor.getColumnIndex("id"));
-            cursor.close();
-            // db.close();
-            return commentId;
-        } else {
-            return -1;
-        }
-    }
-
-    public int getCommentUserId(int dishId) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
-
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
-            cursor.close();
-            // db.close();
-            return userId;
-        } else {
-            return -1;
-        }
-    }
-
-    public String getCommentContent(int dishId) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -633,10 +601,27 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public String getCommentTime(int dishId) {
+    public String  getCommentUserName(int commentId) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+            cursor.close();
+            // db.close();
+            String userName = getUsernameById(userId);
+            return userName;
+        } else {
+            return null;
+        }
+    }
+
+    public String getCommentTime(int commentId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();

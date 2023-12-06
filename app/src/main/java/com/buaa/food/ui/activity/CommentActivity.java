@@ -1,6 +1,8 @@
 package com.buaa.food.ui.activity;
 
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.viewpager.widget.ViewPager;
@@ -19,6 +21,10 @@ public class CommentActivity extends AppActivity {
     private int dishId;
     private int commentId;
     private TitleBar mTitleBar;
+    private LinearLayout mLinearLayout;
+    private LinearLayout mCommentLinearLayout;
+    private TextView commentView;
+    private TextView userView;
     private ViewPager mViewPager;
     private FragmentPagerAdapter<AppFragment<?>> mPagerAdapter;
     private DataBaseHelper dataBaseHelper;
@@ -29,8 +35,13 @@ public class CommentActivity extends AppActivity {
     }
 
     protected void initView() {
+        dataBaseHelper = new DataBaseHelper(this);
+
         dishId = getIntent().getIntExtra("dishId", 0);
         commentId = getIntent().getIntExtra("commentId", 0);
+
+        mLinearLayout = findViewById(R.id.comment_activity);
+        mCommentLinearLayout = findViewById(R.id.one_comment);
 
         mTitleBar = findViewById(R.id.comment);
         mViewPager = findViewById(R.id.vp_comment_pager);
@@ -39,9 +50,17 @@ public class CommentActivity extends AppActivity {
         if (dishId != 0 && commentId == 0) {
             mTitleBar.setTitle("一级评论");
             mPagerAdapter.addFragment(CommentsFragment.newInstance(dishId, CommentsFragment.StatusType.CommentOne));
+            mLinearLayout.removeView(mCommentLinearLayout);
         } else if (dishId == 0 && commentId != 0) {
             mTitleBar.setTitle("二级评论");
             mPagerAdapter.addFragment(CommentsFragment.newInstance(commentId, CommentsFragment.StatusType.CommentTwo));
+            String comment = dataBaseHelper.getComment(commentId);
+            String userName = dataBaseHelper.getCommentUserName(commentId);
+            String time = dataBaseHelper.getCommentTime(commentId);
+            commentView = findViewById(R.id.tv_comment_content);
+            userView = findViewById(R.id.tv_comment_time);
+            commentView.setText(comment);
+            userView.setText(userName + "  " + time);
         }
 
         mViewPager.setAdapter(mPagerAdapter);
