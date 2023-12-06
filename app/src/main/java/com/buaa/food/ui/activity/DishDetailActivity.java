@@ -80,7 +80,7 @@ public final class DishDetailActivity extends AppActivity {
                 .into(mDishImageView);
         } else {
             GlideApp.with(getActivity())
-                .load(R.drawable.dish_1)
+                .load(R.drawable.default1)
                 .placeholder(R.drawable.dish_1)
                 .error(R.drawable.dish_1)
                 .transform(new MultiTransformation<>(new CenterCrop()))
@@ -93,8 +93,15 @@ public final class DishDetailActivity extends AppActivity {
         mDishCanteenView.setText(dataBaseHelper.getDishCanteen(dishId));
         mDishWindowView.setText(dataBaseHelper.getDishWindow(dishId));
 
-        // TODO : init mCollectionView
+        // TODO : init mCollectionView ==> has done
         // isCollected = dataBaseHelper.isDishCollected(dishId);
+        int curViewed = dataBaseHelper.getDishViewed(dishId);
+        if (curViewed != -1) {
+            dataBaseHelper.updateDishViewed(dishId, curViewed + 1);
+        }
+
+        isCollected = dataBaseHelper.isFavorite(dishId);
+
         if (isCollected) {
             mCollectionView.setImageResource(R.drawable.collected);
         } else {
@@ -106,12 +113,24 @@ public final class DishDetailActivity extends AppActivity {
     @Override
     public void onClick(View view) {
         if (view == mBuyBtn) {
-            dataBaseHelper.updateDishRemaining(dishId, dataBaseHelper.getDishRemaining(dishId) - 1);
-            dataBaseHelper.updateDishViewed(dishId, dataBaseHelper.getDishViewed(dishId) + 1);
+            if (dataBaseHelper.checkDishRemaining(dishId)) {
+                int curRemain = dataBaseHelper.getDishRemaining(dishId);
+                int curOrdered = dataBaseHelper.getDishOrdered(dishId);
+                if (curOrdered != -1 && curRemain != -1) {
+                    dataBaseHelper.updateDishRemaining(dishId, curRemain - 1);
+                    dataBaseHelper.updateDishOrdered(dishId, curOrdered + 1);
+                    Toast.makeText(DishDetailActivity.this, "菜品购买成功", Toast.LENGTH_SHORT).show();
+                    dataBaseHelper.uploadHistory(dishId);
+                } else {
+                    Toast.makeText(DishDetailActivity.this, "菜品购买失败", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(DishDetailActivity.this, "购买失败，菜品余量不足", Toast.LENGTH_SHORT).show();
+            }
 
-            // TODO : Add to user's history
+            // dataBaseHelper.updateDishViewed(dishId, dataBaseHelper.getDishViewed(dishId) + 1);
 
-            Toast.makeText(DishDetailActivity.this, "购买成功", Toast.LENGTH_SHORT).show();
+            // TODO : Add to user's history ==> has done
             finish();
 
         } else if (view == mCommentEnterBar) {
@@ -120,13 +139,15 @@ public final class DishDetailActivity extends AppActivity {
         } else if (view == mCollectionView) {
             // dataBaseHelper.uploadFavorite(dishId);
 
-            // TODO : Add to user's collection or cancel collection
+            // TODO : Add to user's collection or cancel collection ==> has done
 
             if (isCollected) {
+                dataBaseHelper.deleteCollection(dishId);
                 toast("取消收藏");
                 mCollectionView.setImageResource(R.drawable.collection_icon);
                 isCollected = false;
             } else {
+                dataBaseHelper.uploadFavorite(dishId);
                 toast("收藏成功");
                 mCollectionView.setImageResource(R.drawable.collected);
                 isCollected = true;

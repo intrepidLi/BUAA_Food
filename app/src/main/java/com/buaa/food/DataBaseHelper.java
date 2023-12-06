@@ -1,4 +1,5 @@
 package com.buaa.food;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,8 +23,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -197,6 +200,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         initTestUser1(myDataBase);
         initTestFavoriteDish(myDataBase);
         initTestHistoryDish(myDataBase);
+        initTestComment(myDataBase);
+        initTestSecondComment(myDataBase);
     }
 
     public void initSuperAdmin(SQLiteDatabase myDataBase) {
@@ -256,6 +261,54 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             Timber.tag("initTestHistoryDish").d("initTestHistoryDish Success!!!");
         } else {
             Timber.tag("initTestHistoryDish").d("initTestHistoryDish Failed!!!");
+        }
+    }
+
+    public void initTestComment(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("userId", 2);
+        values.put("dishId", 4);
+        values.put("comment", "好吃！！！");
+        // 获取当前时间
+        Date currentDate = new Date();
+
+        // 定义时间格式
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = dateFormat.format(currentDate);
+
+        values.put("time", formattedTime);
+
+        long newRowId = myDataBase.insert("comments", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initTestComment").d("initTestComment Success!!!");
+        } else {
+            Timber.tag("initTestComment").d("initTestComment Failed!!!");
+        }
+    }
+
+    public void initTestSecondComment(SQLiteDatabase myDataBase) {
+        ContentValues values = new ContentValues();
+        values.put("userId", 1);
+        values.put("commentId", 1);
+        values.put("secondComment", "你说的对！！！");
+        // 获取当前时间
+        Date currentDate = new Date();
+
+        // 定义时间格式
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = dateFormat.format(currentDate);
+
+        values.put("time", formattedTime);
+
+        long newRowId = myDataBase.insert("secondComments", null, values);
+
+        if (newRowId != -1) {
+            Timber.tag("initTestSecondComment").d("initTestSecondComment Success!!!");
+        } else {
+            Timber.tag("initTestSecondComment").d("initTestSecondComment Failed!!!");
         }
     }
 
@@ -587,7 +640,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
 
         // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
-        String query = "SELECT d.id, d.name, d.price, d.image FROM dishes d " +
+        String query = "SELECT d.id, d.name, d.price, d.image, d.ordered, d.viewed FROM dishes d " +
                 "INNER JOIN canteens c ON d.canteenId = c.id " +
                 "WHERE c.address = ?";
 
@@ -602,8 +655,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 
                 byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
                 // 根据查询结果创建 DishPreview 对象并添加到数据列表
-                dishPreviews.add(new DishPreview(id, name, price, image));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
             } while (cursor.moveToNext());
 
             // 关闭 cursor
@@ -620,7 +675,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
 
         // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
-        String query = "SELECT id, name, price, image FROM dishes";
+        String query = "SELECT id, name, price, image, ordered, viewed FROM dishes";
 
         // 执行查询
         Cursor cursor = db.rawQuery(query, null);
@@ -633,8 +688,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 
                 byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
                 // 根据查询结果创建 DishPreview 对象并添加到数据列表
-                dishPreviews.add(new DishPreview(id, name, price, image));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
             } while (cursor.moveToNext());
 
             // 关闭 cursor
@@ -788,6 +846,22 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public int getDishOrdered(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+            cursor.close();
+            // db.close();
+            return ordered;
+        } else {
+            cursor.close();
+            // db.close();
+            return -1;
+        }
+    }
+
     public boolean updateDishName(int dishId, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -822,7 +896,30 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean updateDishRemaining(int dishId, int remaining) {
+    public boolean checkDishRemaining(int dishId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT remain FROM dishes WHERE id=?", new String[]{String.valueOf(dishId)});
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            int curRemain = cursor.getInt(cursor.getColumnIndex("remain"));
+            cursor.close();
+            if (curRemain <= 0) {
+                Timber.tag("DatabaseHelper").d("Dish remaining is already less than 0. No buying needed.");
+                cursor.close();
+                // db.close();
+                return false;
+            }
+            return true;
+        } else {
+            cursor.close();
+            Timber.tag("DatabaseHelper").d("Update Dish remaining without this dish.");
+            return false;
+        }
+    }
+
+    public void updateDishRemaining(int dishId, int remaining) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -831,15 +928,32 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
         if(result == -1){
             Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
-            return false;
+           // return false;
         }else{
             Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
             // db.close();
-            return true;
+           // return true;
         }
     }
 
-    public boolean updateDishViewed(int dishId, int viewed) {
+    public void updateDishOrdered(int dishId, int orders) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ordered", orders);
+
+        long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
+        if(result == -1){
+            Timber.tag("DatabaseHelper").d("Failed to update dish ordered");
+            // return false;
+        }else{
+            Timber.tag("DatabaseHelper").d("Successfully updated dish ordered");
+            // db.close();
+            // return true;
+        }
+    }
+
+    public void updateDishViewed(int dishId, int viewed) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -848,11 +962,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
         if(result == -1){
             Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
-            return false;
+            // return false;
         }else{
             Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
             // db.close();
-            return true;
+            // return true;
         }
     }
 
@@ -868,10 +982,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
         if(result == -1){
-            Timber.tag("DatabaseHelper").d("Failed to update dish image");
+            Timber.tag("updateDishImage").d("Failed to update dish image");
             return false;
         }else{
-            Timber.tag("DatabaseHelper").d("Successfully updated dish image");
+            Timber.tag("updateDishImage").d("Successfully updated dish image");
             // db.close();
             return true;
         }
@@ -974,7 +1088,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean uploadFavorite(int dishId) {
+    public boolean isFavorite(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         int userId = getUserId(UserAuth.getLocalUserPhone());
 
@@ -983,14 +1097,82 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
             return false;
+        }
+    }
+
+    public void uploadFavorite(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        Cursor cursor = db.rawQuery("select * from favoriteDishes where userId=? and dishId=?",
+                new String[]{String.valueOf(userId), String.valueOf(dishId)});
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            Toast.makeText(context, "已收藏", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put("userId", userId);
             contentValues.put("dishId", dishId);
 
             long result = db.insert("favoriteDishes", null, contentValues);
-            return result != -1;
+            if (result != -1) {
+                Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "收藏失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void uploadHistory(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        Cursor cursor = db.rawQuery("select * from historyDishes where userId=? and dishId=?",
+                new String[]{String.valueOf(userId), String.valueOf(dishId)});
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            String whereClause = "userId=? AND dishId=?";
+            String[] whereArgs = {String.valueOf(userId), String.valueOf(dishId)};
+
+            // 执行删除操作
+            int deletedRows = db.delete("historyDishes", whereClause, whereArgs);
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("dishId", dishId);
+
+        long result = db.insert("historyDishes", null, contentValues);
+        if (result != -1) {
+            // Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+            Timber.tag("uploadHistory").d("购买记录添加成功");
+        } else {
+            Timber.tag("uploadHistory").d("购买记录添加失败");
+        }
+    }
+
+    public void deleteCollection(int dishId) {
+        SQLiteDatabase db = getWritableDatabase();
+        int userId = getUserId(UserAuth.getLocalUserPhone());
+
+        // 定义删除的条件
+        String whereClause = "userId=? AND dishId=?";
+        String[] whereArgs = {String.valueOf(userId), String.valueOf(dishId)};
+
+        // 执行删除操作
+        int deletedRows = db.delete("favoriteDishes", whereClause, whereArgs);
+
+        // 检查是否删除成功
+        if (deletedRows > 0) {
+           Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "取消收藏失败", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1000,7 +1182,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
         int userId = getUserId(UserAuth.getLocalUserPhone());
 
-        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image " +
+        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image, d.ordered, d.viewed " +
                         "FROM dishes d " +
                         "INNER JOIN favoriteDishes f ON d.id = f.dishId " +
                         "WHERE f.userId = ?",
@@ -1013,7 +1195,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 
                 byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
-                dishPreviews.add(new DishPreview(id, name, price, image));
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
             } while (cursor.moveToNext());
 
             cursor.close();
@@ -1028,7 +1212,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
         int userId = getUserId(UserAuth.getLocalUserPhone());
 
-        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image " +
+        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image, d.ordered, d.viewed " +
                         "FROM dishes d " +
                         "INNER JOIN historyDishes h ON d.id = h.dishId " +
                         "WHERE h.userId = ?",
@@ -1041,7 +1225,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 String price = cursor.getString(cursor.getColumnIndex("price"));
 
                 byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
-                dishPreviews.add(new DishPreview(id, name, price, image));
+
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
             } while (cursor.moveToNext());
 
             cursor.close();

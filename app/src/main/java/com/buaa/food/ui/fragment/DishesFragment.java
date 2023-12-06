@@ -21,6 +21,8 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 import com.buaa.food.DishPreview;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import timber.log.Timber;
@@ -96,7 +98,6 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         mRefreshLayout.setOnRefreshLoadMoreListener(this);
         this.dataBaseHelper = new DataBaseHelper(this.getContext());
         // canteenTitle = "新北食堂";
-        allDishes = dataBaseHelper.fetchAllDishes();
     }
 
     @Override
@@ -114,6 +115,9 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
         if (type == StatusType.History) {
             allHistoryDishes = dataBaseHelper.fetchHistorys();
+        }
+        if (type == StatusType.HotRank) {
+            allDishes = dataBaseHelper.fetchAllDishes();
         }
 
         mAdapter.setData(analogData());
@@ -149,13 +153,20 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         }
     }
 
+    private void hotRankProcess(List<DishPreview> data) {
+        allDishes = dataBaseHelper.fetchAllDishes();
+        Collections.sort(allDishes);
+        for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+            DishPreview dishPreview = allDishes.get(i);
+            data.add(dishPreview);
+        }
+    }
+
     private List<DishPreview> analogData() {
         List<DishPreview> data = new ArrayList<>();
         switch (type) {
             case HotRank:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview("热度第" + i, "￥" + i));
-                }
+                hotRankProcess(data);
                 break;
             case HangweiXinBei:
             case HangweiDongQu:
