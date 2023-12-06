@@ -1,7 +1,9 @@
 package com.buaa.food.ui.activity;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,15 +11,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.buaa.food.DataBaseHelper;
 import com.buaa.food.R;
+import com.buaa.food.UserAuth;
 import com.buaa.food.aop.SingleClick;
 import com.buaa.food.app.AppActivity;
 import com.buaa.food.app.AppFragment;
+import com.buaa.food.ui.dialog.InputDialog;
 import com.buaa.food.ui.fragment.CommentsFragment;
 import com.buaa.food.ui.fragment.DishesFragment;
 import com.hjq.bar.TitleBar;
 import com.hjq.base.FragmentPagerAdapter;
 
-public class CommentActivity extends AppActivity {
+public class CommentActivity extends AppActivity implements TextView.OnEditorActionListener{
     private int dishId;
     private int commentId;
     private TitleBar mTitleBar;
@@ -80,7 +84,35 @@ public class CommentActivity extends AppActivity {
     @Override
     public void onClick(View view) {
         if (view == mCommentButton) {
-
+            new InputDialog.Builder(this)
+                    .setTitle("评论")
+                    .setContent("请输入评论内容")
+                    .setHint("评论内容")
+                    .setConfirm("确定")
+                    .setCancel("取消")
+                    .setAutoDismiss(true)
+                    .setListener((dialog, content) -> {
+                        if (content.isEmpty()) {
+                            toast("请输入评论内容");
+                        }
+                        if (dishId != 0 && commentId == 0) {
+                            dataBaseHelper.insertComment(dishId, content, dataBaseHelper
+                                    .getUserId(UserAuth.getLocalUserPhone()));
+                            toast("评论成功");
+                            finish();
+                        } else if (dishId == 0 && commentId != 0) {
+                            dataBaseHelper.insertSecondComment(commentId, content, dataBaseHelper
+                                    .getUserId(UserAuth.getLocalUserPhone()));
+                            toast("评论成功");
+                            finish();
+                        }
+                    })
+                    .show();
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        return false;
     }
 }
