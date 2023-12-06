@@ -1325,4 +1325,56 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Timber.tag("DatabaseHelper").d("Deleted " + deletedRows + " rows from historyDishes table");
     }
 
+    public List<CommentPreview> fetchComments(int dishId) {
+        List<CommentPreview> commentPreviews = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT c.id, c.userId, c.comment, c.time " +
+                        "FROM comments c " +
+                        "WHERE c.dishId = ?",
+                new String[]{String.valueOf(dishId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+                String comment = cursor.getString(cursor.getColumnIndex("comment"));
+                String time = cursor.getString(cursor.getColumnIndex("time"));
+
+                commentPreviews.add(new CommentPreview(dishId, userId, id, comment, time));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return commentPreviews;
+    }
+
+    public List<CommentPreview> fetchSecondComments(int commentId) {
+        List<CommentPreview> commentPreviews = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT s.id, s.userId, s.comment, s.time " +
+                        "FROM secondComments s " +
+                        "WHERE s.commentId = ?",
+                new String[]{String.valueOf(commentId)});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+                String comment = cursor.getString(cursor.getColumnIndex("comment"));
+                String time = cursor.getString(cursor.getColumnIndex("time"));
+
+                commentPreviews.add(new CommentPreview(-1, userId, id, comment, time));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return commentPreviews;
+    }
+
 }
