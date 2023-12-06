@@ -517,6 +517,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public String getUsernameById(int userId){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from users where id=?",
+                new String[]{String.valueOf(userId)});
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            String username = cursor.getString(cursor.getColumnIndex("username"));
+            cursor.close();
+            // db.close();
+            return username;
+        } else {
+            cursor.close();
+            // db.close();
+            return null;
+        }
+    }
+
     public int getUserId(String phone){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
@@ -1341,8 +1358,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 int userId = cursor.getInt(cursor.getColumnIndex("userId"));
                 String comment = cursor.getString(cursor.getColumnIndex("comment"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
+                String userName = getUsernameById(userId);
 
-                commentPreviews.add(new CommentPreview(dishId, userId, id, comment, time));
+                commentPreviews.add(new CommentPreview(dishId, id, userName, comment, time));
             } while (cursor.moveToNext());
 
             cursor.close();
@@ -1367,8 +1385,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 int userId = cursor.getInt(cursor.getColumnIndex("userId"));
                 String comment = cursor.getString(cursor.getColumnIndex("comment"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
+                String userName = getUsernameById(userId);
 
-                commentPreviews.add(new CommentPreview(-1, userId, id, comment, time));
+                commentPreviews.add(new CommentPreview(-1, id, userName, comment, time));
             } while (cursor.moveToNext());
 
             cursor.close();

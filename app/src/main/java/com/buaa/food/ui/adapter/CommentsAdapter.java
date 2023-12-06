@@ -10,11 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.buaa.food.CommentPreview;
 import com.buaa.food.DishPreview;
 import com.buaa.food.R;
 import com.buaa.food.app.AppAdapter;
 
-public final class CommentsAdapter extends AppAdapter<DishPreview> {
+public final class CommentsAdapter extends AppAdapter<CommentPreview> {
 
     public CommentsAdapter(Context context) {
         super(context);
@@ -40,17 +41,8 @@ public final class CommentsAdapter extends AppAdapter<DishPreview> {
         @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
         @Override
         public void onBindView(int position) {
-//            DishPreview dishPreview = getItem(position);
-//            byte[] image = dishPreview.getImage();
-//            if (image == null || image.length == 0) {
-//                mImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.default1));
-//            } else {
-//                Bitmap dishImage = BitmapFactory.decodeByteArray(image, 0, image.length);
-//                mImageView.setImageBitmap(dishImage);
-//            }
-//            mNameView.setText(dishPreview.getDishName());
-//            // mImageView.setImageDrawable(getContext().getResources().getDrawable(R.drawable.test_user_img));
-//            mPriceView.setText("￥" + dishPreview.getDishPrice());
+            mCommentText.setText(getItem(position).getComment());
+            mUserText.setText(getItem(position).getUserName() + "  " + getItem(position).getTime());
         }
     }
 }

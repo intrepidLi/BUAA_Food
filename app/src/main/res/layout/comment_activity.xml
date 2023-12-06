@@ -7,6 +7,7 @@
 
     <!-- Toolbar -->
     <com.hjq.bar.TitleBar
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/comment_title" />

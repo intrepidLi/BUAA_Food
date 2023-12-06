@@ -3,14 +3,14 @@ package com.buaa.food;
 public class CommentPreview implements Comparable<CommentPreview> {
     int dishId;
     int commentId;
-    int userId;
+    String userName;
     String comment;
     String time;
 
-    public CommentPreview(int dishId, int userId, int commentId, String comment, String time) {
+    public CommentPreview(int dishId, int commentId, String userName, String comment, String time) {
         this.dishId = dishId;
-        this.userId = userId;
         this.commentId = commentId;
+        this.userName = userName;
         this.comment = comment;
         this.time = time;
     }
@@ -19,13 +19,14 @@ public class CommentPreview implements Comparable<CommentPreview> {
         return dishId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
     public int getCommentId() {
         return commentId;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
 
     public String getComment() {
         return comment;
