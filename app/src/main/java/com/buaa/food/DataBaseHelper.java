@@ -485,6 +485,60 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public void insertComment(int dishId, String content, int userId) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("dishId", dishId);
+        contentValues.put("comment", content);
+        // 获取当前时间
+        Date currentDate = new Date();
+
+        // 定义时间格式
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = dateFormat.format(currentDate);
+
+        contentValues.put("time", formattedTime);
+
+        long result = db.insert("comments", null, contentValues);
+        if(result == -1){
+            Toast.makeText(context, "Failed to insert comment", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Failed to insert comment");
+        }else{
+            Toast.makeText(context, "Successfully inserted comment", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Successfully inserted comment");
+           // db.close();
+        }
+    }
+
+    public void insertSecondComment(int commentId, String content, int userId) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("userId", userId);
+        contentValues.put("commentId", commentId);
+        contentValues.put("comment", content);
+        // 获取当前时间
+        Date currentDate = new Date();
+
+        // 定义时间格式
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = dateFormat.format(currentDate);
+
+        contentValues.put("time", formattedTime);
+
+        long result = db.insert("secondComments", null, contentValues);
+        if(result == -1){
+            Toast.makeText(context, "Failed to insert comment", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Failed to insert comment");
+        }else{
+            Toast.makeText(context, "Successfully inserted comment", Toast.LENGTH_SHORT).show();
+            Timber.tag("DatabaseHelper").d("Successfully inserted comment");
+            // db.close();
+        }
+    }
+
     public boolean checkPhonePassword(String phone, String password){
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=? and password=?",
