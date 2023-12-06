@@ -31,6 +31,8 @@ public final class SettingActivity extends AppActivity
 
 //    private SettingBar mNameView;
 //    private SettingBar mPasswordView;
+
+    private SettingBar mSettingBar;
     private DataBaseHelper dataBaseHelper;
 
     @Override
@@ -42,12 +44,18 @@ public final class SettingActivity extends AppActivity
     protected void initView() {
 //        mNameView = findViewById(R.id.sb_setting_userName);
 //        mPasswordView = findViewById(R.id.sb_setting_password);
+        dataBaseHelper = new DataBaseHelper(this);
+        mSettingBar = findViewById(R.id.sb_admin_enter);
+        String phone = UserAuth.getLocalUserPhone();
+        if (!dataBaseHelper.getUsername(phone).equals("admin")) {
+            mSettingBar.setLeftText("联系管理员");
+        }
 
         setOnClickListener(
-            R.id.sb_setting_agreement,
-            R.id.sb_setting_about,
-            R.id.sb_admin_enter,
-            R.id.sb_setting_exit
+                R.id.sb_setting_agreement,
+                R.id.sb_setting_about,
+                R.id.sb_admin_enter,
+                R.id.sb_setting_exit
         );
     }
 
@@ -85,8 +93,14 @@ public final class SettingActivity extends AppActivity
 
             BrowserActivity.start(this, "https://github.com/intrepidLi/BUAA_Food");
 
-        }else if (viewId == R.id.sb_admin_enter) {
-            startActivity(AdminActivity.class);
+        } else if (viewId == R.id.sb_admin_enter) {
+
+            String phone = UserAuth.getLocalUserPhone();
+            if (dataBaseHelper.getUsername(phone).equals("admin")) {
+                startActivity(AdminActivity.class);
+            } else {
+                toast("管理员电话：13910188707");
+            }
 
         } else if (viewId == R.id.sb_setting_exit) {
 
