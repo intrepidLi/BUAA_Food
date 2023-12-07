@@ -136,6 +136,7 @@ public final class DishDetailActivity extends AppActivity {
         } else if (view == mCommentEnterBar) {
             Intent intent = new Intent(getActivity(), CommentActivity.class);
             intent.putExtra("dishId", dishId);
+            intent.putExtra("commentId", 0);
             startActivity(intent);
         } else if (view == mCollectionView) {
             // dataBaseHelper.uploadFavorite(dishId);

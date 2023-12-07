@@ -1,4 +1,5 @@
 package com.buaa.food;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -32,7 +33,7 @@ import java.util.Objects;
 
 import timber.log.Timber;
 
-public class DataBaseHelper extends SQLiteOpenHelper{
+public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "BuaaFood.db";
     private Context context;
 
@@ -45,7 +46,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("drop Table if exists favoriteDishes");
         db.execSQL("drop Table if exists favoriteWindows");
@@ -72,7 +73,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 "username varchar(20)," +
                 " password varchar(20)," +
                 " phone varchar(20) unique, " +
-                "image BLOB)" );
+                "image BLOB)");
 
         // 需要新增菜品表 （id(主键)，名字，窗口id，食堂id，被点餐的量，被浏览的量，菜品剩余量，图片URL）
         myDataBase.execSQL("create table if not exists dishes(" +
@@ -436,7 +437,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean insertInitUser(String username, String password, String phone){
+    public boolean insertInitUser(String username, String password, String phone) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -449,7 +450,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
-    public boolean updateUser(String username, String password, String phone){
+    public boolean updateUser(String username, String password, String phone) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
@@ -459,26 +460,26 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
-    public boolean checkUsername(String username){
+    public boolean checkUsername(String username) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where username=?",
                 new String[]{username});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean checkPhone(String phone){
+    public boolean checkPhone(String phone) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.close();
             db.close();
             return true;
-        }else{
+        } else {
             cursor.close();
             db.close();
             return false;
@@ -502,13 +503,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("time", formattedTime);
 
         long result = db.insert("comments", null, contentValues);
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Failed to insert comment", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Failed to insert comment");
-        }else{
+        } else {
             Toast.makeText(context, "Successfully inserted comment", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully inserted comment");
-           // db.close();
+            // db.close();
         }
     }
 
@@ -517,7 +518,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         ContentValues contentValues = new ContentValues();
         contentValues.put("userId", userId);
         contentValues.put("commentId", commentId);
-        contentValues.put("comment", content);
+        contentValues.put("secondComment", content);
         // 获取当前时间
         Date currentDate = new Date();
 
@@ -529,36 +530,36 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("time", formattedTime);
 
         long result = db.insert("secondComments", null, contentValues);
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Failed to insert comment", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Failed to insert comment");
-        }else{
+        } else {
             Toast.makeText(context, "Successfully inserted comment", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully inserted comment");
             // db.close();
         }
     }
 
-    public boolean checkPhonePassword(String phone, String password){
+    public boolean checkPhonePassword(String phone, String password) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=? and password=?",
                 new String[]{phone, password});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.close();
             // db.close();
             return true;
-        }else{
+        } else {
             cursor.close();
             // db.close();
             return false;
         }
     }
 
-    public String getUsername(String phone){
+    public String getUsername(String phone) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String username = cursor.getString(cursor.getColumnIndex("username"));
             cursor.close();
@@ -571,11 +572,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public String getUsernameById(int userId){
+    public String getUsernameById(int userId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where id=?",
                 new String[]{String.valueOf(userId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String username = cursor.getString(cursor.getColumnIndex("username"));
             cursor.close();
@@ -588,11 +589,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public int getUserId(String phone){
+    public int getUserId(String phone) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String id = cursor.getString(cursor.getColumnIndex("id"));
             cursor.close();
@@ -605,11 +606,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public String getUserPassword(String phone){
+    public String getUserPassword(String phone) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String password = cursor.getString(cursor.getColumnIndex("password"));
             cursor.close();
@@ -622,11 +623,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public byte[] getUserAvatar(String phone){
+    public byte[] getUserAvatar(String phone) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from users where phone=?",
                 new String[]{phone});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
             cursor.close();
@@ -639,44 +640,12 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public int getCommentId(int dishId) {
+    public String getComment(int commentId) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
 
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            int commentId = cursor.getInt(cursor.getColumnIndex("id"));
-            cursor.close();
-            // db.close();
-            return commentId;
-        } else {
-            return -1;
-        }
-    }
-
-    public int getCommentUserId(int dishId) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
-
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
-            cursor.close();
-            // db.close();
-            return userId;
-        } else {
-            return -1;
-        }
-    }
-
-    public String getCommentContent(int dishId) {
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
-
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String comment = cursor.getString(cursor.getColumnIndex("comment"));
             cursor.close();
@@ -687,12 +656,29 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public String getCommentTime(int dishId) {
+    public String getCommentUserName(int commentId) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from comments where dishId=?",
-                new String[]{String.valueOf(dishId)});
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
 
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+            cursor.close();
+            // db.close();
+            String userName = getUsernameById(userId);
+            return userName;
+        } else {
+            return null;
+        }
+    }
+
+    public String getCommentTime(int commentId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from comments where id=?",
+                new String[]{String.valueOf(commentId)});
+
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String time = cursor.getString(cursor.getColumnIndex("time"));
             cursor.close();
@@ -703,7 +689,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public Cursor getData(){
+    public Cursor getData() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM users";
         Cursor cursor = db.rawQuery(query, null);
@@ -721,10 +707,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("image", imageInByte);
 
         long result = db.update("users", contentValues, "phone=?", new String[]{phone});
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Failed to update avatar", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Failed to update avatar");
-        }else{
+        } else {
             Toast.makeText(context, "Successfully updated avatar", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully updated avatar");
             db.close();
@@ -738,10 +724,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("username", username);
 
         long result = db.update("users", contentValues, "phone=?", new String[]{phone});
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Failed to update username", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Failed to update username");
-        }else{
+        } else {
             Toast.makeText(context, "Successfully updated username", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully updated username");
             // db.close();
@@ -755,11 +741,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("password", password);
 
         long result = db.update("users", contentValues, "phone=?", new String[]{phone});
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Failed to update password", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Failed to update password");
             return false;
-        }else{
+        } else {
             Toast.makeText(context, "Successfully updated password", Toast.LENGTH_SHORT).show();
             Timber.tag("DatabaseHelper").d("Successfully updated password");
 
@@ -840,7 +826,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public String getDishName(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String name = cursor.getString(cursor.getColumnIndex("name"));
             cursor.close();
@@ -856,7 +842,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public float getDishPrice(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             float price = cursor.getFloat(cursor.getColumnIndex("price"));
             cursor.close();
@@ -872,7 +858,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public int getDishRemaining(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int remaining = cursor.getInt(cursor.getColumnIndex("remain"));
             cursor.close();
@@ -888,7 +874,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public byte[] getDishImage(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
             cursor.close();
@@ -904,7 +890,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public String getDishCanteen(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int canteenId = cursor.getInt(cursor.getColumnIndex("canteenId"));
             cursor.close();
@@ -920,7 +906,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public String getDishWindow(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int windowId = cursor.getInt(cursor.getColumnIndex("windowId"));
             cursor.close();
@@ -936,7 +922,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public String getCanteenName(int canteenId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from canteens where id=?", new String[]{String.valueOf(canteenId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String name = cursor.getString(cursor.getColumnIndex("name"));
             cursor.close();
@@ -952,7 +938,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public String getWindowName(int windowId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from windows where id=?", new String[]{String.valueOf(windowId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String name = cursor.getString(cursor.getColumnIndex("name"));
             cursor.close();
@@ -968,7 +954,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public int getDishViewed(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
             cursor.close();
@@ -984,7 +970,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public int getDishOrdered(int dishId) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from dishes where id=?", new String[]{String.valueOf(dishId)});
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
             cursor.close();
@@ -1004,10 +990,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("name", name);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish name");
             return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish name");
             // db.close();
             return true;
@@ -1021,10 +1007,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("price", price);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish price");
             return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish price");
             // db.close();
             return true;
@@ -1036,7 +1022,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         Cursor cursor = db.rawQuery("SELECT remain FROM dishes WHERE id=?", new String[]{String.valueOf(dishId)});
 
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int curRemain = cursor.getInt(cursor.getColumnIndex("remain"));
             cursor.close();
@@ -1061,13 +1047,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("remain", remaining);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
-           // return false;
-        }else{
+            // return false;
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
             // db.close();
-           // return true;
+            // return true;
         }
     }
 
@@ -1078,10 +1064,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("ordered", orders);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish ordered");
             // return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish ordered");
             // db.close();
             // return true;
@@ -1095,10 +1081,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("viewed", viewed);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish remaining");
             // return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish remaining");
             // db.close();
             // return true;
@@ -1116,10 +1102,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("image", imageInByte);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("updateDishImage").d("Failed to update dish image");
             return false;
-        }else{
+        } else {
             Timber.tag("updateDishImage").d("Successfully updated dish image");
             // db.close();
             return true;
@@ -1133,10 +1119,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("canteenId", canteenId);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish canteen");
             return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish canteen");
             // db.close();
             return true;
@@ -1150,17 +1136,17 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         contentValues.put("windowId", windowId);
 
         long result = db.update("dishes", contentValues, "id=?", new String[]{String.valueOf(dishId)});
-        if(result == -1){
+        if (result == -1) {
             Timber.tag("DatabaseHelper").d("Failed to update dish window");
             return false;
-        }else{
+        } else {
             Timber.tag("DatabaseHelper").d("Successfully updated dish window");
             // db.close();
             return true;
         }
     }
 
-    public boolean insertDish(String name, float price, int remaining, int windowId, int canteenId){
+    public boolean insertDish(String name, float price, int remaining, int windowId, int canteenId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -1175,7 +1161,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
-    public boolean updateDish(int id, String name, float price, int remaining, int windowId, int canteenId){
+    public boolean updateDish(int id, String name, float price, int remaining, int windowId, int canteenId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -1193,7 +1179,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from canteens where name=?", new String[]{canteenName});
 
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int id = cursor.getInt(cursor.getColumnIndex("id"));
             cursor.close();
@@ -1210,7 +1196,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from windows where name=?", new String[]{windowName});
 
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int id = cursor.getInt(cursor.getColumnIndex("id"));
             cursor.close();
@@ -1305,7 +1291,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         // 检查是否删除成功
         if (deletedRows > 0) {
-           Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "取消收藏失败", Toast.LENGTH_SHORT).show();
         }
@@ -1428,7 +1414,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT s.id, s.userId, s.comment, s.time " +
+        Cursor cursor = db.rawQuery("SELECT s.id, s.userId, s.secondComment, s.time " +
                         "FROM secondComments s " +
                         "WHERE s.commentId = ?",
                 new String[]{String.valueOf(commentId)});
@@ -1437,7 +1423,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             do {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 int userId = cursor.getInt(cursor.getColumnIndex("userId"));
-                String comment = cursor.getString(cursor.getColumnIndex("comment"));
+                String comment = cursor.getString(cursor.getColumnIndex("secondComment"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
                 String userName = getUsernameById(userId);
 

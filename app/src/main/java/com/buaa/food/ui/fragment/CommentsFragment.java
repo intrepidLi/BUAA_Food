@@ -107,13 +107,17 @@ public final class CommentsFragment extends TitleBarFragment<AppActivity>
         Intent intent;
         Timber.tag("onItemClick").d("commentId: %d", commentId );
         if (type == StatusType.CommentOne) {
-            intent = new Intent(this.getContext(), CommentActivity.class);
-            Timber.tag("onItemClickOne").d("%s", getAttachActivity().toString() );
-            Timber.tag("onItemClickOne").d("%s", CommentActivity.class.toString() );
+            intent = new Intent(getAttachActivity(), CommentActivity.class);
             intent.putExtra("commentId", commentId);
+            intent.putExtra("dishId", 0);
             Timber.tag("onItemClickOne").d("commentId: %d", commentId );
-            finish();
-            startActivity(intent);
+            try {
+                finish();
+                startActivity(intent);
+            } catch (Exception e) {
+                Timber.tag("onItemClickOne").e("error%s", e.toString());
+                e.printStackTrace();
+            }
             // finish();
         }
     }
