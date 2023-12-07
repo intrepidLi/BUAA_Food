@@ -15,7 +15,6 @@ import com.buaa.food.app.AppActivity;
 import com.buaa.food.app.AppFragment;
 import com.buaa.food.ui.dialog.InputDialog;
 import com.buaa.food.ui.fragment.CommentsFragment;
-import com.buaa.food.ui.fragment.DishesFragment;
 import com.hjq.bar.TitleBar;
 import com.hjq.base.FragmentPagerAdapter;
 
