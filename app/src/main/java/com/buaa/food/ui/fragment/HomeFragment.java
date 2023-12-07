@@ -65,6 +65,9 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
 
         //设置渐变监听
         mCollapsingToolbarLayout.setOnScrimsListener(this);
+
+        // 初始化三餐推荐
+
     }
 
     @Override
@@ -131,5 +134,9 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
         mViewPager.setAdapter(null);
         mViewPager.removeOnPageChangeListener(this);
         mTabAdapter.setOnTabListener(null);
+    }
+
+    private void initRecommend() {
+
     }
 }

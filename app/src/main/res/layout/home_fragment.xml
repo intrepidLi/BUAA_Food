@@ -71,37 +71,54 @@
                 <!-- Linear Layout for Three Rows -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <!-- First Row with Two Columns -->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        &lt;!&ndash; First Column &ndash;&gt;-->
+<!--                        <androidx.appcompat.widget.AppCompatTextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="早餐吃什么：    "-->
+<!--                            android:textColor="@color/white85"-->
+<!--                            android:textSize="@dimen/dp_20" />-->
+
+<!--                        &lt;!&ndash; Second Column &ndash;&gt;-->
+<!--                        <androidx.appcompat.widget.AppCompatTextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="早餐推荐"-->
+<!--                            android:textColor="@color/white85"-->
+<!--                            android:textSize="@dimen/dp_20" />-->
+
+<!--                    </LinearLayout>-->
+
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
 
-                        <!-- First Column -->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="早餐吃什么：    "
+                            android:text="早餐"
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20" />
 
-                        <!-- Second Column -->
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="早餐推荐"
-                            android:textColor="@color/white85"
-                            android:textSize="@dimen/dp_20" />
+                        
 
                     </LinearLayout>
-
 
                     <!-- First Row -->
                     <LinearLayout
