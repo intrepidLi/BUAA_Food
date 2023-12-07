@@ -48,6 +48,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
     private List<DishPreview> allDishes;
     private List<DishPreview> allFavoriteDishes;
     private List<DishPreview> allHistoryDishes;
+    private List<DishPreview> allFilteredDishes;
 
     public static DishesFragment newInstance(StatusType type) {
         Timber.tag("dishesFragment").d("Enter newInstance1");
@@ -120,6 +121,10 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
             allDishes = dataBaseHelper.fetchAllDishes();
         }
 
+        if (type == StatusType.SearchResult) {
+            allFilteredDishes = dataBaseHelper.fetchAllFilteredDished(searchHint);
+        }
+
         mAdapter.setData(analogData());
     }
 
@@ -170,6 +175,15 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
         }
     }
 
+    public void searchProcess(List<DishPreview> data) {
+        allFilteredDishes = dataBaseHelper.fetchAllFilteredDished(searchHint);
+        for (int i = mAdapter.getCount(); i < allFilteredDishes.size(); i++) {
+            DishPreview dishPreview = allFilteredDishes.get(i);
+            // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
+            data.add(dishPreview);
+        }
+    }
+
     private List<DishPreview> analogData() {
         List<DishPreview> data = new ArrayList<>();
         switch (type) {
@@ -181,9 +195,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
                 hangWeiProcess(data, type);
                 break;
             case SearchResult:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    data.add(new DishPreview(searchHint + i, "￥" + i));
-                }
+                searchProcess(data);
                 break;
             case Collection:
                 collectionProcess(data);

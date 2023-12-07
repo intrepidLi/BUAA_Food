@@ -86,6 +86,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 " remain integer, " +
                 " price float, " +
                 "image BLOB, " +
+                "tags varchar(50)," +
                 "foreign key(windowId) references windows(id), " +
                 "foreign key(canteenId) references canteens(id))");
 
@@ -166,7 +167,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 "id integer primary key autoincrement," +
                 " userId integer," +
                 " dishId integer," +
-                " times integer," + // 购买次数
+                // " times integer," + // 购买次数
                 " time varchar(20)," +
                 "foreign key(userId) references users(id)," +
                 "foreign key(dishId) references dishes(id))");
@@ -371,7 +372,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             // 打开CSV文件输入流
             CSVReader reader = new CSVReader(new InputStreamReader(
-                    (context).getAssets().open("dishes2.csv")
+                    (context).getAssets().open("dishes4.csv")
             ));
             // 跳过CSV文件的标题行
             String[] header = reader.readNext();
@@ -380,31 +381,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
             // 逐行读取CSV文件并插入数据
             while ((line = reader.readNext()) != null) {
-                if (line.length == 9) {
-                    contentValues.put("name", line[1]);
-                    contentValues.put("windowId", Integer.parseInt(line[2]));
-                    contentValues.put("canteenId", Integer.parseInt(line[3]));
-                    contentValues.put("ordered", Integer.parseInt(line[4]));
-                    contentValues.put("viewed", Integer.parseInt(line[5]));
-                    contentValues.put("remain", Integer.parseInt(line[6]));
-                    contentValues.put("price", Float.parseFloat(line[7]));
-                    // TODO: 数据库里的图片初始化除了4张时都为new byte[0]
-                    if (!Objects.equals(line[8], "default")) {
-                        String base64ImageData = line[8];
-                        byte[] imageData = new byte[0];
-                        Timber.tag("uploadDishImage").d(base64ImageData);
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            imageData = Base64.getDecoder().decode(base64ImageData);
-                        }
-                        contentValues.put("image", imageData);
-                    } else {
-                        contentValues.put("image", new byte[0]);
-                    }
-                    // String image = values[3];
 
-                    // 使用占位符插入数据，防止SQL注入
-                    myDataBase.insert("dishes", null, contentValues);
+                contentValues.put("name", line[1]);
+                contentValues.put("windowId", Integer.parseInt(line[2]));
+                contentValues.put("canteenId", Integer.parseInt(line[3]));
+                contentValues.put("ordered", Integer.parseInt(line[4]));
+                contentValues.put("viewed", Integer.parseInt(line[5]));
+                contentValues.put("remain", Integer.parseInt(line[6]));
+                contentValues.put("price", Float.parseFloat(line[7]));
+                
+                if (!Objects.equals(line[8], "default")) {
+                    String base64ImageData = line[8];
+                    byte[] imageData = new byte[0];
+                    Timber.tag("uploadDishImage").d(base64ImageData);
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        imageData = Base64.getDecoder().decode(base64ImageData);
+                    }
+                    contentValues.put("image", imageData);
+                } else {
+                    contentValues.put("image", new byte[0]);
                 }
+                Timber.tag("initDishesLength").d("%d", line.length);
+                if (line.length == 10) {
+                    Timber.tag("initDishes").d("%s", line[9]);
+                    contentValues.put("tags", line[9]);
+                }
+                else {
+                    contentValues.put("tags", "");
+                }
+                // String image = values[3];
+
+                // 使用占位符插入数据，防止SQL注入
+                myDataBase.insert("dishes", null, contentValues);
+
             }
 
         } catch (IOException e) {
@@ -1225,6 +1234,98 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             cursor.close();
             return false;
         }
+    }
+
+    public List<DishPreview> fetchAllFilteredDished(String SearchHint) {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        // 使用数据库帮助类获取数据库实例
+        SQLiteDatabase db = getReadableDatabase();
+
+        // 构建查询语句，使用 JOIN 语句连接 dishes 和 canteens 表
+        String query = "SELECT id, name, price, image, ordered, viewed FROM dishes" +
+                " WHERE name LIKE '%" + SearchHint + "%';";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        } else {
+            query = "SELECT id, name, price, image, ordered, viewed FROM dishes" +
+                    " WHERE tags LIKE '%" + SearchHint + "%';";
+
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String name = cursor.getString(cursor.getColumnIndex("name"));
+                    String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                    byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                    int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                    int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                    dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            } else {
+            query =  "SELECT d.id, d.name, d.price, d.image, d.ordered, d.viewed " +
+                    "FROM dishes d " +
+                    "INNER JOIN windows w ON w.id = d.windowId AND w.name = ? ";
+
+            cursor = db.rawQuery(query, new String[]{SearchHint});
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                    String name = cursor.getString(cursor.getColumnIndex("name"));
+                    String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                    byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                    int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                    int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                    dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
+                } while (cursor.moveToNext());
+            } else {
+                query = "SELECT id, name, price, image, ordered, viewed " +
+                        "FROM dishes " +
+                        "ORDER BY RANDOM() " +
+                        "LIMIT 50;";
+
+                cursor = db.rawQuery(query, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    do {
+                        int id = cursor.getInt(cursor.getColumnIndex("id"));
+                        String name = cursor.getString(cursor.getColumnIndex("name"));
+                        String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                        byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                        int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                        int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                        dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
+                    } while (cursor.moveToNext());
+                }
+            }
+            }
+            assert cursor != null;
+            cursor.close();
+        }
+        return dishPreviews;
     }
 
     public void uploadFavorite(int dishId) {

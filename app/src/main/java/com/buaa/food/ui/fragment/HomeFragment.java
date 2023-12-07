@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import timber.log.Timber;
+
 
 public final class HomeFragment extends TitleBarFragment<HomeActivity>
         implements TabAdapter.OnTabListener, ViewPager.OnPageChangeListener,
@@ -194,6 +196,7 @@ public final class HomeFragment extends TitleBarFragment<HomeActivity>
 
         // randomly select a breakfast from database
         List<DishPreview> breakfasts = dataBaseHelper.fetchAllBreakfast();
+        Timber.tag("breakfast").d("breakfast.size() is %d", breakfasts.size());
         DishPreview breakfast = breakfasts.get(random.nextInt(breakfasts.size()));
         breakfastId = breakfast.getDishId();
         setRecommendLine(breakfast, mBreakfastImage, mBreakfastName);
