@@ -1,5 +1,6 @@
 package com.buaa.food.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
@@ -33,5 +34,15 @@ public class HistoryActivity extends AppActivity {
     @Override
     public void onRightClick(View view) {
         dataBaseHelper.clearHistoryDishes();
+        reload();
+    }
+
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
     }
 }
