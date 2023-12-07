@@ -146,7 +146,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
 
     private void historyProcess(List<DishPreview> data) {
         allHistoryDishes = dataBaseHelper.fetchHistorys();
-        for (int i = mAdapter.getCount(); i < allHistoryDishes.size(); i++) {
+        for (int i = allHistoryDishes.size() - 1; i >= mAdapter.getCount(); i--) {
             DishPreview dishPreview = allHistoryDishes.get(i);
             // dishPreview.setDishPrice("￥" + dishPreview.getDishPrice());
             data.add(dishPreview);
@@ -156,6 +156,14 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
     private void hotRankProcess(List<DishPreview> data) {
         allDishes = dataBaseHelper.fetchAllDishes();
         Collections.sort(allDishes);
+        for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
+            DishPreview dishPreview = allDishes.get(i);
+            data.add(dishPreview);
+        }
+    }
+
+    private void adminProcess(List<DishPreview> data) {
+        allDishes = dataBaseHelper.fetchAllDishes();
         for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
             DishPreview dishPreview = allDishes.get(i);
             data.add(dishPreview);
@@ -184,10 +192,7 @@ public final class DishesFragment extends TitleBarFragment<AppActivity>
                 historyProcess(data);
                 break;
             case Admin:
-                for (int i = mAdapter.getCount(); i < mAdapter.getCount() + 20; i++) {
-                    DishPreview dishPreview = allDishes.get(i);
-                    data.add(dishPreview);
-                }
+                adminProcess(data);
                 break;
         }
         return data;
