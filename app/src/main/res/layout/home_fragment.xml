@@ -103,9 +103,11 @@
 <!--                    </LinearLayout>-->
 
                     <LinearLayout
+                        android:id="@+id/ll_breakfast_line"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal"
+                        android:layout_marginRight="@dimen/dp_15" >
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
@@ -116,61 +118,107 @@
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20" />
 
-                        
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_breakfast_image"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_70"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:src="@drawable/dish_1" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_breakfast_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:text="早餐名"
+                            android:textColor="@color/white85"
+                            android:textSize="@dimen/dp_30"
+                            android:autoSizeMaxTextSize="@dimen/dp_30"
+                            android:autoSizeTextType="uniform" />
 
                     </LinearLayout>
 
                     <!-- First Row -->
                     <LinearLayout
+                        android:id="@+id/ll_lunch_line"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15" >
 
-                        <!-- First Column -->
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="午餐吃什么：    "
+                            android:text="午餐"
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20" />
 
-                        <!-- Second Column -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_lunch_image"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_70"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:src="@drawable/dish_1" />
+
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_lunch_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="3"
                             android:gravity="center"
-                            android:text="午餐推荐"
+                            android:text="午餐名"
                             android:textColor="@color/white85"
-                            android:textSize="@dimen/dp_20" />
+                            android:textSize="@dimen/dp_30"
+                            android:autoSizeMaxTextSize="@dimen/dp_30"
+                            android:autoSizeTextType="uniform" />
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_dinner_line"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="horizontal">
-                        <!-- First Column -->
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15" >
+
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="晚餐吃什么：    "
+                            android:text="晚餐"
                             android:textColor="@color/white85"
                             android:textSize="@dimen/dp_20" />
 
-                        <!-- Second Column -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_dinner_image"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_70"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:src="@drawable/dish_1" />
+
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_dinner_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="3"
                             android:gravity="center"
-                            android:text="晚餐推荐"
+                            android:text="晚餐名"
                             android:textColor="@color/white85"
-                            android:textSize="@dimen/dp_20" />
+                            android:textSize="@dimen/dp_30"
+                            android:autoSizeMaxTextSize="@dimen/dp_30"
+                            android:autoSizeTextType="uniform" />
+
                     </LinearLayout>
+
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.buaa.food.widget.XCollapsingToolbarLayout>
