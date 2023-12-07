@@ -166,6 +166,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 "id integer primary key autoincrement," +
                 " userId integer," +
                 " dishId integer," +
+                " times integer," + // 购买次数
                 " time varchar(20)," +
                 "foreign key(userId) references users(id)," +
                 "foreign key(dishId) references dishes(id))");
@@ -1407,6 +1408,34 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         return commentPreviews;
+    }
+
+    public List<DishPreview> fetchAllBreakfast() {
+        List<DishPreview> dishPreviews = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT d.id, d.name, d.price, d.image, d.ordered, d.viewed " +
+                        "FROM dishes d " +
+                        "INNER JOIN breakfast b ON d.id = b.dishId", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String price = cursor.getString(cursor.getColumnIndex("price"));
+
+                byte[] image = cursor.getBlob(cursor.getColumnIndex("image"));
+
+                int ordered = cursor.getInt(cursor.getColumnIndex("ordered"));
+                int viewed = cursor.getInt(cursor.getColumnIndex("viewed"));
+                dishPreviews.add(new DishPreview(id, name, price, image, ordered, viewed));
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        return dishPreviews;
     }
 
     public List<CommentPreview> fetchSecondComments(int commentId) {
