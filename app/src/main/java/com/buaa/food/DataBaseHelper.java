@@ -372,7 +372,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             // 打开CSV文件输入流
             CSVReader reader = new CSVReader(new InputStreamReader(
-                    (context).getAssets().open("dishes4.csv")
+                    (context).getAssets().open("dishes4_with_pic.csv")
             ));
             // 跳过CSV文件的标题行
             String[] header = reader.readNext();
@@ -389,7 +389,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 contentValues.put("viewed", Integer.parseInt(line[5]));
                 contentValues.put("remain", Integer.parseInt(line[6]));
                 contentValues.put("price", Float.parseFloat(line[7]));
-                
+
                 if (!Objects.equals(line[8], "default")) {
                     String base64ImageData = line[8];
                     byte[] imageData = new byte[0];
