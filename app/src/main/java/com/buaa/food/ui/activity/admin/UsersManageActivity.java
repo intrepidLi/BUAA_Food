@@ -30,6 +30,7 @@ import com.hjq.widget.view.RegexEditText;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class UsersManageActivity extends AppActivity {
@@ -118,6 +119,8 @@ public final class UsersManageActivity extends AppActivity {
 
     @Override
     public void onClick(View view) {
+        String hintPhone = Objects.requireNonNull(mHintView.getText()).toString();
+
         if (view == mPasswordView) {
             AtomicBoolean isContentChanged = new AtomicBoolean(false);
             CharSequence oldName = mPasswordView.getRightText();
@@ -139,7 +142,7 @@ public final class UsersManageActivity extends AppActivity {
                         } else {
                             isContentChanged.set(true);
                             Toast.makeText(this, "密码已修改", Toast.LENGTH_SHORT).show();
-                            dataBaseHelper.updatePassword(UserAuth.getLocalUserPhone(), mPasswordView.getRightText().toString());
+                            dataBaseHelper.updatePassword(hintPhone, mPasswordView.getRightText().toString());
                         }
                     }
                 })
@@ -169,7 +172,7 @@ public final class UsersManageActivity extends AppActivity {
                         } else {
                             isContentChanged.set(true);
                             Toast.makeText(this, "用户名已修改", Toast.LENGTH_SHORT).show();
-                            dataBaseHelper.updateUsername(UserAuth.getLocalUserPhone(), mNameView.getRightText().toString());
+                            dataBaseHelper.updateUsername(hintPhone, mNameView.getRightText().toString());
                         }
                     }
                 })
@@ -225,8 +228,9 @@ public final class UsersManageActivity extends AppActivity {
     }
 
     private void storeImage(Bitmap bitmapImage) {
+        String hintPhone = Objects.requireNonNull(mHintView.getText()).toString();
         if (mAvatarView.getDrawable() != null && bitmapImage != null) {
-            dataBaseHelper.updateUserAvatar(UserAuth.getLocalUserPhone(), bitmapImage);
+            dataBaseHelper.updateUserAvatar(hintPhone, bitmapImage);
         } else {
             Toast.makeText(this, "图片为空", Toast.LENGTH_SHORT).show();
         }
