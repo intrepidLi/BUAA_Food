@@ -372,7 +372,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try {
             // 打开CSV文件输入流
             CSVReader reader = new CSVReader(new InputStreamReader(
-                    (context).getAssets().open("dishes4.csv")
+                    (context).getAssets().open("dishes4_with_pic.csv")
             ));
             // 跳过CSV文件的标题行
             String[] header = reader.readNext();
