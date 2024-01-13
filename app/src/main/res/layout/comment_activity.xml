@@ -1,0 +1,63 @@
+<!-- res/layout/activity_history.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/comment_activity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <com.hjq.bar.TitleBar
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/comment_title" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/one_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/black10"
+        android:padding="16dp">
+
+        <!-- Comment Content -->
+        <TextView
+            android:id="@+id/tv_comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is a great dish! The taste is amazing."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!-- Comment Time -->
+        <TextView
+            android:id="@+id/tv_comment_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Posted on: January 1, 2023, 12:30 PM"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <!-- Button to add new history record -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_comment"
+        style="@style/ButtonStyle"
+        android:layout_width="@dimen/dp_270"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:text="添加评论" />
+
+    <!-- RecyclerView to display history records -->
+    <com.hjq.widget.layout.NestedViewPager
+        android:id="@+id/vp_comment_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</LinearLayout>

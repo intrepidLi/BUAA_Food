@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.buaa.food.ui.fragment.HangWeiFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0px">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_hangwei_title"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/background"
+            app:layout_collapseMode="pin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.hjq.widget.view.RegexEditText
+                    style="@style/EditTextStyle"
+                    android:id="@+id/tv_hangwei_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="@dimen/dp_40"
+                    android:background="@drawable/home_search_bar_transparent_bg"
+                    android:paddingVertical="@dimen/dp_5"
+                    android:gravity="center"
+                    android:hint="今天吃什么？"
+                    android:textSize="@dimen/sp_13"
+                    app:regexType="chinese" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_hangwei_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    app:srcCompat="@drawable/search_ic"
+                    app:tint="@color/black70" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hangwei_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:itemCount="2"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/tab_item_design"
+            tools:spanCount="2" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.hjq.widget.layout.NestedViewPager
+        android:id="@+id/vp_hangwei_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Comment Content -->
+    <TextView
+        android:id="@+id/tv_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is a great dish! The taste is amazing."
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <!-- Comment Time -->
+    <TextView
+        android:id="@+id/tv_comment_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Posted on: January 1, 2023, 12:30 PM"
+        android:textSize="12sp"
+        android:textColor="@color/gray"/>
+
+</LinearLayout>

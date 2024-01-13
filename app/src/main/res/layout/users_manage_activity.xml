@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.buaa.food.ui.activity.admin.UsersManageActivity">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightIcon="@drawable/add_ic"
+        app:title="管理用户" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_hangwei_title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_collapseMode="pin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.hjq.widget.view.RegexEditText
+                style="@style/EditTextStyle"
+                android:id="@+id/tv_user_hint"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/dp_40"
+                android:background="@drawable/home_search_bar_transparent_bg"
+                android:paddingVertical="@dimen/dp_5"
+                android:gravity="center"
+                android:hint="输入用户手机号"
+                android:textSize="@dimen/sp_13"
+                app:regexType="mobile" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                app:srcCompat="@drawable/search_ic"
+                app:tint="@color/black70" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/fl_person_data_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_selector"
+        app:bar_leftText="@string/personal_data_head">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_user_avatar"
+            android:layout_width="@dimen/dp_110"
+            android:layout_height="@dimen/dp_110"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/avatar_placeholder_ic" />
+
+    </com.hjq.widget.layout.SettingBar>
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_user_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        app:bar_leftText="用户手机号"
+        tools:bar_rightText="13258000" />
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/personal_data_name"
+        app:bar_rightTextHint="@string/personal_data_name_hint"
+        tools:bar_rightText="psfott" />
+
+    <com.hjq.widget.layout.SettingBar
+        android:id="@+id/sb_user_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/setting_password"
+        app:bar_rightTextHint="@string/personal_data_name_hint"
+        tools:bar_rightText="***" />
+
+</LinearLayout>

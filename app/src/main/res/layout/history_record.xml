@@ -1,0 +1,36 @@
+<!-- res/layout/activity_history.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Toolbar -->
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/history_title"
+        app:rightIcon="@mipmap/trash_icon"
+        app:rightIconHeight="20dp"
+        app:rightIconTint="#ff0000"
+        app:rightIconWidth="20dp"
+        app:rightTitle="清空" />
+
+<!--    &lt;!&ndash; Button to add new history record &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/btnAddRecord"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="left"-->
+<!--        android:text="添加记录记录"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="18sp" />-->
+
+    <!-- RecyclerView to display history records -->
+    <com.hjq.widget.layout.NestedViewPager
+        android:id="@+id/vp_history_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</LinearLayout>

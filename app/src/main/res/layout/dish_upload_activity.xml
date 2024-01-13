@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.buaa.food.ui.activity.admin.DishUploadActivity">
+
+    <com.hjq.bar.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="上传菜品" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
+            android:layoutAnimation="@anim/layout_fall_down"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_40"
+            tools:layoutAnimation="@null">
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <com.hjq.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_selector"
+                app:bar_leftText="上传菜品图片">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_dish_image"
+                    android:layout_width="@dimen/dp_110"
+                    android:layout_height="@dimen/dp_110"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_margin="@dimen/dp_20"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/baseline_fastfood_24" />
+
+            </com.hjq.widget.layout.SettingBar>
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <com.hjq.widget.view.RegexEditText
+                android:id="@+id/et_dish_name"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="输入菜品名称"
+                android:layout_marginTop="@dimen/dp_40"
+                android:singleLine="true"
+                app:regexType="chinese" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <com.hjq.widget.view.RegexEditText
+                android:id="@+id/et_dish_price"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="输入菜品价格"
+                android:maxLength="20"
+                android:singleLine="true" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <com.hjq.widget.view.RegexEditText
+                android:id="@+id/et_dish_remaining"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="输入菜品余量"
+                android:maxLength="20"
+                android:singleLine="true"
+                app:regexType="number" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_canteen"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="选择食堂"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:singleLine="true" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_window"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:hint="选择窗口"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:singleLine="true" />
+
+            <View style="@style/HorizontalLineStyle" />
+
+            <com.hjq.widget.view.SubmitButton
+                android:id="@+id/btn_dish_upload"
+                style="@style/ButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dp_30"
+                android:text="上传" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
